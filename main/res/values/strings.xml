@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">historia viva</string>
+
+    <string name="load_track">load KML</string>
+
+    <string name="save_kml">save KML</string>
+
+    <string name="del_kml">del KML</string>
+
+    <string name="zoom_unchecked">autoZoom</string>
+    <string name="zoom_checked">autoZoom \u2714</string>
+
+    <string name="show_track_unchecked">show Track</string>
+    <string name="show_track_checked">show Track \u2714</string>
+
+    <string name="show_pois_unchecked">show POIs</string>
+    <string name="show_pois_checked">show POIs \u2714</string>
+
+</resources>
