@@ -1,7 +1,7 @@
-jüjüMap
-=======
+historia viva
+=============
 
-Minimalistic osmdroid MapViewer with offline capacities.
+Minimalistic osmdroid MapViewer and audio guide with offline capacities.
 
 For documentation see here:
 
