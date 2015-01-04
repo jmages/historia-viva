@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.*;
@@ -52,7 +53,7 @@ public class JujuMap extends Activity implements LocationListener {
     PathOverlay track_new_Overlay;
 
     Boolean showPois  = false;
-    Boolean showTrack = false;
+    Boolean showTrack = true;
     Boolean autoZoom  = true;
 
     AlertDialog.Builder alert;
@@ -66,6 +67,10 @@ public class JujuMap extends Activity implements LocationListener {
 
         super.onCreate(savedInstanceState);
 
+        loadKML();
+
+        currentLocation = track_kml.get_bBox().getCenter();
+
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
 
@@ -76,6 +81,8 @@ public class JujuMap extends Activity implements LocationListener {
         // Change offline-Tilesource directory name when choosing different source than Mapnik
         mapView.setTileSource(TileSourceFactory.MAPNIK);
 
+        mapView.getOverlays().add(track_kml_Overlay);
+
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
 
@@ -83,10 +90,10 @@ public class JujuMap extends Activity implements LocationListener {
 
 	    mapController = mapView.getController();
 
-        mapController.setZoom(6);
+        mapController.setZoom(13);
         mapController.setCenter(currentLocation);
 
-	    locationOverlay = new SimpleLocationOverlay(this);
+        locationOverlay = new SimpleLocationOverlay(this);
 	    mapView.getOverlays().add(locationOverlay);
 
         track_new_Overlay = new PathOverlay(Color.YELLOW, this);
