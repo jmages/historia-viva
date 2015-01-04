@@ -3,12 +3,16 @@ package jujumap.juju;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.app.Activity;
 import android.location.LocationProvider;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Html;
@@ -31,6 +35,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JujuMap extends Activity implements LocationListener {
 
@@ -103,21 +108,36 @@ public class JujuMap extends Activity implements LocationListener {
 
         alert = new AlertDialog.Builder(this);
 
-        alert.setPositiveButton("Prev", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
         alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
 
-        alert.setNegativeButton("Next", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("HTML", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                Intent viewDoc = new Intent(Intent.ACTION_VIEW);
+
+                File sdcard = Environment.getExternalStorageDirectory();
+
+                File file = new File(sdcard, "/osmdroid/index.html");
+
+                viewDoc.setDataAndType(
+
+                        Uri.fromFile(file),
+                        "text/html");
+
+                PackageManager pm = getPackageManager();
+
+                List <ResolveInfo> apps =
+                        pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
+
+                if (apps.size() > 0)
+
+                    startActivity(viewDoc);
             }
         });
     }
