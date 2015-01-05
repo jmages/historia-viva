@@ -125,19 +125,23 @@ public class JujuMap extends Activity implements LocationListener {
 
                 File file = new File(sdcard, "/osmdroid/index.html");
 
-                viewDoc.setDataAndType(
-
-                        Uri.fromFile(file),
-                        "text/html");
+                viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
                 PackageManager pm = getPackageManager();
 
                 List <ResolveInfo> apps =
                         pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
 
-                if (apps.size() > 0)
+                if (apps.size() > 0) {
 
                     startActivity(viewDoc);
+
+                } else {
+
+                    Toast.makeText(JujuMap.this,
+                            "No HTML-Browser found!",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

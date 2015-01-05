@@ -2,7 +2,7 @@
 
 <resources>
 
-    <string name="app_name">historia viva</string>
+    <string name="app_name">historia-viva</string>
 
     <string name="load_track">load KML</string>
 
