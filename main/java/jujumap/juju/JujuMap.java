@@ -326,9 +326,12 @@ public class JujuMap extends Activity implements LocationListener {
 
         ArrayList <OverlayItem> anotherOverlayItemArray = new ArrayList <OverlayItem> ();
 
+        int i = 0;
+
         for (PlacePoint pp : pois_kml) {
 
             anotherOverlayItemArray.add ( new OverlayItem (
+                    String.format("%02d", ++i),
                     pp.name,
                     "<p>" + pp.description + "</p>",
                     new GeoPoint(pp.lat, pp.lon)
@@ -345,7 +348,12 @@ public class JujuMap extends Activity implements LocationListener {
         @Override
         public boolean onItemLongPress(int index, OverlayItem item) {
 
-            alert.setMessage(Html.fromHtml("<h2>" + item.getTitle() + "</h2><br>" + item.getSnippet()));
+            alert.setMessage(Html.fromHtml(
+                    "<h2>" + item.getTitle() + "</h2><br>" +
+                     item.getSnippet()
+            ));
+
+            alert.setTitle(item.getUid());
 
             alert.show();
 
