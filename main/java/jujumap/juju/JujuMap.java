@@ -57,7 +57,7 @@ public class JujuMap extends Activity implements LocationListener {
 
     PathOverlay track_new_Overlay;
 
-    Boolean showPois  = false;
+    Boolean showPois  = true;
     Boolean showTrack = true;
     Boolean autoZoom  = true;
 
@@ -87,6 +87,7 @@ public class JujuMap extends Activity implements LocationListener {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
 
         mapView.getOverlays().add(track_kml_Overlay);
+        mapView.getOverlays().add(poi_kml_Overlay);
 
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
@@ -95,7 +96,7 @@ public class JujuMap extends Activity implements LocationListener {
 
 	    mapController = mapView.getController();
 
-        mapController.setZoom(13);
+        mapController.setZoom(12);
         mapController.setCenter(currentLocation);
 
         locationOverlay = new SimpleLocationOverlay(this);
