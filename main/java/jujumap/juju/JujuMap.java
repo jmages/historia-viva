@@ -42,6 +42,8 @@ public class JujuMap extends Activity implements LocationListener {
     MapView        mapView;
 	IMapController mapController;
 
+    String poiMapping = "";
+
     GeoPoint currentLocation = new GeoPoint(49.598,11.005);
 
     Track track_kml = new Track();
@@ -124,7 +126,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 File sdcard = Environment.getExternalStorageDirectory();
 
-                File file = new File(sdcard, "/osmdroid/index.html");
+                File file = new File(sdcard, "/osmdroid/" + poiMapping + ".html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
@@ -354,6 +356,8 @@ public class JujuMap extends Activity implements LocationListener {
             ));
 
             alert.setTitle(item.getUid());
+
+            poiMapping = item.getUid() + "de";
 
             alert.show();
 
