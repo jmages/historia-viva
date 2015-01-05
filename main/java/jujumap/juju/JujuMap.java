@@ -330,8 +330,7 @@ public class JujuMap extends Activity implements LocationListener {
 
             anotherOverlayItemArray.add ( new OverlayItem (
                     pp.name,
-                    "<p>" + pp.ortsInfo + "</p><p>" +
-                    pp.geo + "</p><p>" + pp.roadInfo + "</p><p>" + pp.km + "</p>",
+                    "<p>" + pp.description + "</p>",
                     new GeoPoint(pp.lat, pp.lon)
             ));
         }
