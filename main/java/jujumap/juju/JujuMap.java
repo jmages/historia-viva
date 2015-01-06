@@ -47,7 +47,7 @@ public class JujuMap extends Activity implements LocationListener {
     Boolean showTrack = true;
     Boolean autoZoom  = true;
 
-    String poiMapping = "";
+    String   poiMapping      = "";
     GeoPoint currentLocation = new GeoPoint(49.598,11.005);
 
     MapView        mapView;
@@ -61,10 +61,9 @@ public class JujuMap extends Activity implements LocationListener {
 
     SimpleLocationOverlay locationOverlay;     // holds GPS-location
 
-    PathOverlay          track_kml_Overlay;    // holds track
+    PathOverlay          track_kml_Overlay;    // holds poitrack
+    PathOverlay          track_new_Overlay;    // holds new track
     ItemizedIconOverlay  poi_kml_Overlay;      // holds POIs
-
-    PathOverlay track_new_Overlay;
 
     AlertDialog.Builder alert;
 
@@ -113,8 +112,11 @@ public class JujuMap extends Activity implements LocationListener {
         alert = new AlertDialog.Builder(this);
 
         alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                // just leave the menu
             }
         });
 
@@ -351,9 +353,15 @@ public class JujuMap extends Activity implements LocationListener {
         @Override
         public boolean onItemLongPress(int index, OverlayItem item) {
 
+            return true;
+        }
+
+        @Override
+        public boolean onItemSingleTapUp(int index, OverlayItem item) {
+
             alert.setMessage(Html.fromHtml(
                     "<h2>" + item.getTitle() + "</h2><br>" +
-                     item.getSnippet()
+                            item.getSnippet()
             ));
 
             alert.setTitle(item.getUid());
@@ -361,16 +369,6 @@ public class JujuMap extends Activity implements LocationListener {
             poiMapping = item.getUid() + "de";
 
             alert.show();
-
-            return true;
-        }
-
-        @Override
-        public boolean onItemSingleTapUp(int index, OverlayItem item) {
-
-            Toast.makeText(JujuMap.this,
-                    item.getTitle(),
-                    Toast.LENGTH_LONG).show();
 
             return true;
         }
