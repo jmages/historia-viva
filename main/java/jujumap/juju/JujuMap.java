@@ -39,7 +39,7 @@ import java.util.List;
 
 public class JujuMap extends Activity implements LocationListener {
 
-    String trackName  = "benjamin";
+    String trackName  = "benjamin_de";
     String trackfile  = "poitrack.kml";
     String propfile   = "properties.txt";
 
