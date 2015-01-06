@@ -39,12 +39,19 @@ import java.util.List;
 
 public class JujuMap extends Activity implements LocationListener {
 
-    MapView        mapView;
-	IMapController mapController;
+    String trackName  = "benjamin";
+    String trackfile  = "poitrack.kml";
+    String propfile   = "properties.txt";
+
+    Boolean showPois  = true;
+    Boolean showTrack = true;
+    Boolean autoZoom  = true;
 
     String poiMapping = "";
-
     GeoPoint currentLocation = new GeoPoint(49.598,11.005);
+
+    MapView        mapView;
+	IMapController mapController;
 
     Track track_kml = new Track();
     POIs  pois_kml  = new POIs();
@@ -59,15 +66,9 @@ public class JujuMap extends Activity implements LocationListener {
 
     PathOverlay track_new_Overlay;
 
-    Boolean showPois  = true;
-    Boolean showTrack = true;
-    Boolean autoZoom  = true;
-
     AlertDialog.Builder alert;
 
     static final String TAG = JujuMap.class.getName();
-
-    private String trackfile = "poitrack.kml";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,7 +127,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 File sdcard = Environment.getExternalStorageDirectory();
 
-                File file = new File(sdcard, "/osmdroid/" + poiMapping + ".html");
+                File file = new File(sdcard, "/osmdroid/" + trackName + "/" + poiMapping + ".html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
@@ -301,7 +302,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         File sdcard = Environment.getExternalStorageDirectory();
 
-        File file = new File(sdcard, "/osmdroid/" + trackfile);
+        File file = new File(sdcard, "/osmdroid/" + trackName + "/" + trackfile);
 
         try {
 
