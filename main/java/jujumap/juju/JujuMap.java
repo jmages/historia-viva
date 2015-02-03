@@ -336,7 +336,7 @@ public class JujuMap extends Activity implements LocationListener {
         for (PlacePoint pp : pois_kml) {
 
             anotherOverlayItemArray.add ( new OverlayItem (
-                    String.format("%02d", ++i),
+                    String.format("%03d", ++i),
                     pp.name,
                     "<p>" + pp.description + "</p>",
                     new GeoPoint(pp.lat, pp.lon)
