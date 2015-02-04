@@ -359,8 +359,6 @@ public class JujuMap extends Activity implements LocationListener {
         @Override
         public boolean onItemSingleTapUp(int index, OverlayItem item) {
 
-            alert.setTitle(item.getUid());
-
             alert.setMessage(Html.fromHtml(
                     "<h2>" + item.getTitle() + "</h2><br>" +
                             item.getSnippet()
