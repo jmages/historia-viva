@@ -56,9 +56,6 @@ public class JujuMap extends Activity implements LocationListener {
     Track track_kml = new Track();
     POIs  pois_kml  = new POIs();
 
-    Track track_new = new Track();
-    //POIs pois_new = new POIs();
-
     SimpleLocationOverlay locationOverlay;     // holds GPS-location
 
     PathOverlay          track_kml_Overlay;    // holds poitrack
@@ -162,33 +159,6 @@ public class JujuMap extends Activity implements LocationListener {
         return true;
     }
 
-    private void writeToSDFile(String s) {
-
-        File sdcard = android.os.Environment.getExternalStorageDirectory();
-
-        String fName = track_new.minTime + " - " + track_new.maxTime + ".txt";
-
-        File file = new File(sdcard,"/osmdroid/" + fName);
-
-        try {
-
-            FileOutputStream f = new FileOutputStream(file);
-
-            PrintWriter pw = new PrintWriter(f);
-
-            pw.println(track_new.toString());
-
-            pw.flush();
-            pw.close();
-            f.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
 
@@ -243,17 +213,9 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.save_kml:
 
-                writeToSDFile(track_new.toString());
-
                 return true;
 
             case R.id.del_kml:
-
-                track_new.clear();
-
-                track_new_Overlay.clearPath();
-
-                mapView.postInvalidate();
 
                 return true;
 
@@ -272,12 +234,12 @@ public class JujuMap extends Activity implements LocationListener {
             menu.findItem(R.id.load_kml).setEnabled(false);
         }
 
-        if (track_new.size() == 0) menu.findItem(R.id.save_kml).setEnabled(false);
+        if (true) menu.findItem(R.id.save_kml).setEnabled(false);
         else {
             menu.findItem(R.id.save_kml).setEnabled(true);
         }
 
-        if (track_new.size() == 0) menu.findItem(R.id.del_kml).setEnabled(false);
+        if (true) menu.findItem(R.id.del_kml).setEnabled(false);
         else {
             menu.findItem(R.id.del_kml).setEnabled(true);
         }
@@ -384,15 +346,6 @@ public class JujuMap extends Activity implements LocationListener {
         }
 
         locationOverlay.setLocation(currentLocation);
-
-        track_new.addTP(
-                location.getLatitude(),
-                location.getLongitude(),
-                location.getAltitude(),
-                location.getAccuracy(),
-                location.getSpeed(),
-                location.getBearing(),
-                location.getTime());
 
         track_new_Overlay.addPoint(currentLocation);
 
