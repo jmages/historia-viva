@@ -20,6 +20,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -79,7 +82,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         setContentView(R.layout.main);
 
-        mapView = (MapView) this.findViewById(R.id.mapview);
+        mapView = (MapView) findViewById(R.id.mapview);
 
         // Change offline-Tilesource directory name when choosing different source than Mapnik
         mapView.setTileSource(TileSourceFactory.MAPNIK);
@@ -141,6 +144,18 @@ public class JujuMap extends Activity implements LocationListener {
                             "No HTML-Browser found!",
                             Toast.LENGTH_LONG).show();
                 }
+
+                /*
+                WebView myWebView = (WebView) findViewById(R.id.webview);
+
+                myWebView.setWebViewClient(new WebViewClient());
+
+                WebSettings webSettings = myWebView.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+
+                myWebView.loadUrl("http://www.spiegel.de");
+                */
+
             }
         });
     }
