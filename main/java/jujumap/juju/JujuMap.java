@@ -59,7 +59,6 @@ public class JujuMap extends Activity implements LocationListener {
     SimpleLocationOverlay locationOverlay;     // holds GPS-location
 
     PathOverlay          track_kml_Overlay;    // holds poitrack
-    PathOverlay          track_new_Overlay;    // holds new track
     ItemizedIconOverlay  poi_kml_Overlay;      // holds POIs
 
     AlertDialog.Builder alert;
@@ -100,9 +99,6 @@ public class JujuMap extends Activity implements LocationListener {
 
         locationOverlay = new SimpleLocationOverlay(this);
 	    mapView.getOverlays().add(locationOverlay);
-
-        track_new_Overlay = new PathOverlay(Color.YELLOW, this);
-        mapView.getOverlays().add(track_new_Overlay);
 
         mapView.getOverlays().add(new ScaleBarOverlay(this));
 
@@ -346,8 +342,6 @@ public class JujuMap extends Activity implements LocationListener {
         }
 
         locationOverlay.setLocation(currentLocation);
-
-        track_new_Overlay.addPoint(currentLocation);
 
         mapView.postInvalidate();
     }
