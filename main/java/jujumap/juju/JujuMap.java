@@ -125,7 +125,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 File sdcard = Environment.getExternalStorageDirectory();
 
-                File file = new File(sdcard, "/osmdroid/" + trackName + "/" + poiMapping + ".html");
+                File file = new File(sdcard, "/osmdroid/historia-viva/" + trackName + "/" + poiMapping + ".html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
@@ -277,7 +277,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         File sdcard = Environment.getExternalStorageDirectory();
 
-        File file = new File(sdcard, "/osmdroid/" + trackName + "/" + trackfile);
+        File file = new File(sdcard, "/osmdroid/historia-viva/" + trackName + "/" + trackfile);
 
         try {
 
