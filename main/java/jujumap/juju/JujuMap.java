@@ -20,6 +20,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -182,7 +185,12 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.load_kml:
 
-                startActivity(new Intent(this, TourView.class));
+                startActivity (
+                    new Intent (
+                        this,
+                        TourView.class)
+                    .putExtra("path", new File(sdcard, mainDir).toString()));
+
 
                 /*
                 loadKML();

@@ -5,15 +5,22 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TourView extends ListActivity {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle icicle) {
 
-        super.onCreate(icicle);
+    String path;
+
+    @Override
+    public void onCreate(Bundle bundle) {
+
+        super.onCreate(bundle);
+
+        Bundle b = getIntent().getExtras();
+
+        path = b.getString("path");
 
         setContentView(R.layout.tour_view);
 
@@ -22,20 +29,18 @@ public class TourView extends ListActivity {
         setListAdapter(adapter);
     }
 
-    /**
-     * Creates and returns a list adapter for the current list activity
-     * @return
-     */
-    protected ListAdapter createAdapter()
-    {
-        // List with strings of contacts name
-        //contactList = ... someMethod to get your list ...
+    protected ListAdapter createAdapter() {
 
-        List valueList = new ArrayList <String>();
+        List valueList = new ArrayList <String> ();
 
-        for (int i = 0; i < 10; i++) {
+        File[] files = new File(path).listFiles();
 
-            valueList.add("value");
+        for ( File aFile : files ) {
+
+            if ( aFile.isDirectory() ) {
+
+                valueList.add(aFile.getName());
+            }
         }
 
         // Create a simple array adapter (of type string) with the test values
