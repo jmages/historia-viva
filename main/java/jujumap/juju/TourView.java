@@ -15,7 +15,6 @@ import java.util.List;
 
 public class TourView extends ListActivity {
 
-    public static String newPath = "";
     String path = "";
 
     @Override
@@ -40,11 +39,7 @@ public class TourView extends ListActivity {
 
         String selection = l.getItemAtPosition(position).toString();
 
-        //Toast.makeText(this, selection, Toast.LENGTH_LONG).show();
-
         Intent iData = new Intent();
-
-        newPath = selection;
 
         iData.putExtra(
                 "newPath",

@@ -180,15 +180,15 @@ public class JujuMap extends Activity implements LocationListener {
 
     @Override
     protected void onActivityResult(
-            int requestCode,
-            int resultCode,
-            Intent pData)
-    {
-        if ( requestCode == 1234 )
-        {
-            if (resultCode == Activity.RESULT_OK )
-            {
-                final String zData = pData.getExtras().getString( TourView.newPath );
+        int requestCode,
+        int resultCode,
+        Intent pData) {
+
+        if ( requestCode == 1234 ) {
+
+            if (resultCode == Activity.RESULT_OK ) {
+
+                final String zData = pData.getExtras().getString( "newPath" );
 
                 Toast.makeText(this, zData, Toast.LENGTH_LONG).show();
             }
@@ -203,16 +203,11 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.load_kml:
 
-                int code = 1234;
+                Intent intent = new Intent (this, TourView.class);
 
-                Intent intent = new Intent (
-                        this,
-                        TourView.class)
-                        .putExtra("path", new File(sdcard, mainDir).toString());
+                intent.putExtra("path", new File(sdcard, mainDir).toString());
 
-                startActivityForResult (intent, code);
-
-
+                startActivityForResult (intent, 1234);
 
                 /*
                 loadKML();
