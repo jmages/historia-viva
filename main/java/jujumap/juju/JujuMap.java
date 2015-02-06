@@ -177,6 +177,9 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.load_kml:
 
+                startActivity(new Intent(this, TourView.class));
+
+                /*
                 loadKML();
 
                 if (showTrack) {
@@ -186,7 +189,7 @@ public class JujuMap extends Activity implements LocationListener {
                     mapView.postInvalidate();
 
                     if (autoZoom) mapView.zoomToBoundingBox(track_kml.get_bBox());
-                }
+                }*/
 
                 return true;
 
@@ -242,7 +245,7 @@ public class JujuMap extends Activity implements LocationListener {
         if (track_kml.size() == 0) menu.findItem(R.id.show_track).setEnabled(false);
         else {
             menu.findItem(R.id.show_track).setEnabled(true);
-            menu.findItem(R.id.load_kml).setEnabled(false);
+            menu.findItem(R.id.load_kml).setEnabled(true);
         }
 
         if (true) menu.findItem(R.id.save_kml).setEnabled(false);
@@ -258,7 +261,7 @@ public class JujuMap extends Activity implements LocationListener {
         if (pois_kml.size() == 0) menu.findItem(R.id.show_pois).setEnabled(false);
         else {
             menu.findItem(R.id.show_pois).setEnabled(true);
-            menu.findItem(R.id.load_kml).setEnabled(false);
+            menu.findItem(R.id.load_kml).setEnabled(true);
         }
 
         if (autoZoom)  menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_checked);
