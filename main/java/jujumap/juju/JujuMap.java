@@ -1,5 +1,6 @@
 package jujumap.juju;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +11,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.app.Activity;
 import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,30 +20,35 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
+
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.*;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.PathOverlay;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
+import org.osmdroid.views.overlay.SimpleLocationOverlay;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JujuMap extends Activity implements LocationListener {
 
     String trackName  = "benjamin_de";
     String trackfile  = "poitrack.kml";
+    String mainDir    = "/osmdroid/historia-viva/";
+    File   sdcard;
     String propfile   = "properties.txt";
 
     Boolean showPois  = true;
@@ -72,6 +77,8 @@ public class JujuMap extends Activity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        sdcard = Environment.getExternalStorageDirectory();
 
         loadKML();
 
@@ -123,9 +130,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 Intent viewDoc = new Intent(Intent.ACTION_VIEW);
 
-                File sdcard = Environment.getExternalStorageDirectory();
-
-                File file = new File(sdcard, "/osmdroid/historia-viva/" + trackName + "/" + poiMapping + ".html");
+                File file = new File(sdcard, mainDir + trackName + "/" + poiMapping + ".html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
@@ -278,9 +283,7 @@ public class JujuMap extends Activity implements LocationListener {
 
     private void loadKML() {
 
-        File sdcard = Environment.getExternalStorageDirectory();
-
-        File file = new File(sdcard, "/osmdroid/historia-viva/" + trackName + "/" + trackfile);
+        File file = new File(sdcard, mainDir + trackName + "/" + trackfile);
 
         try {
 
