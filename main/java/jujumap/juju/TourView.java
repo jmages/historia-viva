@@ -90,7 +90,11 @@ public class TourView extends ListActivity {
 
                 while ((line = br.readLine()) != null) {
 
-                    Log.d("index.html", line);
+                    if (line.contains("id=\"hv-tour\"")) {
+
+                        Log.d("index.html", line);
+
+                    }
 
                     text.append(line);
                     text.append('\n');
