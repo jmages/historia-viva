@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TourView extends ListActivity {
 
@@ -92,7 +94,18 @@ public class TourView extends ListActivity {
 
                     if (line.contains("id=\"hv-tour\"")) {
 
-                        Log.d("index.html", line);
+                        // <li><a href="benjamin_fr_v01.zip" id="hv-tour">Chemin Walter Benjamin (français, version 01, 20 MB, aktuell nur ein Fake)</a></li>
+
+                        Pattern p = Pattern.compile("\"(.*?.zip)\"");
+                        Matcher m = p.matcher(line);
+
+                        while (m.find()) {
+
+                            String n = m.group().substring(1, m.group().length()-1);
+
+                            valueList.add(n);
+                        }
+
 
                     }
 
