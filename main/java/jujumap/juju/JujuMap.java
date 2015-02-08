@@ -48,11 +48,12 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class JujuMap extends Activity implements LocationListener {
 
-    String trackName  = "benjamin_de";
-    String trackfile  = "poitrack.kml";
-    String mainDir    = "/osmdroid/historia-viva/";
+    String trackName   = "benjamin_de";
+    String trackfile   = "poitrack.kml";
+    String mainDir     = "/osmdroid/historia-viva/";
+    String downloadUrl = "http://www.historia-viva.net/downloads/";
+
     File   sdcard;
-    String propfile   = "properties.txt";
 
     Boolean showPois  = true;
     Boolean showTrack = true;
@@ -206,6 +207,7 @@ public class JujuMap extends Activity implements LocationListener {
                 Intent intent = new Intent (this, TourView.class);
 
                 intent.putExtra("path", new File(sdcard, mainDir).toString());
+                intent.putExtra("url" , downloadUrl);
 
                 startActivityForResult (intent, 1234);
 

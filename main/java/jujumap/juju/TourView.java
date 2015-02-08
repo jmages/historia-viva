@@ -39,28 +39,13 @@ public class TourView extends ListActivity {
         Bundle b = getIntent().getExtras();
 
         path = b.getString("path");
-        url  = b.getString("url");
+        url  = b.getString("url") + "index.html";
 
         setContentView(R.layout.tour_view);
 
         ListAdapter adapter = createAdapter();
 
         setListAdapter(adapter);
-    }
-
-
-    @Override
-    protected void onListItemClick (ListView l, View v, int position, long id) {
-
-        String selection = l.getItemAtPosition(position).toString();
-
-        Intent i = new Intent();
-
-        i.putExtra ("newPath", selection);
-
-        setResult (RESULT_OK, i);
-
-        this.finish();
     }
 
     protected ListAdapter createAdapter() {
@@ -111,6 +96,21 @@ public class TourView extends ListActivity {
         }
     }
 
+
+    @Override
+    protected void onListItemClick (ListView l, View v, int position, long id) {
+
+        String selection = l.getItemAtPosition(position).toString();
+
+        Intent i = new Intent();
+
+        i.putExtra ("newPath", selection);
+
+        setResult (RESULT_OK, i);
+
+        this.finish();
+    }
+
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
 
         @Override
@@ -127,6 +127,8 @@ public class TourView extends ListActivity {
             int count;
 
             try {
+
+                Log.d ("Downloading", f_url[0]);
 
                 URL url = new URL(f_url[0]);
 
