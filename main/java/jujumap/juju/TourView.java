@@ -39,7 +39,7 @@ public class TourView extends ListActivity {
         Bundle b = getIntent().getExtras();
 
         path = b.getString("path");
-        url  = b.getString("url") + "index.html";
+        url  = b.getString("url");
 
         setContentView(R.layout.tour_view);
 
@@ -62,7 +62,9 @@ public class TourView extends ListActivity {
             }
         }
 
-        new DownloadFileFromURL().execute(url);
+        DownloadFileFromURL task = new DownloadFileFromURL("index.html");
+
+        task.execute(url);
 
         ListAdapter adapter = new ArrayAdapter <String> (
             this,
@@ -113,6 +115,13 @@ public class TourView extends ListActivity {
 
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
 
+        String name = "";
+
+        public DownloadFileFromURL (String name) {
+
+            this.name = name;
+        }
+
         @Override
         protected void onPreExecute() {
 
@@ -128,9 +137,9 @@ public class TourView extends ListActivity {
 
             try {
 
-                Log.d ("Downloading", f_url[0]);
+                Log.d ("Downloading", f_url[0] + name);
 
-                URL url = new URL(f_url[0]);
+                URL url = new URL(f_url[0] + name);
 
                 URLConnection conection = url.openConnection();
 
@@ -145,16 +154,16 @@ public class TourView extends ListActivity {
                         8192);
 
                 // Output stream
-                OutputStream output = new FileOutputStream(Environment
-                        .getExternalStorageDirectory().toString()
-                        + "/2011.kml");
+                OutputStream output = new FileOutputStream(path + "/" + name);
 
                 byte data[] = new byte[1024];
 
                 long total = 0;
 
                 while ((count = input.read(data)) != -1) {
+
                     total += count;
+
                     // publishing the progress....
                     // After this onProgressUpdate will be called
                     publishProgress("" + (int) ((total * 100) / lenghtOfFile));
