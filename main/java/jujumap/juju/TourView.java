@@ -14,8 +14,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -59,12 +62,46 @@ public class TourView extends ListActivity {
             if ( aFile.isDirectory() ) {
 
                 valueList.add(aFile.getName());
+
+            } else {
+
+                if (aFile.getName().equals("index.html")) {
+
+                    //aFile.delete();
+                }
             }
         }
 
         DownloadFileFromURL task = new DownloadFileFromURL("index.html");
 
         task.execute(url);
+
+        File f = new File(path + "/" + "index.html");
+
+        if (f.exists()) {
+
+            StringBuilder text = new StringBuilder();
+
+            try {
+
+                BufferedReader br = new BufferedReader(new FileReader(f));
+
+                String line;
+
+                while ((line = br.readLine()) != null) {
+
+                    Log.d("index.html", line);
+
+                    text.append(line);
+                    text.append('\n');
+                }
+
+                br.close();
+
+            } catch (IOException e) {
+
+            }
+        }
 
         ListAdapter adapter = new ArrayAdapter <String> (
             this,
@@ -145,15 +182,11 @@ public class TourView extends ListActivity {
 
                 conection.connect();
 
-                // this will be useful so that you can show a tipical 0-100%
-                // progress bar
                 int lenghtOfFile = conection.getContentLength();
 
-                // download the file
                 InputStream input = new BufferedInputStream(url.openStream(),
                         8192);
 
-                // Output stream
                 OutputStream output = new FileOutputStream(path + "/" + name);
 
                 byte data[] = new byte[1024];
