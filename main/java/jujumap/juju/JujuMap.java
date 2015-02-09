@@ -191,7 +191,16 @@ public class JujuMap extends Activity implements LocationListener {
 
                 final String zData = pData.getExtras().getString( "newPath" );
 
-                Toast.makeText(this, zData, Toast.LENGTH_LONG).show();
+                trackName = zData;
+
+                track_kml = new Track();
+                pois_kml  = new POIs();
+
+                loadKML();
+
+                currentLocation = track_kml.get_bBox().getCenter();
+
+                Toast.makeText(this, "New Tour: " + zData, Toast.LENGTH_LONG).show();
             }
         }
 

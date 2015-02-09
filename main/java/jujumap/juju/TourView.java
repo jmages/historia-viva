@@ -152,7 +152,6 @@ public class TourView extends ListActivity {
         }
     }
 
-
     @Override
     protected void onListItemClick (ListView l, View v, int position, long id) {
 
@@ -162,7 +161,14 @@ public class TourView extends ListActivity {
 
         i.putExtra ("newPath", selection);
 
-        setResult (RESULT_OK, i);
+        if (selection.contains(".zip")) {
+
+            setResult(RESULT_CANCELED, i);
+
+        } else {
+
+            setResult(RESULT_OK, i);
+        }
 
         this.finish();
     }
