@@ -180,25 +180,28 @@ public class TourView extends ListActivity {
 
         i.putExtra ("newPath", selection);
 
-        if (selection.contains(" (Tour online)")) {
+        if (selection.contains(".zip")) {
 
-            String name = selection.substring(0,selection.length()-14);
+            if (selection.contains(" (Tour online)")) {
 
-            DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
+                String name = selection.substring(0,selection.length()-14);
 
-            task_zip.execute(url);
+                DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
 
-            setResult(RESULT_CANCELED, i);
-
-        } else if (selection.contains(" (Karte online)")) {
-
-                String name = selection.substring(0,selection.length()-15);
-
-                Log.d ("xDownloading", ">"+name+"<");
+                task_zip.execute(url);
 
                 setResult(RESULT_CANCELED, i);
 
-            } else {
+            } else if (selection.contains(" (Karte online)")) {
+
+                String name = selection.substring(0, selection.length() - 15);
+
+                Log.d("xDownloading", ">" + name + "<");
+
+                setResult(RESULT_CANCELED, i);
+            }
+
+        } else {
 
             setResult(RESULT_OK, i);
         }
