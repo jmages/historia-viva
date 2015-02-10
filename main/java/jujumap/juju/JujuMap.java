@@ -198,7 +198,15 @@ public class JujuMap extends Activity implements LocationListener {
 
                 loadKML();
 
+                mapView.getOverlays().clear();
+
+                mapView.getOverlays().add(track_kml_Overlay);
+                mapView.getOverlays().add(poi_kml_Overlay);
+
                 currentLocation = track_kml.get_bBox().getCenter();
+
+                mapController.setZoom(12);
+                mapController.setCenter(currentLocation);
 
                 Toast.makeText(this, "New Tour: " + zData, Toast.LENGTH_LONG).show();
             }
