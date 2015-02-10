@@ -69,7 +69,12 @@ public class TourView extends ListActivity {
 
                 if (aFile.getName().equals("index.html")) {
 
-                    //aFile.delete();
+                    // just leave it there
+                }
+
+                if (aFile.getName().contains(".zip")) {
+
+                    valueList.add(aFile.getName());
                 }
             }
         }
@@ -103,10 +108,21 @@ public class TourView extends ListActivity {
 
                             String n = m.group().substring(1, m.group().length()-1);
 
-                            valueList.add(n);
+                            valueList.add(n + " (Tour online)");
                         }
+                    }
 
+                    if (line.contains("id=\"hv-map\"")) {
 
+                        Pattern p = Pattern.compile("\"(.*?.zip)\"");
+                        Matcher m = p.matcher(line);
+
+                        while (m.find()) {
+
+                            String n = m.group().substring(1, m.group().length()-1);
+
+                            valueList.add(n + " (Karte online)");
+                        }
                     }
 
                     text.append(line);
@@ -161,7 +177,11 @@ public class TourView extends ListActivity {
 
         i.putExtra ("newPath", selection);
 
-        if (selection.contains(".zip")) {
+        if (selection.contains(" online)")) {
+
+            //DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
+
+            //task_zip.execute(url);
 
             setResult(RESULT_CANCELED, i);
 
