@@ -177,7 +177,11 @@ public class TourView extends ListActivity {
 
         i.putExtra ("newPath", selection);
 
-        if (selection.contains(" online)")) {
+        if (selection.contains(" (Tour online)")) {
+
+            String name = selection.substring(0,selection.length()-14);
+
+            Log.d ("xDownloading", ">"+name+"<");
 
             //DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
 
@@ -185,7 +189,19 @@ public class TourView extends ListActivity {
 
             setResult(RESULT_CANCELED, i);
 
-        } else {
+        } else if (selection.contains(" (Karte online)")) {
+
+                String name = selection.substring(0,selection.length()-15);
+
+                Log.d ("xDownloading", ">"+name+"<");
+
+                //DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
+
+                //task_zip.execute(url);
+
+                setResult(RESULT_CANCELED, i);
+
+            } else {
 
             setResult(RESULT_OK, i);
         }
@@ -199,7 +215,15 @@ public class TourView extends ListActivity {
 
         public DownloadFileFromURL (String name) {
 
-            this.name = name;
+
+            if (name.contains(" (Tour online)")) {
+
+                this.name = name.substring(name.length()-14, name.length());
+
+            } else {
+
+                this.name = name;
+            }
         }
 
         @Override
