@@ -199,6 +199,20 @@ public class TourView extends ListActivity {
                 Log.d("xDownloading", ">" + name + "<");
 
                 setResult(RESULT_CANCELED, i);
+
+            } else {
+
+                String destination = "";
+
+                destination = path + "/" + selection.substring(0, selection.length()-4);
+
+                Log.d("Unzipping source     ", ">" + path + "/" + selection + "<");
+                Log.d("Unzipping destination", ">" + destination + "<");
+
+                unzip (path + "/" + selection, destination);
+
+                setResult(RESULT_CANCELED, i);
+
             }
 
         } else {
@@ -291,7 +305,7 @@ public class TourView extends ListActivity {
 
     }
 
-    public static void unzip (String zipFile, String location) throws IOException {
+    public static void unzip (String zipFile, String location) {
 
         int size;
 
