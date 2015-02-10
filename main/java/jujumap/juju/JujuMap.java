@@ -55,8 +55,8 @@ public class JujuMap extends Activity implements LocationListener {
 
     File   sdcard;
 
-    Boolean showPois  = true;
-    Boolean showTrack = true;
+    Boolean showPois  = false;
+    Boolean showTrack = false;
     Boolean autoZoom  = true;
 
     String   poiMapping      = "";
@@ -211,7 +211,6 @@ public class JujuMap extends Activity implements LocationListener {
                 Toast.makeText(this, "New Tour: " + zData, Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
     @Override
@@ -250,27 +249,13 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.show_track:
 
-                showTrack ^= true;
-
-                if (showTrack) mapView.getOverlays().add(track_kml_Overlay);
-                else mapView.getOverlays().remove(track_kml_Overlay);
-
-                mapView.postInvalidate();
-
-                if (autoZoom) mapView.zoomToBoundingBox(track_kml.get_bBox());
+                mapView.zoomToBoundingBox(track_kml.get_bBox());
 
                 return true;
 
             case R.id.show_pois:
 
-                showPois ^= true;
-
-                if (showPois) mapView.getOverlays().add(poi_kml_Overlay);
-                else mapView.getOverlays().remove(poi_kml_Overlay);
-
-                mapView.postInvalidate();
-
-                if (autoZoom) mapView.zoomToBoundingBox(pois_kml.get_bBox());
+                mapView.zoomToBoundingBox(pois_kml.get_bBox());
 
                 return true;
 
