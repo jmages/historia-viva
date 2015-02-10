@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -181,11 +180,9 @@ public class TourView extends ListActivity {
 
             String name = selection.substring(0,selection.length()-14);
 
-            Log.d ("xDownloading", ">"+name+"<");
+            DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
 
-            //DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
-
-            //task_zip.execute(url);
+            task_zip.execute(url);
 
             setResult(RESULT_CANCELED, i);
 
@@ -195,18 +192,12 @@ public class TourView extends ListActivity {
 
                 Log.d ("xDownloading", ">"+name+"<");
 
-                //DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
-
-                //task_zip.execute(url);
-
                 setResult(RESULT_CANCELED, i);
 
             } else {
 
             setResult(RESULT_OK, i);
         }
-
-        this.finish();
     }
 
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
@@ -215,15 +206,7 @@ public class TourView extends ListActivity {
 
         public DownloadFileFromURL (String name) {
 
-
-            if (name.contains(" (Tour online)")) {
-
-                this.name = name.substring(name.length()-14, name.length());
-
-            } else {
-
-                this.name = name;
-            }
+            this.name = name;
         }
 
         @Override
@@ -264,18 +247,12 @@ public class TourView extends ListActivity {
 
                     total += count;
 
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
                     publishProgress("" + (int) ((total * 100) / lenghtOfFile));
 
-                    // writing data to file
                     output.write(data, 0, count);
                 }
 
-                // flushing output
                 output.flush();
-
-                // closing streams
                 output.close();
                 input.close();
 
@@ -287,26 +264,21 @@ public class TourView extends ListActivity {
             return null;
         }
 
-        /**
-         * Updating progress bar
-         * */
         protected void onProgressUpdate(String... progress) {
-            // setting progress percentage
+
             pDialog.setProgress(Integer.parseInt(progress[0]));
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
         @Override
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after the file was downloaded
+
             dismissDialog(progress_bar_type);
 
         }
 
         @Override
         protected void onCancelled(){
+
             // Handle what you want to do if you cancel this task
         }
 
