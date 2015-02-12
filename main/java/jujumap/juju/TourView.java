@@ -360,6 +360,7 @@ public class TourView extends ListActivity {
             }
             finally {
                 zin.close();
+                Log.d ("Unzipping", "finished");
             }
         }
         catch (Exception e) {

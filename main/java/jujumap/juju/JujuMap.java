@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -81,6 +82,10 @@ public class JujuMap extends Activity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
+
+        Log.d ("osmdroid path", osmdroid_path.toString());
 
         sdcard = Environment.getExternalStorageDirectory();
 
@@ -193,19 +198,21 @@ public class JujuMap extends Activity implements LocationListener {
 
                 trackName = zData;
 
+                mapView.getOverlays().remove(track_kml_Overlay);
+                mapView.getOverlays().remove(poi_kml_Overlay);
+
                 track_kml = new Track();
                 pois_kml  = new POIs();
 
                 loadKML();
-
-                mapView.getOverlays().clear();
 
                 mapView.getOverlays().add(track_kml_Overlay);
                 mapView.getOverlays().add(poi_kml_Overlay);
 
                 currentLocation = track_kml.get_bBox().getCenter();
 
-                mapController.setZoom(12);
+                mapView.zoomToBoundingBox(track_kml.get_bBox());
+                //mapController.setZoom(12);
                 mapController.setCenter(currentLocation);
 
                 Toast.makeText(this, "New Tour: " + zData, Toast.LENGTH_LONG).show();
