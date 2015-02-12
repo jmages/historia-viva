@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
@@ -49,6 +50,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class JujuMap extends Activity implements LocationListener {
 
+    SharedPreferences settings;
+
     String trackName   = "benjamin_de";
     String trackfile   = "poitrack.kml";
     String osmDir      = "/osmdroid";
@@ -79,10 +82,21 @@ public class JujuMap extends Activity implements LocationListener {
 
     static final String TAG = JujuMap.class.getName();
 
+    SharedPreferences.Editor editor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        settings = getSharedPreferences("preferences", MODE_PRIVATE);
+
+        editor = settings.edit();
+
+        if (settings.contains("trackName")) {
+
+            trackName = settings.getString("trackName", trackName);
+        }
 
         File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
 
@@ -205,6 +219,9 @@ public class JujuMap extends Activity implements LocationListener {
                 final String zData = pData.getExtras().getString( "newPath" );
 
                 trackName = zData;
+
+                editor.putString("trackName", trackName);
+                editor.commit();
 
                 mapView.getOverlays().remove(track_kml_Overlay);
                 mapView.getOverlays().remove(poi_kml_Overlay);

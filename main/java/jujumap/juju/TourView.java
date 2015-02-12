@@ -415,6 +415,7 @@ public class TourView extends ListActivity {
             }
         }
         catch (Exception e) {
+
             Log.e ("Error", "Unzip exception", e);
         }
     }
