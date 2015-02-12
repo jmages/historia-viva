@@ -34,8 +34,9 @@ import java.util.zip.ZipInputStream;
 
 public class TourView extends ListActivity {
 
-    String path = "";
-    String url  = "";
+    String osmpath = "";
+    String path    = "";
+    String url     = "";
 
     private ProgressDialog pDialog;
 
@@ -48,8 +49,9 @@ public class TourView extends ListActivity {
 
         Bundle b = getIntent().getExtras();
 
-        path = b.getString("path");
-        url  = b.getString("url");
+        osmpath = b.getString("osmpath");
+        path    = b.getString("path");
+        url     = b.getString("url");
 
         setContentView(R.layout.tour_view);
 
@@ -198,7 +200,23 @@ public class TourView extends ListActivity {
 
                 String name = selection.substring(0, selection.length() - 15);
 
-                Log.d("xDownloading", ">" + name + "<");
+                DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
+
+                task_zip.execute(url);
+
+                setResult(RESULT_CANCELED, i);
+
+            } else if (selection.contains("mapnik")) {
+
+                Log.d("Installing map", ">" + path + "/" + selection + "<");
+
+                try {
+                    copy (path + "/" + selection, osmpath + "/Mapnik.zip");
+
+                } catch (IOException e) {
+
+                    Log.e("IO Error", e.toString());
+                }
 
                 setResult(RESULT_CANCELED, i);
 
@@ -383,5 +401,23 @@ public class TourView extends ListActivity {
         catch (Exception e) {
             Log.e ("Error", "Unzip exception", e);
         }
+    }
+
+    public void copy (String src, String dst) throws IOException {
+
+        InputStream in = new FileInputStream(new File (src));
+        OutputStream out = new FileOutputStream(new File (dst));
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+
+        Log.d("Filecopy", "Copying finished.");
+        Toast.makeText(this, "Copying finished", Toast.LENGTH_LONG).show();
     }
 }

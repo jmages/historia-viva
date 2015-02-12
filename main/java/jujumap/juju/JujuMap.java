@@ -51,7 +51,8 @@ public class JujuMap extends Activity implements LocationListener {
 
     String trackName   = "benjamin_de";
     String trackfile   = "poitrack.kml";
-    String mainDir     = "/osmdroid/historia-viva/";
+    String osmDir      = "/osmdroid";
+    String mainDir     = osmDir + "/historia-viva/";
     String downloadUrl = "http://www.historia-viva.net/downloads/";
 
     File   sdcard;
@@ -229,6 +230,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 Intent intent = new Intent (this, TourView.class);
 
+                intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
                 intent.putExtra("path", new File(sdcard, mainDir).toString());
                 intent.putExtra("url" , downloadUrl);
 
