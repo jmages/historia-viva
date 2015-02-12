@@ -336,11 +336,16 @@ public class TourView extends ListActivity {
         byte[] buffer = new byte[BUFFER_SIZE];
 
         try {
-            if ( !location.endsWith("/") ) {
+
+            if ( ! location.endsWith("/") ) {
+
                 location += "/";
             }
+
             File f = new File(location);
-            if(!f.isDirectory()) {
+
+            if (! f.isDirectory()) {
+
                 f.mkdirs();
             }
 
@@ -361,20 +366,27 @@ public class TourView extends ListActivity {
 
                             unzipFile.mkdirs();
                         }
+
                     } else {
 
                         // check for and create parent directories if they don't exist
                         File parentDir = unzipFile.getParentFile();
+
                         if ( null != parentDir ) {
+
                             if ( !parentDir.isDirectory() ) {
+
                                 parentDir.mkdirs();
                             }
                         }
 
                         // unzip the file
                         FileOutputStream out = new FileOutputStream(unzipFile, false);
+
                         BufferedOutputStream fout = new BufferedOutputStream(out, BUFFER_SIZE);
+
                         try {
+
                             while ( (size = zin.read(buffer, 0, BUFFER_SIZE)) != -1 ) {
 
                                 fout.write(buffer, 0, size);
@@ -382,14 +394,18 @@ public class TourView extends ListActivity {
 
                             zin.closeEntry();
                         }
+
                         finally {
+
                             fout.flush();
                             fout.close();
                         }
                     }
                 }
             }
+
             finally {
+
                 zin.close();
 
                 Log.d ("Unzipping", "finished");
@@ -405,15 +421,18 @@ public class TourView extends ListActivity {
 
     public void copy (String src, String dst) throws IOException {
 
-        InputStream in = new FileInputStream(new File (src));
+        InputStream   in = new FileInputStream (new File (src));
         OutputStream out = new FileOutputStream(new File (dst));
 
-        // Transfer bytes from in to out
         byte[] buf = new byte[1024];
+
         int len;
+
         while ((len = in.read(buf)) > 0) {
+
             out.write(buf, 0, len);
         }
+
         in.close();
         out.close();
 

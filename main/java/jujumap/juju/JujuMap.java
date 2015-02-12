@@ -90,6 +90,13 @@ public class JujuMap extends Activity implements LocationListener {
 
         sdcard = Environment.getExternalStorageDirectory();
 
+        File dirs = new File(sdcard, mainDir);
+
+        if (! dirs.exists()) {
+
+            dirs.mkdirs();
+        }
+
         loadKML();
 
         currentLocation = track_kml.get_bBox().getCenter();
