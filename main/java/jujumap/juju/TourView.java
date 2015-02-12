@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -37,6 +38,7 @@ public class TourView extends ListActivity {
     String url  = "";
 
     private ProgressDialog pDialog;
+
     public static final int progress_bar_type = 0;
 
     @Override
@@ -209,6 +211,8 @@ public class TourView extends ListActivity {
                 Log.d("Unzipping source     ", ">" + path + "/" + selection + "<");
                 Log.d("Unzipping destination", ">" + destination + "<");
 
+                Toast.makeText(this, "Unzipping " + selection + "... please wait,", Toast.LENGTH_LONG).show();
+
                 unzip (path + "/" + selection, destination);
 
                 setResult(RESULT_CANCELED, i);
@@ -305,7 +309,7 @@ public class TourView extends ListActivity {
 
     }
 
-    public static void unzip (String zipFile, String location) {
+    public void unzip (String zipFile, String location) {
 
         int size;
 
@@ -321,18 +325,26 @@ public class TourView extends ListActivity {
             if(!f.isDirectory()) {
                 f.mkdirs();
             }
+
             ZipInputStream zin = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile), BUFFER_SIZE));
+
             try {
+
                 ZipEntry ze = null;
+
                 while ((ze = zin.getNextEntry()) != null) {
+
                     String path = location + ze.getName();
                     File unzipFile = new File(path);
 
                     if (ze.isDirectory()) {
+
                         if(!unzipFile.isDirectory()) {
+
                             unzipFile.mkdirs();
                         }
                     } else {
+
                         // check for and create parent directories if they don't exist
                         File parentDir = unzipFile.getParentFile();
                         if ( null != parentDir ) {
@@ -346,6 +358,7 @@ public class TourView extends ListActivity {
                         BufferedOutputStream fout = new BufferedOutputStream(out, BUFFER_SIZE);
                         try {
                             while ( (size = zin.read(buffer, 0, BUFFER_SIZE)) != -1 ) {
+
                                 fout.write(buffer, 0, size);
                             }
 
@@ -360,7 +373,11 @@ public class TourView extends ListActivity {
             }
             finally {
                 zin.close();
+
                 Log.d ("Unzipping", "finished");
+
+                Toast.makeText(this, "Unzipping finished", Toast.LENGTH_LONG).show();
+
             }
         }
         catch (Exception e) {
