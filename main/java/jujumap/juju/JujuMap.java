@@ -207,7 +207,7 @@ public class JujuMap extends Activity implements LocationListener {
     }
 
     @Override
-    protected void onActivityResult(
+    protected void onActivityResult (
         int requestCode,
         int resultCode,
         Intent pData) {
@@ -347,20 +347,23 @@ public class JujuMap extends Activity implements LocationListener {
 
         File file = new File(sdcard, mainDir + trackName + "/" + trackfile);
 
-        try {
+        if (file.exists()) {
 
-            DefaultHandler handler = new KML_Parser(track_kml, pois_kml);
+            try {
 
-            SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+                DefaultHandler handler = new KML_Parser(track_kml, pois_kml);
 
-            saxParser.parse(file, handler);
+                SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 
-        } catch (ParserConfigurationException e) {
-            Log.e ("ParserConfigurationException", "poitrack.kml could not be read.");
-        } catch (SAXException e) {
-            Log.e ("SAXException", "poitrack.kml could not be read.");
-        } catch (IOException e) {
-            Log.e ("IOException", "poitrack.kml could not be read.");
+                saxParser.parse(file, handler);
+
+            } catch (ParserConfigurationException e) {
+                Log.e ("ParserConfigurationException", "poitrack.kml could not be read.");
+            } catch (SAXException e) {
+                Log.e ("SAXException", "poitrack.kml could not be read.");
+            } catch (IOException e) {
+                Log.e ("IOException", "poitrack.kml could not be read.");
+            }
         }
 
         track_kml_Overlay = new PathOverlay(Color.MAGENTA, this);
