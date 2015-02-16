@@ -52,7 +52,7 @@ public class JujuMap extends Activity implements LocationListener {
 
     SharedPreferences settings;
 
-    String trackName   = "benjamin_de";
+    String trackName   = "";
     String trackfile   = "poitrack.kml";
     String osmDir      = "/osmdroid";
     String mainDir     = osmDir + "/historia-viva/";
@@ -356,11 +356,11 @@ public class JujuMap extends Activity implements LocationListener {
             saxParser.parse(file, handler);
 
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            Log.e ("ParserConfigurationException", "poitrack.kml could not be read.");
         } catch (SAXException e) {
-            e.printStackTrace();
+            Log.e ("SAXException", "poitrack.kml could not be read.");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e ("IOException", "poitrack.kml could not be read.");
         }
 
         track_kml_Overlay = new PathOverlay(Color.MAGENTA, this);
