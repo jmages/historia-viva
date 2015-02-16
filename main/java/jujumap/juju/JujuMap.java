@@ -111,6 +111,17 @@ public class JujuMap extends Activity implements LocationListener {
             dirs.mkdirs();
         }
 
+        if (trackName.equals("")) {
+
+            Intent intent = new Intent (this, TourView.class);
+
+            intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
+            intent.putExtra("path", new File(sdcard, mainDir).toString());
+            intent.putExtra("url" , downloadUrl);
+
+            startActivityForResult (intent, 1234);
+        }
+
         loadKML();
 
         currentLocation = track_kml.get_bBox().getCenter();
@@ -191,7 +202,6 @@ public class JujuMap extends Activity implements LocationListener {
 
                 myWebView.loadUrl("http://www.spiegel.de");
                 */
-
             }
         });
     }

@@ -143,6 +143,10 @@ public class TourView extends ListActivity {
             }
         }
 
+        if (valueList.size() == 0) {
+
+        }
+
         ListAdapter adapter = new ArrayAdapter <String> (
             this,
             android.R.layout.simple_list_item_1,
