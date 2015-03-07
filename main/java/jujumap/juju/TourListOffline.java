@@ -36,7 +36,6 @@ public class TourListOffline extends ListActivity {
 
     String osmpath = "";
     String path    = "";
-    String url     = "";
 
     private ProgressDialog pDialog;
 
@@ -51,7 +50,6 @@ public class TourListOffline extends ListActivity {
 
         osmpath = b.getString("osmpath");
         path    = b.getString("path");
-        url     = b.getString("url");
 
         setContentView(R.layout.tour_view);
 
@@ -86,63 +84,6 @@ public class TourListOffline extends ListActivity {
             }
         }
 
-        DownloadFileFromURL task = new DownloadFileFromURL("index.html");
-
-        task.execute(url);
-
-        File f = new File(path + "/" + "index.html");
-
-        if (f.exists()) {
-
-            StringBuilder text = new StringBuilder();
-
-            try {
-
-                BufferedReader br = new BufferedReader(new FileReader(f));
-
-                String line;
-
-                while ((line = br.readLine()) != null) {
-
-                    if (line.contains("id=\"hv-tour\"")) {
-
-                        // <li><a href="benjamin_fr_v01.zip" id="hv-tour">Chemin Walter Benjamin (français, version 01, 20 MB, aktuell nur ein Fake)</a></li>
-
-                        Pattern p = Pattern.compile("\"(.*?.zip)\"");
-                        Matcher m = p.matcher(line);
-
-                        while (m.find()) {
-
-                            String n = m.group().substring(1, m.group().length()-1);
-
-                            valueList.add(n + " (Tour online)");
-                        }
-                    }
-
-                    if (line.contains("id=\"hv-map\"")) {
-
-                        Pattern p = Pattern.compile("\"(.*?.zip)\"");
-                        Matcher m = p.matcher(line);
-
-                        while (m.find()) {
-
-                            String n = m.group().substring(1, m.group().length()-1);
-
-                            valueList.add(n + " (Karte online)");
-                        }
-                    }
-
-                    text.append(line);
-                    text.append('\n');
-                }
-
-                br.close();
-
-            } catch (IOException e) {
-
-            }
-        }
-
         if (valueList.size() == 0) {
 
         }
@@ -156,30 +97,6 @@ public class TourListOffline extends ListActivity {
     }
 
     @Override
-    protected Dialog onCreateDialog(int id) {
-
-        switch (id) {
-
-            case progress_bar_type: // we set this to 0
-
-                pDialog = new ProgressDialog(this);
-
-                pDialog.setMessage("Downloading file. Please wait...");
-                pDialog.setIndeterminate(false);
-                pDialog.setMax(100);
-                pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                pDialog.setCancelable(true);
-                pDialog.show();
-
-                return pDialog;
-
-            default:
-
-                return null;
-        }
-    }
-
-    @Override
     protected void onListItemClick (ListView l, View v, int position, long id) {
 
         String selection = l.getItemAtPosition(position).toString();
@@ -190,27 +107,7 @@ public class TourListOffline extends ListActivity {
 
         if (selection.contains(".zip")) {
 
-            if (selection.contains(" (Tour online)")) {
-
-                String name = selection.substring(0,selection.length()-14);
-
-                DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
-
-                task_zip.execute(url);
-
-                setResult(RESULT_CANCELED, i);
-
-            } else if (selection.contains(" (Karte online)")) {
-
-                String name = selection.substring(0, selection.length() - 15);
-
-                DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
-
-                task_zip.execute(url);
-
-                setResult(RESULT_CANCELED, i);
-
-            } else if (selection.contains("mapnik")) {
+            if (selection.contains("mapnik")) {
 
                 Log.d("Installing map", ">" + path + "/" + selection + "<");
 
@@ -238,97 +135,14 @@ public class TourListOffline extends ListActivity {
                 unzip (path + "/" + selection, destination);
 
                 setResult(RESULT_CANCELED, i);
-
             }
 
         } else {
 
             setResult(RESULT_OK, i);
+
+            this.finish();
         }
-    }
-
-    class DownloadFileFromURL extends AsyncTask <String, String, String> {
-
-        String name = "";
-
-        public DownloadFileFromURL (String name) {
-
-            this.name = name;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-
-            showDialog(progress_bar_type);
-        }
-
-        @Override
-        protected String doInBackground(String... f_url) {
-
-            int count;
-
-            try {
-
-                Log.d ("Downloading", f_url[0] + name);
-
-                URL url = new URL(f_url[0] + name);
-
-                URLConnection conection = url.openConnection();
-
-                conection.connect();
-
-                int lenghtOfFile = conection.getContentLength();
-
-                InputStream input = new BufferedInputStream(url.openStream(),
-                        8192);
-
-                OutputStream output = new FileOutputStream(path + "/" + name);
-
-                byte data[] = new byte[1024];
-
-                long total = 0;
-
-                while ((count = input.read(data)) != -1) {
-
-                    total += count;
-
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-
-                    output.write(data, 0, count);
-                }
-
-                output.flush();
-                output.close();
-                input.close();
-
-            } catch (Exception e) {
-
-                Log.e("Error - no connection: ", e.getMessage());
-            }
-
-            return null;
-        }
-
-        protected void onProgressUpdate(String... progress) {
-
-            pDialog.setProgress(Integer.parseInt(progress[0]));
-        }
-
-        @Override
-        protected void onPostExecute(String file_url) {
-
-            dismissDialog(progress_bar_type);
-
-        }
-
-        @Override
-        protected void onCancelled(){
-
-            // Handle what you want to do if you cancel this task
-        }
-
     }
 
     public void unzip (String zipFile, String location) {

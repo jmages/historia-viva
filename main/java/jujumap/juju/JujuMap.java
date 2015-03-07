@@ -295,7 +295,6 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.show_pois:
 
-
                 Intent intent2 = new Intent (this, TourListOnline.class);
 
                 intent2.putExtra("osmpath", new File(sdcard, osmDir).toString());
