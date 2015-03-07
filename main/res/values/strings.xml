@@ -6,7 +6,7 @@
 
     <string name="load_track">Tour auswählen</string>
 
-    <string name="save_kml">Tour runterladen</string>
+    <string name="save_kml">unused</string>
 
     <string name="options">Optionen</string>
 
@@ -16,7 +16,7 @@
     <string name="show_track_unchecked">Touransicht</string>
     <string name="show_track_checked">Touransicht \u2714</string>
 
-    <string name="show_pois_unchecked">unused</string>
-    <string name="show_pois_checked">unused \u2714</string>
+    <string name="show_pois_unchecked">Tour runterladen</string>
+    <string name="show_pois_checked">Tour runterladen \u2714</string>
 
 </resources>

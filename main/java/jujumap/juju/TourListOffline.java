@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class TourView extends ListActivity {
+public class TourListOffline extends ListActivity {
 
     String osmpath = "";
     String path    = "";
@@ -148,9 +148,9 @@ public class TourView extends ListActivity {
         }
 
         ListAdapter adapter = new ArrayAdapter <String> (
-            this,
-            android.R.layout.simple_list_item_1,
-            valueList);
+                this,
+                android.R.layout.simple_list_item_1,
+                valueList);
 
         return adapter;
     }

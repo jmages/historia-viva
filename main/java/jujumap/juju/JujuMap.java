@@ -110,7 +110,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         if (trackName.equals("")) {
 
-            Intent intent = new Intent (this, TourView.class);
+            Intent intent = new Intent (this, TourListOnline.class);
 
             intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
             intent.putExtra("path", new File(sdcard, mainDir).toString());
@@ -259,7 +259,7 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.load_kml:
 
-                Intent intent = new Intent (this, TourView.class);
+                Intent intent = new Intent (this, TourListOffline.class);
 
                 intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
                 intent.putExtra("path", new File(sdcard, mainDir).toString());
@@ -295,7 +295,14 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.show_pois:
 
-                mapView.zoomToBoundingBox(pois_kml.get_bBox());
+
+                Intent intent2 = new Intent (this, TourListOnline.class);
+
+                intent2.putExtra("osmpath", new File(sdcard, osmDir).toString());
+                intent2.putExtra("path", new File(sdcard, mainDir).toString());
+                intent2.putExtra("url" , downloadUrl);
+
+                startActivityForResult (intent2, 1234);
 
                 return true;
 

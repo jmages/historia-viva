@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TourView"></activity>
+        <activity android:name=".TourListOnline"></activity>
+
+        <activity android:name=".TourListOffline"></activity>
 
     </application>
 
