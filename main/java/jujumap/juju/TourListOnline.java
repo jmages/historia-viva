@@ -3,7 +3,10 @@ package jujumap.juju;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,24 +16,13 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class TourListOnline extends ListActivity {
 
@@ -55,40 +47,74 @@ public class TourListOnline extends ListActivity {
 
         setContentView(R.layout.tour_view);
 
-        ListAdapter adapter = createAdapter();
+        final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        setListAdapter(adapter);
+        final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+
+            ListAdapter adapter = createAdapter();
+
+            setListAdapter(adapter);
+
+        } else {
+
+            Toast.makeText(this,
+                    "Please connect to the Internet!",
+                    Toast.LENGTH_LONG).show();
+
+            this.finish();
+        }
     }
 
     protected ListAdapter createAdapter() {
 
         List valueList = new ArrayList <String> ();
 
-        File [] files = new File(path).listFiles();
+        //DownloadFileFromURL task = new DownloadFileFromURL("index.html");
 
-        for ( File aFile : files ) {
+        //task.execute(url);
 
-            if ( aFile.isDirectory() ) {
+        String name = "index.html";
 
-                valueList.add(aFile.getName());
+        int count;
 
-            } else {
+        Log.d ("Downloading", url + name);
 
-                if (aFile.getName().equals("index.html")) {
+        try {
 
-                    // just leave it there
-                }
+            URL url_i = new URL(url + name);
 
-                if (aFile.getName().contains(".zip")) {
+            URLConnection conection = url_i.openConnection();
 
-                    valueList.add(aFile.getName());
-                }
+            conection.connect();
+
+            int lenghtOfFile = conection.getContentLength();
+
+            InputStream input = new BufferedInputStream(url_i.openStream(),
+                    8192);
+
+            OutputStream output = new FileOutputStream(path + "/" + name);
+
+            byte data[] = new byte[1024];
+
+            long total = 0;
+
+            while ((count = input.read(data)) != -1) {
+
+                total += count;
+
+                output.write(data, 0, count);
             }
+
+            output.flush();
+            output.close();
+            input.close();
+
+        } catch (Exception e) {
+
+            Log.e("Error - no connection: ", e.getMessage());
         }
-
-        DownloadFileFromURL task = new DownloadFileFromURL("index.html");
-
-        task.execute(url);
 
         File f = new File(path + "/" + "index.html");
 
@@ -115,7 +141,7 @@ public class TourListOnline extends ListActivity {
 
                             String n = m.group().substring(1, m.group().length()-1);
 
-                            valueList.add(n + " (Tour online)");
+                            valueList.add(n);
                         }
                     }
 
@@ -128,7 +154,7 @@ public class TourListOnline extends ListActivity {
 
                             String n = m.group().substring(1, m.group().length()-1);
 
-                            valueList.add(n + " (Karte online)");
+                            valueList.add(n);
                         }
                     }
 
@@ -190,56 +216,11 @@ public class TourListOnline extends ListActivity {
 
         if (selection.contains(".zip")) {
 
-            if (selection.contains(" (Tour online)")) {
+            DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
 
-                String name = selection.substring(0,selection.length()-14);
+            task_zip.execute(url);
 
-                DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
-
-                task_zip.execute(url);
-
-                setResult(RESULT_CANCELED, i);
-
-            } else if (selection.contains(" (Karte online)")) {
-
-                String name = selection.substring(0, selection.length() - 15);
-
-                DownloadFileFromURL task_zip = new DownloadFileFromURL(name);
-
-                task_zip.execute(url);
-
-                setResult(RESULT_CANCELED, i);
-
-            } else if (selection.contains("mapnik")) {
-
-                Log.d("Installing map", ">" + path + "/" + selection + "<");
-
-                try {
-                    copy (path + "/" + selection, osmpath + "/Mapnik.zip");
-
-                } catch (IOException e) {
-
-                    Log.e("IO Error", e.toString());
-                }
-
-                setResult(RESULT_CANCELED, i);
-
-            } else {
-
-                String destination = "";
-
-                destination = path + "/" + selection.substring(0, selection.length()-4);
-
-                Log.d("Unzipping source     ", ">" + path + "/" + selection + "<");
-                Log.d("Unzipping destination", ">" + destination + "<");
-
-                Toast.makeText(this, "Unzipping " + selection + "... please wait,", Toast.LENGTH_LONG).show();
-
-                unzip (path + "/" + selection, destination);
-
-                setResult(RESULT_CANCELED, i);
-
-            }
+            setResult(RESULT_CANCELED, i);
 
         } else {
 
@@ -329,119 +310,5 @@ public class TourListOnline extends ListActivity {
             // Handle what you want to do if you cancel this task
         }
 
-    }
-
-    public void unzip (String zipFile, String location) {
-
-        int size;
-
-        int BUFFER_SIZE = 8192;
-
-        byte[] buffer = new byte[BUFFER_SIZE];
-
-        try {
-
-            if ( ! location.endsWith("/") ) {
-
-                location += "/";
-            }
-
-            File f = new File(location);
-
-            if (! f.isDirectory()) {
-
-                f.mkdirs();
-            }
-
-            ZipInputStream zin = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile), BUFFER_SIZE));
-
-            try {
-
-                ZipEntry ze = null;
-
-                while ((ze = zin.getNextEntry()) != null) {
-
-                    String path = location + ze.getName();
-                    File unzipFile = new File(path);
-
-                    if (ze.isDirectory()) {
-
-                        if(!unzipFile.isDirectory()) {
-
-                            unzipFile.mkdirs();
-                        }
-
-                    } else {
-
-                        // check for and create parent directories if they don't exist
-                        File parentDir = unzipFile.getParentFile();
-
-                        if ( null != parentDir ) {
-
-                            if ( !parentDir.isDirectory() ) {
-
-                                parentDir.mkdirs();
-                            }
-                        }
-
-                        // unzip the file
-                        FileOutputStream out = new FileOutputStream(unzipFile, false);
-
-                        BufferedOutputStream fout = new BufferedOutputStream(out, BUFFER_SIZE);
-
-                        try {
-
-                            while ( (size = zin.read(buffer, 0, BUFFER_SIZE)) != -1 ) {
-
-                                fout.write(buffer, 0, size);
-                            }
-
-                            zin.closeEntry();
-                        }
-
-                        finally {
-
-                            fout.flush();
-                            fout.close();
-                        }
-                    }
-                }
-            }
-
-            finally {
-
-                zin.close();
-
-                Log.d ("Unzipping", "finished");
-
-                Toast.makeText(this, "Unzipping finished", Toast.LENGTH_LONG).show();
-
-            }
-        }
-        catch (Exception e) {
-
-            Log.e ("Error", "Unzip exception", e);
-        }
-    }
-
-    public void copy (String src, String dst) throws IOException {
-
-        InputStream   in = new FileInputStream (new File (src));
-        OutputStream out = new FileOutputStream(new File (dst));
-
-        byte[] buf = new byte[1024];
-
-        int len;
-
-        while ((len = in.read(buf)) > 0) {
-
-            out.write(buf, 0, len);
-        }
-
-        in.close();
-        out.close();
-
-        Log.d("Filecopy", "Copying finished.");
-        Toast.makeText(this, "Copying finished", Toast.LENGTH_LONG).show();
     }
 }
