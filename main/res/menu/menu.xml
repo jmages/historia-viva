@@ -14,8 +14,8 @@
 
           android:title="@string/save_kml"/>
 
-    <item android:id="@+id/del_kml"
+    <item android:id="@+id/options"
 
-          android:title="@string/del_kml"/>
+          android:title="@string/options"/>
 
 </menu>

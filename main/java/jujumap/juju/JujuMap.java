@@ -21,9 +21,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -306,7 +303,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 return true;
 
-            case R.id.del_kml:
+            case R.id.options:
 
                 return true;
 
@@ -330,9 +327,9 @@ public class JujuMap extends Activity implements LocationListener {
             menu.findItem(R.id.save_kml).setEnabled(true);
         }
 
-        if (true) menu.findItem(R.id.del_kml).setEnabled(false);
+        if (true) menu.findItem(R.id.options).setEnabled(false);
         else {
-            menu.findItem(R.id.del_kml).setEnabled(true);
+            menu.findItem(R.id.options).setEnabled(true);
         }
 
         if (pois_kml.size() == 0) menu.findItem(R.id.show_pois).setEnabled(false);
@@ -368,7 +365,7 @@ public class JujuMap extends Activity implements LocationListener {
                 saxParser.parse(file, handler);
 
             } catch (ParserConfigurationException e) {
-                Log.e ("ParserConfigurationException", "poitrack.kml could not be read.");
+                Log.e ("ParserConfigurationEx", "poitrack.kml could not be read.");
             } catch (SAXException e) {
                 Log.e ("SAXException", "poitrack.kml could not be read.");
             } catch (IOException e) {

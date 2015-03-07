@@ -4,19 +4,19 @@
 
     <string name="app_name">historia-viva</string>
 
-    <string name="load_track">load KML</string>
+    <string name="load_track">Tour auswählen</string>
 
-    <string name="save_kml">save KML</string>
+    <string name="save_kml">Tour runterladen</string>
 
-    <string name="del_kml">del KML</string>
+    <string name="options">Optionen</string>
 
-    <string name="zoom_unchecked">autoZoom</string>
-    <string name="zoom_checked">autoZoom \u2714</string>
+    <string name="zoom_unchecked">Wo bin ich?</string>
+    <string name="zoom_checked">Wo bin ich? \u2714</string>
 
-    <string name="show_track_unchecked">show Track</string>
-    <string name="show_track_checked">show Track \u2714</string>
+    <string name="show_track_unchecked">Touransicht</string>
+    <string name="show_track_checked">Touransicht \u2714</string>
 
-    <string name="show_pois_unchecked">show POIs</string>
-    <string name="show_pois_checked">show POIs \u2714</string>
+    <string name="show_pois_unchecked">unused</string>
+    <string name="show_pois_checked">unused \u2714</string>
 
 </resources>
