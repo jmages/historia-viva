@@ -41,6 +41,8 @@ public class TourListOffline extends ListActivity {
 
     public static final int progress_bar_type = 0;
 
+    ListAdapter adapter;
+
     @Override
     public void onCreate (Bundle bundle) {
 
@@ -53,7 +55,7 @@ public class TourListOffline extends ListActivity {
 
         setContentView(R.layout.tour_view);
 
-        ListAdapter adapter = createAdapter();
+        adapter = createAdapter();
 
         setListAdapter(adapter);
     }
@@ -135,6 +137,10 @@ public class TourListOffline extends ListActivity {
                 unzip (path + "/" + selection, destination);
 
                 setResult(RESULT_CANCELED, i);
+
+                adapter = createAdapter();
+
+                setListAdapter(adapter);
             }
 
         } else {
