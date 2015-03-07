@@ -322,36 +322,14 @@ public class JujuMap extends Activity implements LocationListener {
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
 
-        if (track_kml.size() == 0) menu.findItem(R.id.show_track).setEnabled(false);
-        else {
-            menu.findItem(R.id.show_track).setEnabled(true);
-            menu.findItem(R.id.load_kml).setEnabled(true);
-        }
-
-        if (true) menu.findItem(R.id.save_kml).setEnabled(false);
-        else {
-            menu.findItem(R.id.save_kml).setEnabled(true);
-        }
-
-        if (true) menu.findItem(R.id.options).setEnabled(false);
-        else {
-            menu.findItem(R.id.options).setEnabled(true);
-        }
-
-        if (pois_kml.size() == 0) menu.findItem(R.id.show_pois).setEnabled(false);
-        else {
-            menu.findItem(R.id.show_pois).setEnabled(true);
-            menu.findItem(R.id.load_kml).setEnabled(true);
-        }
+        menu.findItem(R.id.show_track).setEnabled(true);
+        menu.findItem(R.id.load_kml).setEnabled(true);
+        menu.findItem(R.id.show_pois).setEnabled(true);
+        menu.findItem(R.id.save_kml).setEnabled(false);
+        menu.findItem(R.id.options).setEnabled(false);
 
         if (autoZoom)  menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_checked);
         else           menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_unchecked);
-
-        if (showTrack) menu.findItem(R.id.show_track).setTitle(R.string.show_track_checked);
-        else           menu.findItem(R.id.show_track).setTitle(R.string.show_track_unchecked);
-
-        if (showPois)  menu.findItem(R.id.show_pois).setTitle(R.string.show_pois_checked);
-        else           menu.findItem(R.id.show_pois).setTitle(R.string.show_pois_unchecked);
 
         return super.onPrepareOptionsMenu(menu);
     }

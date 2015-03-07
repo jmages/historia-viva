@@ -6,9 +6,13 @@
 
     <item android:id="@+id/auto_zoom"/>
 
-    <item android:id="@+id/show_track"/>
+    <item android:id="@+id/show_track"
 
-    <item android:id="@+id/show_pois"/>
+        android:title="@string/show_track"/>
+
+    <item android:id="@+id/show_pois"
+
+        android:title="@string/show_pois"/>
 
     <item android:id="@+id/save_kml"
 

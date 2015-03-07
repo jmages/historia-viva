@@ -88,6 +88,12 @@ public class TourListOffline extends ListActivity {
 
         if (valueList.size() == 0) {
 
+            Toast.makeText(this,
+                    "No Tours available - Please download them from the Internet!",
+                    Toast.LENGTH_LONG).show();
+
+            this.finish();
+
         }
 
         ListAdapter adapter = new ArrayAdapter <String> (

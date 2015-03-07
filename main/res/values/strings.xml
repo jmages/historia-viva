@@ -13,10 +13,8 @@
     <string name="zoom_unchecked">Wo bin ich?</string>
     <string name="zoom_checked">Wo bin ich? \u2714</string>
 
-    <string name="show_track_unchecked">Touransicht</string>
-    <string name="show_track_checked">Touransicht \u2714</string>
+    <string name="show_track">Touransicht</string>
 
-    <string name="show_pois_unchecked">Tour runterladen</string>
-    <string name="show_pois_checked">Tour runterladen \u2714</string>
+    <string name="show_pois">Tour runterladen</string>
 
 </resources>
