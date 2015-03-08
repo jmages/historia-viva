@@ -52,14 +52,14 @@ public class JujuMap extends Activity implements LocationListener {
     String trackName   = "";
     String trackfile   = "poitrack.kml";
     String osmDir      = "/osmdroid";
-    String mainDir     = osmDir + "/historia-viva/";
+    String tourDir     = osmDir + "/historia-viva/";
     String downloadUrl = "http://www.historia-viva.net/downloads/";
 
     File   sdcard;
 
     Boolean showPois  = false;
     Boolean showTrack = false;
-    Boolean autoZoom  = true;
+    Boolean autoZoom  = false;
 
     String   poiMapping      = "";
     GeoPoint currentLocation = new GeoPoint(49.598,11.005);
@@ -82,9 +82,9 @@ public class JujuMap extends Activity implements LocationListener {
     SharedPreferences.Editor editor;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate (Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
+        super.onCreate (savedInstanceState);
 
         settings = getSharedPreferences("preferences", MODE_PRIVATE);
 
@@ -101,7 +101,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         sdcard = Environment.getExternalStorageDirectory();
 
-        File dirs = new File(sdcard, mainDir);
+        File dirs = new File(sdcard, tourDir);
 
         if (! dirs.exists()) {
 
@@ -113,7 +113,7 @@ public class JujuMap extends Activity implements LocationListener {
             Intent intent = new Intent (this, TourListOnline.class);
 
             intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
-            intent.putExtra("path", new File(sdcard, mainDir).toString());
+            intent.putExtra("path", new File(sdcard, tourDir).toString());
             intent.putExtra("url" , downloadUrl);
 
             startActivityForResult (intent, 1234);
@@ -169,7 +169,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 Intent viewDoc = new Intent(Intent.ACTION_VIEW);
 
-                File file = new File(sdcard, mainDir + trackName + "/" + poiMapping + ".html");
+                File file = new File(sdcard, tourDir + trackName + "/" + poiMapping + ".html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
@@ -262,7 +262,7 @@ public class JujuMap extends Activity implements LocationListener {
                 Intent intent = new Intent (this, TourListOffline.class);
 
                 intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
-                intent.putExtra("path", new File(sdcard, mainDir).toString());
+                intent.putExtra("path", new File(sdcard, tourDir).toString());
                 intent.putExtra("url" , downloadUrl);
 
                 startActivityForResult (intent, 1234);
@@ -298,7 +298,7 @@ public class JujuMap extends Activity implements LocationListener {
                 Intent intent2 = new Intent (this, TourListOnline.class);
 
                 intent2.putExtra("osmpath", new File(sdcard, osmDir).toString());
-                intent2.putExtra("path", new File(sdcard, mainDir).toString());
+                intent2.putExtra("path", new File(sdcard, tourDir).toString());
                 intent2.putExtra("url" , downloadUrl);
 
                 startActivityForResult (intent2, 1234);
@@ -336,7 +336,7 @@ public class JujuMap extends Activity implements LocationListener {
 
     private void loadKML() {
 
-        File file = new File(sdcard, mainDir + trackName + "/" + trackfile);
+        File file = new File(sdcard, tourDir + trackName + "/" + trackfile);
 
         if (file.exists()) {
 
