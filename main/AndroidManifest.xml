@@ -23,9 +23,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TourListOnline"></activity>
+        <activity
+            android:name=".TourListOnline"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
+        </activity>
 
-        <activity android:name=".TourListOffline"></activity>
+        <activity
+            android:name=".TourListOffline"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
+        </activity>
 
     </application>
 
