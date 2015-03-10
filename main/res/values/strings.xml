@@ -5,16 +5,15 @@
     <string name="app_name">historia-viva</string>
 
     <string name="select_tour">Tour auswählen</string>
-
     <string name="zoom_unchecked">Wo bin ich?</string>
     <string name="zoom_checked">Wo bin ich? \u2714</string>
-
     <string name="show_tour">Touransicht</string>
-
     <string name="download_tour">Tour runterladen</string>
-
     <string name="unused">unbenützt</string>
-
     <string name="options">Optionen</string>
+
+    <string name="toast_new_tour">Neue Tour:</string>
+    <string name="toast_no_browser">Kein Webbrowser verfügbar!</string>
+    <string name="toast_no_offline_tours">Keine Tour verfügbar - bitte aus dem Internet herunterladen</string>
 
 </resources>

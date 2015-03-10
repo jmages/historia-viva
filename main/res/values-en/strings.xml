@@ -8,4 +8,7 @@
     <string name="zoom_unchecked">where am I?</string>
     <string name="download_tour">download tour</string>
     <string name="show_tour">show tour</string>
+    <string name="toast_new_tour">New tour:</string>
+    <string name="toast_no_browser">No HTML-Browser found!</string>
+    <string name="toast_no_offline_tours">No Tours available - Please download them from the Internet!</string>
 </resources>

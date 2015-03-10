@@ -185,7 +185,7 @@ public class JujuMap extends Activity implements LocationListener {
                 } else {
 
                     Toast.makeText(JujuMap.this,
-                            "No HTML-Browser found!",
+                            getString(R.string.toast_no_browser),
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -247,7 +247,7 @@ public class JujuMap extends Activity implements LocationListener {
                 //mapController.setZoom(12);
                 mapController.setCenter(currentLocation);
 
-                Toast.makeText(this, "New Tour: " + zData, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_new_tour) + trackName, Toast.LENGTH_LONG).show();
             }
         }
     }
