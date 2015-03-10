@@ -1,22 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/load_kml"
+    <item android:id="@+id/select_tour"
 
-        android:title="@string/load_track"/>
+        android:title="@string/select_tour"/>
 
     <item android:id="@+id/auto_zoom"/>
 
-    <item android:id="@+id/show_track"
+    <item android:id="@+id/show_tour"
 
-        android:title="@string/show_track"/>
+        android:title="@string/show_tour"/>
 
-    <item android:id="@+id/show_pois"
+    <item android:id="@+id/download_tour"
 
-        android:title="@string/show_pois"/>
+        android:title="@string/download_tour"/>
 
-    <item android:id="@+id/save_kml"
+    <item android:id="@+id/unused"
 
-          android:title="@string/save_kml"/>
+          android:title="@string/unused"/>
 
     <item android:id="@+id/options"
 

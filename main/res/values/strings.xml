@@ -4,17 +4,17 @@
 
     <string name="app_name">historia-viva</string>
 
-    <string name="load_track">Tour auswählen</string>
-
-    <string name="save_kml">unbenützt</string>
-
-    <string name="options">Optionen</string>
+    <string name="select_tour">Tour auswählen</string>
 
     <string name="zoom_unchecked">Wo bin ich?</string>
     <string name="zoom_checked">Wo bin ich? \u2714</string>
 
-    <string name="show_track">Touransicht</string>
+    <string name="show_tour">Touransicht</string>
 
-    <string name="show_pois">Tour runterladen</string>
+    <string name="download_tour">Tour runterladen</string>
+
+    <string name="unused">unbenützt</string>
+
+    <string name="options">Optionen</string>
 
 </resources>

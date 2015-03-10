@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">historia-viva</string>
-    <string name="load_track">select tour</string>
+    <string name="select_tour">select tour</string>
     <string name="options">options</string>
-    <string name="save_kml">unused</string>
+    <string name="unused">unused</string>
     <string name="zoom_checked">where am I? \u2714</string>
     <string name="zoom_unchecked">where am I?</string>
-    <string name="show_pois">download tour</string>
-    <string name="show_track">show tour</string>
+    <string name="download_tour">download tour</string>
+    <string name="show_tour">show tour</string>
 </resources>

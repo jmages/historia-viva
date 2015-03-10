@@ -257,7 +257,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         switch (item.getItemId()) {
 
-            case R.id.load_kml:
+            case R.id.select_tour:
 
                 Intent intent = new Intent (this, TourListOffline.class);
 
@@ -287,13 +287,13 @@ public class JujuMap extends Activity implements LocationListener {
 
                 return true;
 
-            case R.id.show_track:
+            case R.id.show_tour:
 
                 mapView.zoomToBoundingBox(track_kml.get_bBox());
 
                 return true;
 
-            case R.id.show_pois:
+            case R.id.download_tour:
 
                 Intent intent2 = new Intent (this, TourListOnline.class);
 
@@ -305,7 +305,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 return true;
 
-            case R.id.save_kml:
+            case R.id.unused:
 
                 return true;
 
@@ -322,14 +322,15 @@ public class JujuMap extends Activity implements LocationListener {
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
 
-        menu.findItem(R.id.show_track).setEnabled(true);
-        menu.findItem(R.id.load_kml).setEnabled(true);
-        menu.findItem(R.id.show_pois).setEnabled(true);
-        menu.findItem(R.id.save_kml).setEnabled(false);
-        menu.findItem(R.id.options).setEnabled(false);
+        menu.findItem(R.id.select_tour).setEnabled(true);
 
         if (autoZoom)  menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_checked);
         else           menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_unchecked);
+
+        menu.findItem(R.id.show_tour).setEnabled(true);
+        menu.findItem(R.id.download_tour).setEnabled(true);
+        menu.findItem(R.id.unused).setEnabled(false);
+        menu.findItem(R.id.options).setEnabled(false);
 
         return super.onPrepareOptionsMenu(menu);
     }
