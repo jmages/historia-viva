@@ -47,8 +47,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class JujuMap extends Activity implements LocationListener {
 
-    SharedPreferences settings;
-
     String trackName   = "";
     String countryCode = "";
     String trackfile   = "poitrack.kml";
@@ -58,8 +56,6 @@ public class JujuMap extends Activity implements LocationListener {
 
     File   sdcard;
 
-    Boolean showPois  = false;
-    Boolean showTrack = false;
     Boolean autoZoom  = false;
 
     String   poiMapping      = "";
@@ -80,6 +76,7 @@ public class JujuMap extends Activity implements LocationListener {
 
     static final String TAG = JujuMap.class.getName();
 
+    SharedPreferences settings;
     SharedPreferences.Editor editor;
 
     @Override
@@ -94,6 +91,11 @@ public class JujuMap extends Activity implements LocationListener {
         if (settings.contains("trackName")) {
 
             trackName = settings.getString("trackName", trackName);
+        }
+
+        if (settings.contains("countryCode")) {
+
+            countryCode = settings.getString("countryCode", countryCode);
         }
 
         File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
@@ -111,7 +113,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         if (trackName.equals("")) {
 
-            Intent intent = new Intent (this, TourListOnline.class);
+            Intent intent = new Intent (this, TourListOffline.class);
 
             intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
             intent.putExtra("path", new File(sdcard, tourDir).toString());
@@ -230,10 +232,11 @@ public class JujuMap extends Activity implements LocationListener {
 
                 trackName = zData;
 
-                editor.putString("trackName", trackName);
-                editor.commit();
-
                 countryCode = trackName.substring(trackName.length()-8,trackName.length()-6);
+
+                editor.putString("trackName", trackName);
+                editor.putString("countryCode", countryCode);
+                editor.commit();
 
                 mapView.getOverlays().remove(track_kml_Overlay);
                 mapView.getOverlays().remove(poi_kml_Overlay);
