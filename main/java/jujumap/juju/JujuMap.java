@@ -50,6 +50,7 @@ public class JujuMap extends Activity implements LocationListener {
     SharedPreferences settings;
 
     String trackName   = "";
+    String countryCode = "";
     String trackfile   = "poitrack.kml";
     String osmDir      = "/osmdroid";
     String tourDir     = osmDir + "/historia-viva/";
@@ -225,10 +226,14 @@ public class JujuMap extends Activity implements LocationListener {
 
                 final String zData = pData.getExtras().getString( "newPath" );
 
+                // benjamin_de_v0020
+
                 trackName = zData;
 
                 editor.putString("trackName", trackName);
                 editor.commit();
+
+                countryCode = trackName.substring(trackName.length()-8,trackName.length()-6);
 
                 mapView.getOverlays().remove(track_kml_Overlay);
                 mapView.getOverlays().remove(poi_kml_Overlay);
@@ -400,7 +405,7 @@ public class JujuMap extends Activity implements LocationListener {
                             item.getSnippet()
             ));
 
-            poiMapping = item.getUid() + "de";
+            poiMapping = item.getUid() + countryCode;
 
             alert.show();
 
