@@ -142,17 +142,24 @@ public class JujuMap extends Activity implements LocationListener {
             intent.putExtra("url" , downloadUrl);
 
             startActivityForResult (intent, 1234);
+
+        } else {
+
+            loadKML();
+
+            currentLocation = track_kml.get_bBox().getCenter();
+
+            mapView.getOverlays().add(track_kml_Overlay);
+            mapView.getOverlays().add(poi_kml_Overlay);
+
+            mapController.setZoom(12);
+            mapController.setCenter(currentLocation);
         }
 
-        loadKML();
+        setupAlert();
+    }
 
-        currentLocation = track_kml.get_bBox().getCenter();
-
-        mapView.getOverlays().add(track_kml_Overlay);
-        mapView.getOverlays().add(poi_kml_Overlay);
-
-        mapController.setZoom(12);
-        mapController.setCenter(currentLocation);
+    private void setupAlert() {
 
         alert = new AlertDialog.Builder(this);
 
@@ -178,7 +185,7 @@ public class JujuMap extends Activity implements LocationListener {
 
                 PackageManager pm = getPackageManager();
 
-                List <ResolveInfo> apps =
+                List<ResolveInfo> apps =
                         pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
 
                 if (apps.size() > 0) {
