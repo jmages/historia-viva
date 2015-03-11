@@ -88,16 +88,6 @@ public class JujuMap extends Activity implements LocationListener {
 
         editor = settings.edit();
 
-        if (settings.contains("trackName")) {
-
-            trackName = settings.getString("trackName", trackName);
-        }
-
-        if (settings.contains("countryCode")) {
-
-            countryCode = settings.getString("countryCode", countryCode);
-        }
-
         File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
 
         Log.d ("osmdroid path", osmdroid_path.toString());
@@ -109,6 +99,16 @@ public class JujuMap extends Activity implements LocationListener {
         if (! dirs.exists()) {
 
             dirs.mkdirs();
+        }
+
+        if (settings.contains("trackName")) {
+
+            trackName = settings.getString("trackName", trackName);
+        }
+
+        if (settings.contains("countryCode")) {
+
+            countryCode = settings.getString("countryCode", countryCode);
         }
 
         if (trackName.equals("")) {
