@@ -101,6 +101,28 @@ public class JujuMap extends Activity implements LocationListener {
             dirs.mkdirs();
         }
 
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
+
+        setContentView(R.layout.main);
+
+        mapView = (MapView) findViewById(R.id.mapview);
+
+        // Change offline-Tilesource directory name when choosing different source than Mapnik
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
+
+        mapView.setBuiltInZoomControls(true);
+        mapView.setMultiTouchControls(true);
+
+        mapView.setUseDataConnection(true);
+
+        mapController = mapView.getController();
+
+        locationOverlay = new SimpleLocationOverlay(this);
+        mapView.getOverlays().add(locationOverlay);
+
+        mapView.getOverlays().add(new ScaleBarOverlay(this));
+
         if (settings.contains("trackName")) {
 
             trackName = settings.getString("trackName", trackName);
@@ -126,33 +148,11 @@ public class JujuMap extends Activity implements LocationListener {
 
         currentLocation = track_kml.get_bBox().getCenter();
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
-
-        setContentView(R.layout.main);
-
-        mapView = (MapView) findViewById(R.id.mapview);
-
-        // Change offline-Tilesource directory name when choosing different source than Mapnik
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-
         mapView.getOverlays().add(track_kml_Overlay);
         mapView.getOverlays().add(poi_kml_Overlay);
 
-        mapView.setBuiltInZoomControls(true);
-        mapView.setMultiTouchControls(true);
-
-        mapView.setUseDataConnection(true);
-
-	    mapController = mapView.getController();
-
         mapController.setZoom(12);
         mapController.setCenter(currentLocation);
-
-        locationOverlay = new SimpleLocationOverlay(this);
-	    mapView.getOverlays().add(locationOverlay);
-
-        mapView.getOverlays().add(new ScaleBarOverlay(this));
 
         alert = new AlertDialog.Builder(this);
 
