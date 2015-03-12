@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
@@ -82,6 +83,8 @@ public class JujuMap extends Activity implements LocationListener {
     public void onCreate (Bundle savedInstanceState) {
 
         super.onCreate (savedInstanceState);
+
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         settings = getSharedPreferences("preferences", MODE_PRIVATE);
 
