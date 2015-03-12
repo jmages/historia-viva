@@ -245,26 +245,31 @@ public class JujuMap extends Activity implements LocationListener {
                 editor.putString("countryCode", countryCode);
                 editor.commit();
 
-                mapView.getOverlays().remove(track_kml_Overlay);
-                mapView.getOverlays().remove(poi_kml_Overlay);
-
-                track_kml = new Track();
-                pois_kml  = new POIs();
-
-                loadKML();
-
-                mapView.getOverlays().add(track_kml_Overlay);
-                mapView.getOverlays().add(poi_kml_Overlay);
-
-                currentLocation = track_kml.get_bBox().getCenter();
-
-                mapView.zoomToBoundingBox(track_kml.get_bBox());
-                //mapController.setZoom(12);
-                mapController.setCenter(currentLocation);
-
-                Toast.makeText(this, getString(R.string.toast_new_tour) + trackName, Toast.LENGTH_LONG).show();
+                initTour();
             }
         }
+    }
+
+    private void initTour() {
+
+        mapView.getOverlays().remove(track_kml_Overlay);
+        mapView.getOverlays().remove(poi_kml_Overlay);
+
+        track_kml = new Track();
+        pois_kml  = new POIs();
+
+        loadKML();
+
+        currentLocation = track_kml.get_bBox().getCenter();
+
+        mapView.getOverlays().add(track_kml_Overlay);
+        mapView.getOverlays().add(poi_kml_Overlay);
+
+        mapView.zoomToBoundingBox(track_kml.get_bBox());
+        //mapController.setZoom(12);
+        mapController.setCenter(currentLocation);
+
+        Toast.makeText(this, getString(R.string.toast_new_tour) + trackName, Toast.LENGTH_LONG).show();
     }
 
     @Override
