@@ -238,10 +238,13 @@ public class TourListOffline extends ListActivity {
 
                 zin.close();
 
+                File file = new File(zipFile);
+
+                file.delete();
+
                 Log.d ("Unzipping", "finished");
 
                 Toast.makeText(this, "Unzipping finished", Toast.LENGTH_LONG).show();
-
             }
         }
         catch (Exception e) {
