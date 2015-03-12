@@ -49,6 +49,7 @@ public class JujuMap extends Activity implements LocationListener {
 
     String trackName   = "";
     String countryCode = "";
+    int zoomLevel      = 12;
     String trackfile   = "poitrack.kml";
     String osmDir      = "/osmdroid";
     String tourDir     = osmDir + "/historia-viva/";
@@ -74,8 +75,6 @@ public class JujuMap extends Activity implements LocationListener {
 
     AlertDialog.Builder alert;
 
-    static final String TAG = JujuMap.class.getName();
-
     SharedPreferences settings;
     SharedPreferences.Editor editor;
 
@@ -90,15 +89,8 @@ public class JujuMap extends Activity implements LocationListener {
 
         initOsmdroid();
 
-        if (settings.contains("trackName")) {
-
-            trackName = settings.getString("trackName", trackName);
-        }
-
-        if (settings.contains("countryCode")) {
-
-            countryCode = settings.getString("countryCode", countryCode);
-        }
+        trackName   = settings.getString("trackName"  , trackName  );
+        countryCode = settings.getString("countryCode", countryCode);
 
         if (trackName.equals("")) {
 
@@ -114,12 +106,15 @@ public class JujuMap extends Activity implements LocationListener {
 
             loadKML();
 
-            currentLocation = track_kml.get_bBox().getCenter();
-
             mapView.getOverlays().add(track_kml_Overlay);
             mapView.getOverlays().add(poi_kml_Overlay);
 
-            mapController.setZoom(12);
+            zoomLevel = settings.getInt("zoomLevel"  , zoomLevel);
+
+            currentLocation.setLatitudeE6 (settings.getInt("latitudeE6" , currentLocation.getLatitudeE6 ()));
+            currentLocation.setLongitudeE6(settings.getInt("longitudeE6", currentLocation.getLongitudeE6()));
+
+            mapController.setZoom(zoomLevel);
             mapController.setCenter(currentLocation);
         }
 
@@ -456,26 +451,45 @@ public class JujuMap extends Activity implements LocationListener {
 
             case LocationProvider.OUT_OF_SERVICE:
 
-                Log.d (TAG, "LocationProvider: " + provider + " OUT_OF_SERVICE");
+                Log.d ("onStatusChanged", "LocationProvider: " + provider + " OUT_OF_SERVICE");
 
                 return;
 
             case LocationProvider.TEMPORARILY_UNAVAILABLE:
 
-                Log.d (TAG, "LocationProvider " + provider + " TEMPORARILY_UNAVAILABLE");
+                Log.d ("onStatusChanged", "LocationProvider " + provider + " TEMPORARILY_UNAVAILABLE");
 
                 return;
 
             case LocationProvider.AVAILABLE:
 
-                Log.d (TAG, "LocationProvider " + provider + " UNAVAILABLE");
+                Log.d ("onStatusChanged", "LocationProvider " + provider + " UNAVAILABLE");
 
                 return;
 
             default:
 
-                Log.d (TAG, "LocationProvider " + provider + " unknown status: " + status);
+                Log.d ("onStatusChanged", "LocationProvider " + provider + " unknown status: " + status);
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        int zoomLevel = mapView.getZoomLevel();
+
+        GeoPoint center = mapView.getBoundingBox().getCenter();
+
+        int latitudeE6  = center.getLatitudeE6();
+        int longitudeE6 = center.getLongitudeE6();
+
+        editor.putInt("zoomLevel", zoomLevel);
+        editor.putInt("latitudeE6",  latitudeE6 );
+        editor.putInt("longitudeE6", longitudeE6);
+
+        editor.commit();
+
+        super.onDestroy();
     }
 }
