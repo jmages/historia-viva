@@ -88,40 +88,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         editor = settings.edit();
 
-        File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
-
-        Log.d ("osmdroid path", osmdroid_path.toString());
-
-        sdcard = Environment.getExternalStorageDirectory();
-
-        File dirs = new File(sdcard, tourDir);
-
-        if (! dirs.exists()) {
-
-            dirs.mkdirs();
-        }
-
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
-
-        setContentView(R.layout.main);
-
-        mapView = (MapView) findViewById(R.id.mapview);
-
-        // Change offline-Tilesource directory name when choosing different source than Mapnik
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-
-        mapView.setBuiltInZoomControls(true);
-        mapView.setMultiTouchControls(true);
-
-        mapView.setUseDataConnection(true);
-
-        mapController = mapView.getController();
-
-        locationOverlay = new SimpleLocationOverlay(this);
-        mapView.getOverlays().add(locationOverlay);
-
-        mapView.getOverlays().add(new ScaleBarOverlay(this));
+        initOsmdroid();
 
         if (settings.contains("trackName")) {
 
@@ -157,6 +124,44 @@ public class JujuMap extends Activity implements LocationListener {
         }
 
         setupAlert();
+    }
+
+    private void initOsmdroid() {
+
+        File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
+
+        Log.d ("osmdroid path", osmdroid_path.toString());
+
+        sdcard = Environment.getExternalStorageDirectory();
+
+        File dirs = new File(sdcard, tourDir);
+
+        if (! dirs.exists()) {
+
+            dirs.mkdirs();
+        }
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
+
+        setContentView(R.layout.main);
+
+        mapView = (MapView) findViewById(R.id.mapview);
+
+        // Change offline-Tilesource directory name when choosing different source than Mapnik
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
+
+        mapView.setBuiltInZoomControls(true);
+        mapView.setMultiTouchControls(true);
+
+        mapView.setUseDataConnection(true);
+
+        mapController = mapView.getController();
+
+        locationOverlay = new SimpleLocationOverlay(this);
+        mapView.getOverlays().add(locationOverlay);
+
+        mapView.getOverlays().add(new ScaleBarOverlay(this));
     }
 
     private void setupAlert() {
@@ -224,24 +229,19 @@ public class JujuMap extends Activity implements LocationListener {
     }
 
     @Override
-    protected void onActivityResult (
-        int requestCode,
-        int resultCode,
-        Intent pData) {
+    protected void onActivityResult (int requestCode, int resultCode, Intent pData) {
 
         if ( requestCode == 1234 ) {
 
             if (resultCode == Activity.RESULT_OK ) {
 
-                final String zData = pData.getExtras().getString( "newPath" );
-
                 // benjamin_de_v0020
 
-                trackName = zData;
+                trackName = pData.getExtras().getString( "newPath" );
 
                 countryCode = trackName.substring(trackName.length()-8,trackName.length()-6);
 
-                editor.putString("trackName", trackName);
+                editor.putString("trackName"  , trackName);
                 editor.putString("countryCode", countryCode);
                 editor.commit();
 
