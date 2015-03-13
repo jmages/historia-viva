@@ -84,7 +84,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         super.onCreate (savedInstanceState);
 
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         settings = getSharedPreferences("preferences", MODE_PRIVATE);
 
