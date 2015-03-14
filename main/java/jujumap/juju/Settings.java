@@ -12,13 +12,8 @@ public class Settings extends PreferenceActivity {
 
         super.onCreate(savedInstanceState);
 
-        //getPreferenceManager().setSharedPreferencesName("MyPrefs");
-        //getPreferenceManager().setSharedPreferencesMode(MODE_WORLD_WRITEABLE);
-        //getSharedPreferences("preferences", MODE_PRIVATE);
-
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         addPreferencesFromResource(R.xml.preferences);
-
     }
 }
