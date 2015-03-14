@@ -42,12 +42,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.PreferenceChangeEvent;
+import java.util.prefs.PreferenceChangeListener;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-public class JujuMap extends Activity implements LocationListener {
+public class JujuMap extends Activity implements LocationListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     String trackName   = "";
     String countryCode = "";
@@ -87,7 +89,9 @@ public class JujuMap extends Activity implements LocationListener {
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        editor = settings.edit();
+        settings.registerOnSharedPreferenceChangeListener(this);
+
+        editor   = settings.edit();
 
         initOsmdroid();
 
@@ -476,6 +480,12 @@ public class JujuMap extends Activity implements LocationListener {
                 Log.d ("onStatusChanged", "LocationProvider " + provider + " unknown status: " + status);
 
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+
+        Log.d("PreferenceChanged", s);
     }
 
     @Override
