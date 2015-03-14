@@ -11,10 +11,10 @@
     <string name="toast_new_tour">New tour:</string>
     <string name="toast_no_browser">No HTML-Browser found!</string>
     <string name="toast_no_offline_tours">No Tours available - Please download them from the Internet!</string>
-    <string name="downloading_please_wait">Downloading file ... Please wait!</string>
+    <string name="downloading_please_wait">Downloading file … Please wait!</string>
     <string name="toast_copying_finished">Copying finished.</string>
     <string name="toast_please_connect">Please connect to the Internet.</string>
     <string name="toast_unzipping_1">Unzipping of</string>
-    <string name="toast_unzipping_2">... please wait.</string>
+    <string name="toast_unzipping_2">… please wait.</string>
     <string name="toast_unzipping_finished">Unzipping finished.</string>
 </resources>
