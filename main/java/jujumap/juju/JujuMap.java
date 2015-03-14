@@ -85,8 +85,6 @@ public class JujuMap extends Activity implements LocationListener {
 
         super.onCreate (savedInstanceState);
 
-        // this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         editor = settings.edit();
@@ -95,11 +93,6 @@ public class JujuMap extends Activity implements LocationListener {
 
         trackName   = settings.getString("trackName"  , trackName  );
         countryCode = settings.getString("countryCode", countryCode);
-
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //String username = prefs.getString("username", "Default NickName";
 
         if (trackName.equals("")) {
 
