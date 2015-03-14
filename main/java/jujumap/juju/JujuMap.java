@@ -100,8 +100,8 @@ public class JujuMap extends Activity implements LocationListener {
             Intent intent = new Intent (this, TourListOffline.class);
 
             intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
-            intent.putExtra("path", new File(sdcard, tourDir).toString());
-            intent.putExtra("url" , downloadUrl);
+            intent.putExtra("path"   , new File(sdcard, tourDir).toString());
+            intent.putExtra("url"    , downloadUrl);
 
             startActivityForResult (intent, 1234);
 
@@ -480,7 +480,7 @@ public class JujuMap extends Activity implements LocationListener {
     @Override
     protected void onDestroy() {
 
-        int zoomLevel = mapView.getZoomLevel();
+        int zoomLevel   = mapView.getZoomLevel();
 
         GeoPoint center = mapView.getBoundingBox().getCenter();
 
