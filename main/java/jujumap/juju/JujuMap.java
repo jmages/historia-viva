@@ -329,6 +329,8 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.options:
 
+                startActivity (new Intent (this, Settings.class));
+
                 return true;
 
             default:
@@ -348,7 +350,7 @@ public class JujuMap extends Activity implements LocationListener {
         menu.findItem(R.id.show_tour).setEnabled(true);
         menu.findItem(R.id.download_tour).setEnabled(true);
         menu.findItem(R.id.unused).setEnabled(false);
-        menu.findItem(R.id.options).setEnabled(false);
+        menu.findItem(R.id.options).setEnabled(true);
 
         return super.onPrepareOptionsMenu(menu);
     }

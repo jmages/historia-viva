@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="Map Settings"
+            android:key="map_settings">
+
+        <CheckBoxPreference
+                android:title="POI visibility"
+                android:key="poi_visibility"
+                android:summary="Show or hide POIs"
+                android:defaultValue="true"
+                />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="Extended Settings"
+            android:key="extended_settings">
+
+        <EditTextPreference
+                android:title="Download Server URL"
+                android:key="download_server_url"
+                android:summary="Editthe Download Server URL"
+                android:dialogTitle="Welcome Message"
+                android:dialogMessage="Provide a message"
+                android:defaultValue="http://www.historia-viva.net/downloads" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
