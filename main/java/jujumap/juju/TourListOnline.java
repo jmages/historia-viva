@@ -231,11 +231,11 @@ public class TourListOnline extends ListActivity {
 
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
 
-        String name = "";
+        String fileName = "";
 
-        public DownloadFileFromURL (String name) {
+        public DownloadFileFromURL (String fileName) {
 
-            this.name = name;
+            this.fileName = fileName;
         }
 
         @Override
@@ -253,9 +253,9 @@ public class TourListOnline extends ListActivity {
 
             try {
 
-                Log.d ("Downloading", f_url[0] + name);
+                Log.d ("Downloading", f_url[0] + fileName);
 
-                URL url = new URL(f_url[0] + name);
+                URL url = new URL (f_url[0] + fileName);
 
                 URLConnection conection = url.openConnection();
 
@@ -263,10 +263,9 @@ public class TourListOnline extends ListActivity {
 
                 int lenghtOfFile = conection.getContentLength();
 
-                InputStream input = new BufferedInputStream(url.openStream(),
-                        8192);
+                InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
-                OutputStream output = new FileOutputStream(path + "/" + name);
+                OutputStream output = new FileOutputStream(path + "/" + fileName);
 
                 byte data[] = new byte[1024];
 
