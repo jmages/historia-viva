@@ -1,5 +1,6 @@
 package jujumap.juju;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -217,7 +218,7 @@ public class TourListOnline extends ListActivity {
         if (selectedFileName.contains(".zip")) {
 
             DownloadFileFromURL downloadFileFromURL =
-                    new DownloadFileFromURL(selectedFileName);
+                    new DownloadFileFromURL(selectedFileName, this);
 
             downloadFileFromURL.execute(url);
 
@@ -231,11 +232,13 @@ public class TourListOnline extends ListActivity {
 
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
 
+        private Activity caller;
         String fileName = "";
 
-        public DownloadFileFromURL (String fileName) {
+        public DownloadFileFromURL (String fileName, Activity caller) {
 
             this.fileName = fileName;
+            this.caller   = caller;
         }
 
         @Override
@@ -247,7 +250,7 @@ public class TourListOnline extends ListActivity {
         }
 
         @Override
-        protected String doInBackground(String... f_url) {
+        protected String doInBackground (String... f_url) {
 
             int count;
 
@@ -298,16 +301,19 @@ public class TourListOnline extends ListActivity {
         }
 
         @Override
-        protected void onPostExecute(String file_url) {
+        protected void onPostExecute(String result) {
+
+            Log.d("onPostExecute: ", "download finished ");
 
             dismissDialog(progress_bar_type);
 
+            caller.finish();
         }
 
         @Override
         protected void onCancelled(){
 
-            // Handle what you want to do if you cancel this task
+            Log.d("onCancelled: ", "download cancelled");
         }
 
     }
