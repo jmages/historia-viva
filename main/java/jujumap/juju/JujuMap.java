@@ -17,6 +17,7 @@ import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -86,7 +87,7 @@ public class JujuMap extends Activity implements LocationListener {
 
         // this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        settings = getSharedPreferences("preferences", MODE_PRIVATE);
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         editor = settings.edit();
 
@@ -94,6 +95,11 @@ public class JujuMap extends Activity implements LocationListener {
 
         trackName   = settings.getString("trackName"  , trackName  );
         countryCode = settings.getString("countryCode", countryCode);
+
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //String username = prefs.getString("username", "Default NickName";
 
         if (trackName.equals("")) {
 
@@ -329,7 +335,7 @@ public class JujuMap extends Activity implements LocationListener {
 
             case R.id.options:
 
-                startActivity (new Intent (this, Settings.class));
+                startActivity(new Intent(this, Settings.class));
 
                 return true;
 
