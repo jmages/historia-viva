@@ -206,25 +206,26 @@ public class TourListOnline extends ListActivity {
     }
 
     @Override
-    protected void onListItemClick (ListView l, View v, int position, long id) {
+    protected void onListItemClick (ListView listView, View v, int position, long id) {
 
-        String selection = l.getItemAtPosition(position).toString();
+        String selectedFileName = listView.getItemAtPosition(position).toString();
 
-        Intent i = new Intent();
+        Intent intent = new Intent();
 
-        i.putExtra ("newPath", selection);
+        intent.putExtra("newPath", selectedFileName);
 
-        if (selection.contains(".zip")) {
+        if (selectedFileName.contains(".zip")) {
 
-            DownloadFileFromURL task_zip = new DownloadFileFromURL(selection);
+            DownloadFileFromURL downloadFileFromURL =
+                    new DownloadFileFromURL(selectedFileName);
 
-            task_zip.execute(url);
+            downloadFileFromURL.execute(url);
 
-            setResult(RESULT_CANCELED, i);
+            setResult(RESULT_CANCELED, intent);
 
         } else {
 
-            setResult(RESULT_OK, i);
+            setResult(RESULT_OK, intent);
         }
     }
 
