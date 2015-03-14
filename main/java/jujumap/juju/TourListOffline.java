@@ -138,7 +138,8 @@ public class TourListOffline extends ListActivity {
                 Log.d("Unzipping source     ", ">" + path + "/" + selection + "<");
                 Log.d("Unzipping destination", ">" + destination + "<");
 
-                Toast.makeText(this, "Unzipping " + selection + "... please wait,", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_unzipping_1) + selection + getString(R.string.toast_unzipping_2),
+                        Toast.LENGTH_LONG).show();
 
                 unzip (path + "/" + selection, destination);
 
@@ -244,7 +245,7 @@ public class TourListOffline extends ListActivity {
 
                 Log.d ("Unzipping", "finished");
 
-                Toast.makeText(this, "Unzipping finished", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_unzipping_finished), Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e) {
@@ -271,6 +272,7 @@ public class TourListOffline extends ListActivity {
         out.close();
 
         Log.d("Filecopy", "Copying finished.");
-        Toast.makeText(this, "Copying finished", Toast.LENGTH_LONG).show();
+
+        Toast.makeText(this, getString(R.string.toast_copying_finished), Toast.LENGTH_LONG).show();
     }
 }

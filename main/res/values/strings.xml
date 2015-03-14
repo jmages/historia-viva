@@ -15,5 +15,11 @@
     <string name="toast_new_tour">Neue Tour:</string>
     <string name="toast_no_browser">Kein Webbrowser verfügbar!</string>
     <string name="toast_no_offline_tours">Keine Tour verfügbar - bitte aus dem Internet herunterladen</string>
+    <string name="toast_unzipping_1">Entpacken von </string>
+    <string name="toast_unzipping_2"> ... Bitte warten.</string>
+    <string name="toast_unzipping_finished">Entpacken beendet.</string>
+    <string name="toast_copying_finished">Kopieren beendet.</string>
+    <string name="toast_please_connect">Bitte mit dem Internet verbinden.</string>
+    <string name="downloading_please_wait">Datei wird heruntergeladen. Bitte warten!</string>
 
 </resources>

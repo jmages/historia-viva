@@ -60,7 +60,7 @@ public class TourListOnline extends ListActivity {
         } else {
 
             Toast.makeText(this,
-                    "Please connect to the Internet!",
+                    getString(R.string.toast_please_connect),
                     Toast.LENGTH_LONG).show();
 
             this.finish();
@@ -190,7 +190,7 @@ public class TourListOnline extends ListActivity {
 
                 pDialog = new ProgressDialog(this);
 
-                pDialog.setMessage("Downloading file. Please wait...");
+                pDialog.setMessage(getString(R.string.downloading_please_wait));
                 pDialog.setIndeterminate(false);
                 pDialog.setMax(100);
                 pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
