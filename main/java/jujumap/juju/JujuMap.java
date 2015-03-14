@@ -51,13 +51,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class JujuMap extends Activity implements LocationListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    String trackName   = "";
-    String countryCode = "";
-    int zoomLevel      = 12;
-    String trackfile   = "poitrack.kml";
-    String osmDir      = "/osmdroid";
-    String tourDir     = osmDir + "/historia-viva/";
-    String downloadUrl = "http://www.historia-viva.net/downloads/";
+    String trackName       = "";
+    String countryCode     = "";
+    int zoomLevel          = 12;
+    String trackfile       = "poitrack.kml";
+    String osmDir          = "/osmdroid";
+    String tourDir         = osmDir + "/historia-viva/";
+    String downloadUrl     = "http://www.historia-viva.net/downloads/";
+    Boolean showPois       = true;
 
     File   sdcard;
 
@@ -95,8 +96,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         initOsmdroid();
 
-        trackName   = settings.getString("trackName"  , trackName  );
-        countryCode = settings.getString("countryCode", countryCode);
+        trackName   = settings.getString ("trackName"  , trackName  );
+        countryCode = settings.getString ("countryCode", countryCode);
+        showPois    = settings.getBoolean("showPois"   , showPois);
 
         if (trackName.equals("")) {
 
@@ -113,7 +115,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             loadKML();
 
             mapView.getOverlays().add(track_kml_Overlay);
-            mapView.getOverlays().add(poi_kml_Overlay);
+
+            if (showPois) mapView.getOverlays().add(poi_kml_Overlay);
 
             zoomLevel = settings.getInt("zoomLevel"  , zoomLevel);
 
@@ -264,7 +267,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         currentLocation = track_kml.get_bBox().getCenter();
 
         mapView.getOverlays().add(track_kml_Overlay);
-        mapView.getOverlays().add(poi_kml_Overlay);
+
+        if (showPois) mapView.getOverlays().add(poi_kml_Overlay);
 
         mapView.zoomToBoundingBox(track_kml.get_bBox());
         //mapController.setZoom(12);
@@ -287,18 +291,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 intent.putExtra("url" , downloadUrl);
 
                 startActivityForResult (intent, 1234);
-
-                /*
-                loadKML();
-
-                if (showTrack) {
-
-                    mapView.getOverlays().add(track_kml_Overlay);
-
-                    mapView.postInvalidate();
-
-                    if (autoZoom) mapView.zoomToBoundingBox(track_kml.get_bBox());
-                }*/
 
                 return true;
 
@@ -483,9 +475,19 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        Log.d("PreferenceChanged", s);
+        Log.d("PreferenceChanged", key);
+
+        if (key.equals("showPois")) {
+
+            if (showPois) {
+
+                mapView.getOverlays().add(poi_kml_Overlay);
+
+                mapView.postInvalidate();
+            }
+        }
     }
 
     @Override

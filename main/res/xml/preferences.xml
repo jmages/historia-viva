@@ -8,7 +8,7 @@
 
         <CheckBoxPreference
                 android:title="POI visibility"
-                android:key="poi_visibility"
+                android:key="showPois"
                 android:summary="Show or hide POIs"
                 android:defaultValue="true"
                 />
