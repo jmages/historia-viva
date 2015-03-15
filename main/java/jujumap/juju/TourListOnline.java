@@ -90,7 +90,7 @@ public class TourListOnline extends ListActivity {
 
             conection.connect();
 
-            int lenghtOfFile = conection.getContentLength();
+            //int lenghtOfFile = conection.getContentLength();
 
             InputStream input = new BufferedInputStream(url_i.openStream(),
                     8192);
@@ -182,6 +182,7 @@ public class TourListOnline extends ListActivity {
         return adapter;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected Dialog onCreateDialog(int id) {
 
@@ -241,6 +242,7 @@ public class TourListOnline extends ListActivity {
             this.caller   = caller;
         }
 
+        @SuppressWarnings("deprecation")
         @Override
         protected void onPreExecute() {
 
@@ -300,6 +302,7 @@ public class TourListOnline extends ListActivity {
             pDialog.setProgress(Integer.parseInt(progress[0]));
         }
 
+        @SuppressWarnings("deprecation")
         @Override
         protected void onPostExecute(String result) {
 

@@ -93,8 +93,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         initOsmdroid();
 
-        prefTourName    = settings.getString ("prefTourName"  , prefTourName);
-        prefCountryCode = settings.getString("prefCountryCode", prefCountryCode);
+        prefTourName    = settings.getString ("prefTourName"   , prefTourName);
+        prefCountryCode = settings.getString ("prefCountryCode", prefCountryCode);
         prefShowPois    = settings.getBoolean("prefShowPois"   , prefShowPois);
 
         if (prefTourName.equals("")) {
@@ -124,7 +124,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             mapController.setCenter(prefCurrentLocation);
         }
 
-        setupAlert();
+        setupPOIalert();
     }
 
     private void initOsmdroid() {
@@ -165,7 +165,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         mapView.getOverlays().add(new ScaleBarOverlay(this));
     }
 
-    private void setupAlert() {
+    private void setupPOIalert() {
 
         alert = new AlertDialog.Builder(this);
 
@@ -215,6 +215,25 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 myWebView.loadUrl("http://www.spiegel.de");
                 */
+
+                /*AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                builder1.setMessage("Write your message here.");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder1.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();*/
             }
         });
     }
