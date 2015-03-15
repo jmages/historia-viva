@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
@@ -42,8 +41,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -51,22 +48,22 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class JujuMap extends Activity implements LocationListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    String trackName       = "";
-    String countryCode     = "";
-    int zoomLevel          = 12;
-    String trackfile       = "poitrack.kml";
-    String osmDir          = "/osmdroid";
-    String tourDir         = osmDir + "/historia-viva/";
-    String downloadUrl     = "http://www.historia-viva.net/downloads/";
-    Boolean showPois       = true;
+    String   prefTourName         = "";
+    String   prefCountryCode      = "";
+    String   prefDownloadUrl      = "http://www.historia-viva.net/downloads/";
+    GeoPoint prefCurrentLocation  = new GeoPoint(49.598,11.005);
+    Boolean  prefShowPois         = true;
+    int      prefZoomLevel        = 12;
+    int      prefZoomFactor       = 16;
 
-    File   sdcard;
+    String osmDir    = "/osmdroid";
+    String tourDir   = osmDir + "/historia-viva/";
+    String trackfile = "poitrack.kml";
 
-    Boolean autoZoom  = false;
+    Boolean autoZoom   = false;
+    String  poiMapping = "";
 
-    String   poiMapping      = "";
-    GeoPoint currentLocation = new GeoPoint(49.598,11.005);
-
+    File           sdcard;
     MapView        mapView;
 	IMapController mapController;
 
@@ -80,7 +77,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     AlertDialog.Builder alert;
 
-    SharedPreferences settings;
+    SharedPreferences        settings;
     SharedPreferences.Editor editor;
 
     @Override
@@ -96,17 +93,17 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         initOsmdroid();
 
-        trackName   = settings.getString ("trackName"  , trackName  );
-        countryCode = settings.getString ("countryCode", countryCode);
-        showPois    = settings.getBoolean("showPois"   , showPois);
+        prefTourName    = settings.getString ("prefTourName"  , prefTourName);
+        prefCountryCode = settings.getString("prefCountryCode", prefCountryCode);
+        prefShowPois    = settings.getBoolean("prefShowPois"   , prefShowPois);
 
-        if (trackName.equals("")) {
+        if (prefTourName.equals("")) {
 
             Intent intent = new Intent (this, TourListOffline.class);
 
             intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
             intent.putExtra("path"   , new File(sdcard, tourDir).toString());
-            intent.putExtra("url"    , downloadUrl);
+            intent.putExtra("url"    , prefDownloadUrl);
 
             startActivityForResult (intent, 1234);
 
@@ -116,15 +113,15 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             mapView.getOverlays().add(track_kml_Overlay);
 
-            if (showPois) mapView.getOverlays().add(poi_kml_Overlay);
+            if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
 
-            zoomLevel = settings.getInt("zoomLevel"  , zoomLevel);
+            prefZoomLevel = settings.getInt("prefZoomLevel", prefZoomLevel);
 
-            currentLocation.setLatitudeE6 (settings.getInt("latitudeE6" , currentLocation.getLatitudeE6 ()));
-            currentLocation.setLongitudeE6(settings.getInt("longitudeE6", currentLocation.getLongitudeE6()));
+            prefCurrentLocation.setLatitudeE6 (settings.getInt("latitudeE6" , prefCurrentLocation.getLatitudeE6()));
+            prefCurrentLocation.setLongitudeE6(settings.getInt("longitudeE6", prefCurrentLocation.getLongitudeE6()));
 
-            mapController.setZoom(zoomLevel);
-            mapController.setCenter(currentLocation);
+            mapController.setZoom(prefZoomLevel);
+            mapController.setCenter(prefCurrentLocation);
         }
 
         setupAlert();
@@ -188,7 +185,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 Intent viewDoc = new Intent(Intent.ACTION_VIEW);
 
-                File file = new File(sdcard, tourDir + trackName + "/" + poiMapping + ".html");
+                File file = new File(sdcard, tourDir + prefTourName + "/" + poiMapping + ".html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
@@ -241,12 +238,12 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 // benjamin_de_v0020
 
-                trackName = pData.getExtras().getString( "newPath" );
+                prefTourName = pData.getExtras().getString( "newPath" );
 
-                countryCode = trackName.substring(trackName.length()-8,trackName.length()-6);
+                prefCountryCode = prefTourName.substring(prefTourName.length()-8, prefTourName.length()-6);
 
-                editor.putString("trackName"  , trackName);
-                editor.putString("countryCode", countryCode);
+                editor.putString("prefTourName"  , prefTourName);
+                editor.putString("prefCountryCode", prefCountryCode);
                 editor.commit();
 
                 initTour();
@@ -264,17 +261,17 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         loadKML();
 
-        currentLocation = track_kml.get_bBox().getCenter();
+        prefCurrentLocation = track_kml.get_bBox().getCenter();
 
         mapView.getOverlays().add(track_kml_Overlay);
 
-        if (showPois) mapView.getOverlays().add(poi_kml_Overlay);
+        if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
 
         mapView.zoomToBoundingBox(track_kml.get_bBox());
         //mapController.setZoom(12);
-        mapController.setCenter(currentLocation);
+        mapController.setCenter(prefCurrentLocation);
 
-        Toast.makeText(this, getString(R.string.toast_new_tour) + trackName, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.toast_new_tour) + prefTourName, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -288,7 +285,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
                 intent.putExtra("path", new File(sdcard, tourDir).toString());
-                intent.putExtra("url" , downloadUrl);
+                intent.putExtra("url" , prefDownloadUrl);
 
                 startActivityForResult (intent, 1234);
 
@@ -312,7 +309,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 intent2.putExtra("osmpath", new File(sdcard, osmDir).toString());
                 intent2.putExtra("path", new File(sdcard, tourDir).toString());
-                intent2.putExtra("url" , downloadUrl);
+                intent2.putExtra("url" , prefDownloadUrl);
 
                 startActivityForResult (intent2, 1234);
 
@@ -352,7 +349,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void loadKML() {
 
-        File file = new File(sdcard, tourDir + trackName + "/" + trackfile);
+        File file = new File(sdcard, tourDir + prefTourName + "/" + trackfile);
 
         if (file.exists()) {
 
@@ -415,7 +412,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                             item.getSnippet()
             ));
 
-            poiMapping = item.getUid() + countryCode;
+            poiMapping = item.getUid() + prefCountryCode;
 
             alert.show();
 
@@ -425,16 +422,16 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     public void onLocationChanged(Location location) {
 
-        currentLocation = new GeoPoint(location);
+        prefCurrentLocation = new GeoPoint(location);
 
         if (autoZoom) {
 
-            mapController.setCenter(currentLocation);
+            mapController.setCenter(prefCurrentLocation);
 
-            mapController.setZoom(16);
+            mapController.setZoom(prefZoomFactor);
         }
 
-        locationOverlay.setLocation(currentLocation);
+        locationOverlay.setLocation(prefCurrentLocation);
 
         mapView.postInvalidate();
     }
@@ -479,11 +476,11 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         Log.d("PreferenceChanged", key);
 
-        if (key.equals("showPois")) {
+        if (key.equals("prefShowPois")) {
 
-            showPois = settings.getBoolean("showPois", showPois);
+            prefShowPois = settings.getBoolean("prefShowPois", prefShowPois);
 
-            if (showPois) mapView.getOverlays().add(poi_kml_Overlay);
+            if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
 
             else mapView.getOverlays().remove(poi_kml_Overlay);
 
@@ -501,9 +498,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         int latitudeE6  = center.getLatitudeE6();
         int longitudeE6 = center.getLongitudeE6();
 
-        editor.putInt("zoomLevel", zoomLevel);
-        editor.putInt("latitudeE6",  latitudeE6 );
-        editor.putInt("longitudeE6", longitudeE6);
+        editor.putInt("prefZoomLevel", zoomLevel  );
+        editor.putInt("latitudeE6"   , latitudeE6 );
+        editor.putInt("longitudeE6"  , longitudeE6);
 
         editor.commit();
 

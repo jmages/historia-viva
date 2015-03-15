@@ -8,7 +8,7 @@
 
         <CheckBoxPreference
                 android:title="POI visibility"
-                android:key="showPois"
+                android:key="prefShowPois"
                 android:summary="Show or hide POIs"
                 android:defaultValue="true"
                 />
@@ -21,7 +21,7 @@
 
         <EditTextPreference
                 android:title="Download Server URL"
-                android:key="downloadUrl"
+                android:key="prefDownloadUrl"
                 android:summary="Edit the Download Server URL"
                 android:dialogTitle="Download Server URL"
                 android:dialogMessage="edit URL"
