@@ -3,28 +3,37 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            android:title="Map Settings"
+            android:title="@string/pref_map_settings"
             android:key="map_settings">
 
         <CheckBoxPreference
-                android:title="POI visibility"
+                android:title="@string/pref_ShowPois"
                 android:key="prefShowPois"
-                android:summary="Show or hide POIs"
+                android:summary="@string/pref_ShowPois_summary"
                 android:defaultValue="true"
                 />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:title="Extended Settings"
+            android:title="@string/pref_extended_settings"
             android:key="extended_settings">
 
+        <ListPreference
+                android:key="prefLocale"
+                android:title="@string/pref_Locale_title"
+                android:summary="@string/pref_Locale_summary"
+                android:defaultValue="default"
+                android:entries="@array/localeText"
+                android:entryValues="@array/localeValues"
+                />
+
         <EditTextPreference
-                android:title="Download Server URL"
+                android:title="@string/pref_download_url"
                 android:key="prefDownloadUrl"
-                android:summary="Edit the Download Server URL"
-                android:dialogTitle="Download Server URL"
-                android:dialogMessage="edit URL"
+                android:summary="@string/pref_download_url_summary"
+                android:dialogTitle="@string/pref_download_url_dialog_title"
+                android:dialogMessage="@string/pref_download_url_dialog_message"
                 android:defaultValue="http://www.historia-viva.net/downloads/" />
 
     </PreferenceCategory>

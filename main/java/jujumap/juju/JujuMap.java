@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +44,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -50,6 +54,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     String   prefTourName         = "";
     String   prefCountryCode      = "";
+    String   prefLocale           = "default";
     String   prefDownloadUrl      = "http://www.historia-viva.net/downloads/";
     GeoPoint prefCurrentLocation  = new GeoPoint(49.598,11.005);
     Boolean  prefShowPois         = true;
@@ -96,6 +101,16 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         prefTourName    = settings.getString ("prefTourName"   , prefTourName);
         prefCountryCode = settings.getString ("prefCountryCode", prefCountryCode);
         prefShowPois    = settings.getBoolean("prefShowPois"   , prefShowPois);
+        prefLocale      = settings.getString ("prefLocale"     , prefLocale);
+
+        if (! prefLocale.equals("default")) {
+
+            Locale locale2 = new Locale(prefLocale);
+            Locale.setDefault(locale2);
+            Configuration config2 = new Configuration();
+            config2.locale = locale2;
+            getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
+        }
 
         if (prefTourName.equals("")) {
 
@@ -504,7 +519,21 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             else mapView.getOverlays().remove(poi_kml_Overlay);
 
             mapView.postInvalidate();
+
+        } else if (key.equals("prefLocale")) {
+
+            prefLocale = settings.getString("prefLocale", prefLocale);
+
+            if (! prefLocale.equals("default")) {
+
+                Locale locale2 = new Locale(prefLocale);
+                Locale.setDefault(locale2);
+                Configuration config2 = new Configuration();
+                config2.locale = locale2;
+                getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
+            }
         }
+
     }
 
     @Override
