@@ -110,7 +110,6 @@ public class TourListOffline extends ListActivity {
         String selection = l.getItemAtPosition(position).toString();
 
         Intent i = new Intent();
-
         i.putExtra ("newPath", selection);
 
         if (selection.contains(".zip")) {
@@ -133,12 +132,12 @@ public class TourListOffline extends ListActivity {
 
                 String destination = "";
 
-                destination = path + "/" + selection.substring(0, selection.length()-4);
+                destination = selection.substring(0, selection.length()-4);
 
-                Log.d("Unzipping source     ", ">" + path + "/" + selection + "<");
-                Log.d("Unzipping destination", ">" + destination + "<");
+                Log.d("Unzipping source     ", ">" + path + "/" + selection   + "<");
+                Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
 
-                unzip (path + "/",selection, destination);
+                unzip (path + "/", selection, destination);
 
                 setResult(RESULT_CANCELED, i);
 
@@ -160,7 +159,9 @@ public class TourListOffline extends ListActivity {
         int size;
         int BUFFER_SIZE = 8192;
         byte[] buffer   = new byte[BUFFER_SIZE];
-        String zipFile = sourcePath + zipFileName;
+
+        String zipFile  = sourcePath + zipFileName;
+        String destPath = sourcePath + destination;
 
         Toast.makeText(this,
             getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
@@ -168,12 +169,12 @@ public class TourListOffline extends ListActivity {
 
         try {
 
-            if ( ! destination.endsWith("/") ) {
+            if ( ! destPath.endsWith("/") ) {
 
-                destination += "/";
+                destPath += "/";
             }
 
-            File f = new File(destination);
+            File f = new File(destPath);
 
             if (! f.isDirectory()) {
 
@@ -188,7 +189,7 @@ public class TourListOffline extends ListActivity {
 
                 while ((ze = zin.getNextEntry()) != null) {
 
-                    String path = destination + ze.getName();
+                    String path = destPath + ze.getName();
                     File unzipFile = new File(path);
 
                     if (ze.isDirectory()) {
@@ -246,9 +247,16 @@ public class TourListOffline extends ListActivity {
                 Log.d ("Unzipping", "finished");
 
                 Toast.makeText(this, getString(R.string.toast_unzipping_finished), Toast.LENGTH_LONG).show();
+
+                Intent i = new Intent();
+                i.putExtra ("newPath", destination);
+
+                setResult(RESULT_OK, i);
+
+                this.finish();
             }
-        }
-        catch (Exception e) {
+
+        } catch (Exception e) {
 
             Log.e ("Error", "Unzip exception", e);
         }
