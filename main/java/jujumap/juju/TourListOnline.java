@@ -6,10 +6,12 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +33,9 @@ public class TourListOnline extends ListActivity {
     String path    = "";
     String url     = "";
 
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
+
     private ProgressDialog pDialog;
 
     public static final int progress_bar_type = 0;
@@ -45,6 +50,9 @@ public class TourListOnline extends ListActivity {
         osmpath = b.getString("osmpath");
         path    = b.getString("path");
         url     = b.getString("url");
+
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+        editor   = settings.edit();
 
         setContentView(R.layout.tour_view);
 
@@ -92,8 +100,7 @@ public class TourListOnline extends ListActivity {
 
             //int lenghtOfFile = conection.getContentLength();
 
-            InputStream input = new BufferedInputStream(url_i.openStream(),
-                    8192);
+            InputStream input = new BufferedInputStream(url_i.openStream(), 8192);
 
             OutputStream output = new FileOutputStream(path + "/" + name);
 
@@ -129,27 +136,37 @@ public class TourListOnline extends ListActivity {
 
                 String line;
 
+                Pattern zipfilename = Pattern.compile("\".*?.zip\"");
+                Pattern zipfiletext = Pattern.compile("\">.*?</a>");
+
                 while ((line = br.readLine()) != null) {
 
                     if (line.contains("id=\"hv-tour\"")) {
 
                         // <li><a href="benjamin_fr_v01.zip" id="hv-tour">Chemin Walter Benjamin (français, version 01, 20 MB, aktuell nur ein Fake)</a></li>
 
-                        Pattern p = Pattern.compile("\"(.*?.zip)\"");
-                        Matcher m = p.matcher(line);
+                        Matcher m = zipfilename.matcher(line);
 
-                        while (m.find()) {
+                        if (m.find()) {
 
                             String n = m.group().substring(1, m.group().length()-1);
 
                             valueList.add(n);
                         }
+
+                        m = zipfiletext.matcher(line);
+
+                        if (m.find()) {
+
+                            String n = m.group().substring(2, m.group().length()-4);
+
+                            //valueList.add(n);
+                        }
                     }
 
                     if (line.contains("id=\"hv-map\"")) {
 
-                        Pattern p = Pattern.compile("\"(.*?.zip)\"");
-                        Matcher m = p.matcher(line);
+                        Matcher m = zipfilename.matcher(line);
 
                         while (m.find()) {
 
