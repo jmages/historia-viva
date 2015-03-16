@@ -236,7 +236,7 @@ public class TourListOnline extends ListActivity {
         if (selectedFileName.contains(".zip")) {
 
             DownloadFileFromURL downloadFileFromURL =
-                    new DownloadFileFromURL(selectedFileName, this);
+                    new DownloadFileFromURL(selectedFileName);
 
             downloadFileFromURL.execute(url);
 
@@ -250,13 +250,13 @@ public class TourListOnline extends ListActivity {
 
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
 
-        private Activity caller;
+        // AsyncTask <TypeOfVarArgParams , ProgressValue , ResultValue>
+
         String fileName = "";
 
-        public DownloadFileFromURL (String fileName, Activity caller) {
+        public DownloadFileFromURL (String fileName) {
 
             this.fileName = fileName;
-            this.caller   = caller;
         }
 
         @SuppressWarnings("deprecation")
@@ -327,7 +327,7 @@ public class TourListOnline extends ListActivity {
 
             dismissDialog(progress_bar_type);
 
-            caller.finish();
+            finish();
         }
 
         @Override

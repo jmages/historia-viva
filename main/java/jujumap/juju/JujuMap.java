@@ -84,7 +84,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     AlertDialog.Builder alert;
 
-    File           sdcard;
+    File sdcard;
 
     SharedPreferences        settings;
     SharedPreferences.Editor editor;
