@@ -69,7 +69,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     Boolean autoZoom   = false;
     String  poiMapping = "";
 
-    File           sdcard;
     MapView        mapView;
 	IMapController mapController;
 
@@ -84,6 +83,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     ItemizedIconOverlay  poi_kml_Overlay;      // holds POIs
 
     AlertDialog.Builder alert;
+
+    File           sdcard;
 
     SharedPreferences        settings;
     SharedPreferences.Editor editor;
