@@ -138,10 +138,7 @@ public class TourListOffline extends ListActivity {
                 Log.d("Unzipping source     ", ">" + path + "/" + selection + "<");
                 Log.d("Unzipping destination", ">" + destination + "<");
 
-                Toast.makeText(this, getString(R.string.toast_unzipping_1) + selection + getString(R.string.toast_unzipping_2),
-                        Toast.LENGTH_LONG).show();
-
-                unzip (path + "/" + selection, destination);
+                unzip (path + "/",selection, destination);
 
                 setResult(RESULT_CANCELED, i);
 
@@ -158,22 +155,25 @@ public class TourListOffline extends ListActivity {
         }
     }
 
-    public void unzip (String zipFile, String location) {
+    public void unzip (String sourcePath, String zipFileName, String destination) {
 
         int size;
-
         int BUFFER_SIZE = 8192;
+        byte[] buffer   = new byte[BUFFER_SIZE];
+        String zipFile = sourcePath + zipFileName;
 
-        byte[] buffer = new byte[BUFFER_SIZE];
+        Toast.makeText(this,
+            getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
+            Toast.LENGTH_LONG).show();
 
         try {
 
-            if ( ! location.endsWith("/") ) {
+            if ( ! destination.endsWith("/") ) {
 
-                location += "/";
+                destination += "/";
             }
 
-            File f = new File(location);
+            File f = new File(destination);
 
             if (! f.isDirectory()) {
 
@@ -188,7 +188,7 @@ public class TourListOffline extends ListActivity {
 
                 while ((ze = zin.getNextEntry()) != null) {
 
-                    String path = location + ze.getName();
+                    String path = destination + ze.getName();
                     File unzipFile = new File(path);
 
                     if (ze.isDirectory()) {
