@@ -246,8 +246,6 @@ public class TourListOffline extends ListActivity {
 
                 Log.d ("Unzipping", "finished");
 
-                Toast.makeText(this, getString(R.string.toast_unzipping_finished), Toast.LENGTH_LONG).show();
-
                 Intent i = new Intent();
                 i.putExtra ("newPath", destination);
 
