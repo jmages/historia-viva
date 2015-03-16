@@ -18,7 +18,7 @@ public class KML_Parser extends DefaultHandler {
     private int          nameCount   = 0;
 
     private Track gps_track;
-    private POIs roadbook;
+    private POIs  roadbook;
 
     public KML_Parser (Track gps_track, POIs roadbook) {
 

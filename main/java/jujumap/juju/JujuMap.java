@@ -30,6 +30,7 @@ import android.widget.Toast;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
@@ -74,6 +75,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     Track track_kml = new Track();
     POIs  pois_kml  = new POIs();
+
+    BoundingBoxE6 tour_bBox;
 
     SimpleLocationOverlay locationOverlay;     // holds GPS-location
 
@@ -301,9 +304,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
 
-        mapView.zoomToBoundingBox(track_kml.get_bBox());
-        //mapController.setZoom(12);
-        mapController.setCenter(prefCurrentLocation);
+        mapView.zoomToBoundingBox(tour_bBox.increaseByScale((float) 1.2));
+
+        //mapController.setCenter(prefCurrentLocation);
 
         Toast.makeText(this, getString(R.string.toast_new_tour) + prefTourName, Toast.LENGTH_LONG).show();
     }
@@ -333,7 +336,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             case R.id.show_tour:
 
-                mapView.zoomToBoundingBox(track_kml.get_bBox());
+                mapView.zoomToBoundingBox(tour_bBox.increaseByScale((float) 1.2));
 
                 return true;
 
@@ -425,6 +428,14 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             ));
         }
 
+        if (track_kml.get_bBox().getDiagonalLengthInMeters() > pois_kml.get_bBox().getDiagonalLengthInMeters()) {
+
+            tour_bBox = track_kml.get_bBox();
+
+        } else {
+
+            tour_bBox = pois_kml.get_bBox();
+        }
         poi_kml_Overlay = new ItemizedIconOverlay <OverlayItem> (
                 this, anotherOverlayItemArray, onItemGestureListener);
     }
