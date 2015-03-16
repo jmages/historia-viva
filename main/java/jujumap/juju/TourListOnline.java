@@ -273,6 +273,8 @@ public class TourListOnline extends ListActivity {
 
             int count;
 
+            String result;
+
             try {
 
                 Log.d ("Downloading", f_url[0] + fileName);
@@ -306,12 +308,16 @@ public class TourListOnline extends ListActivity {
                 output.close();
                 input.close();
 
+                result = "finished";
+
             } catch (Exception e) {
 
                 Log.e("Error - no connection: ", e.getMessage());
+
+                result = "error";
             }
 
-            return null;
+            return result;
         }
 
         protected void onProgressUpdate(String... progress) {
@@ -323,11 +329,13 @@ public class TourListOnline extends ListActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            Log.d("onPostExecute: ", "download finished ");
+            Log.d("onPostExecute: ", "download " + result);
 
             dismissDialog(progress_bar_type);
 
             finish();
+
+            super.onPostExecute(result);
         }
 
         @Override
