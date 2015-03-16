@@ -248,6 +248,12 @@ public class TourListOnline extends ListActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+
+         super.onDestroy();
+    }
+
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
 
         private Activity caller;
