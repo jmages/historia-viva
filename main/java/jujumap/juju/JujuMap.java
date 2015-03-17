@@ -377,7 +377,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         if (autoZoom)  menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_checked);
         else           menu.findItem(R.id.auto_zoom).setTitle(R.string.zoom_unchecked);
 
-        menu.findItem(R.id.show_tour).setEnabled(true);
+        menu.findItem(R.id.show_tour).setEnabled(track_kml.size() != 0);
         menu.findItem(R.id.download_tour).setEnabled(true);
         menu.findItem(R.id.unused).setEnabled(false);
         menu.findItem(R.id.options).setEnabled(true);
