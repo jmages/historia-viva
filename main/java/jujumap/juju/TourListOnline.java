@@ -343,6 +343,5 @@ public class TourListOnline extends ListActivity {
 
             Log.d("onCancelled: ", "download cancelled");
         }
-
     }
 }
