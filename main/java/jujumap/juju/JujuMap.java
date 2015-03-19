@@ -44,6 +44,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -88,6 +89,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     SharedPreferences        settings;
     SharedPreferences.Editor editor;
+
+    public static HashMap <String, String> tour_file2text;
+    public static HashMap <String, String> tour_text2file;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {

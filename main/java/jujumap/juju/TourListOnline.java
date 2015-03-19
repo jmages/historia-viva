@@ -23,6 +23,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +62,9 @@ public class TourListOnline extends ListActivity {
         final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
 
         if (activeNetwork != null && activeNetwork.isConnected()) {
+
+            JujuMap.tour_file2text = new HashMap <String, String>();
+            JujuMap.tour_text2file = new HashMap <String, String>();
 
             ListAdapter adapter = createAdapter();
 
@@ -132,7 +136,7 @@ public class TourListOnline extends ListActivity {
 
             try {
 
-                BufferedReader br = new BufferedReader(new FileReader(f));
+                BufferedReader br = new BufferedReader (new FileReader(f));
 
                 String line;
 
@@ -141,38 +145,31 @@ public class TourListOnline extends ListActivity {
 
                 while ((line = br.readLine()) != null) {
 
-                    if (line.contains("id=\"hv-tour\"")) {
+                    if (line.contains("id=\"hv-")) {
 
                         // <li><a href="benjamin_fr_v01.zip" id="hv-tour">Chemin Walter Benjamin (français, version 01, 20 MB, aktuell nur ein Fake)</a></li>
 
                         Matcher m = zipfilename.matcher(line);
 
-                        if (m.find()) {
+                        String fn = "";
+                        String tn = "";
 
-                            String n = m.group().substring(1, m.group().length()-1);
-
-                            valueList.add(n);
-                        }
+                        if (m.find()) fn = m.group().substring(1, m.group().length()-1);
 
                         m = zipfiletext.matcher(line);
 
-                        if (m.find()) {
+                        if (m.find()) tn = m.group().substring(2, m.group().length()-4);
 
-                            String n = m.group().substring(2, m.group().length()-4);
+                        if ( (! fn.equals("")) && (! tn.equals("")) ) {
 
-                            //valueList.add(n);
-                        }
-                    }
+                            JujuMap.tour_file2text.put(fn, tn);
+                            JujuMap.tour_text2file.put(tn, fn);
 
-                    if (line.contains("id=\"hv-map\"")) {
+                            valueList.add(tn);
 
-                        Matcher m = zipfilename.matcher(line);
+                        } else if ( (! fn.equals("")) && tn.equals("") ) {
 
-                        while (m.find()) {
-
-                            String n = m.group().substring(1, m.group().length()-1);
-
-                            valueList.add(n);
+                            valueList.add(fn);
                         }
                     }
 
@@ -228,6 +225,10 @@ public class TourListOnline extends ListActivity {
     protected void onListItemClick (ListView listView, View v, int position, long id) {
 
         String selectedFileName = listView.getItemAtPosition(position).toString();
+
+        if (JujuMap.tour_text2file.containsKey(selectedFileName))
+
+            selectedFileName = JujuMap.tour_text2file.get(selectedFileName);
 
         Intent intent = new Intent();
 
