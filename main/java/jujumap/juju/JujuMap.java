@@ -98,6 +98,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         super.onCreate (savedInstanceState);
 
+        JujuMap.tour_file2text = new HashMap <String, String>();
+        JujuMap.tour_text2file = new HashMap <String, String>();
+
         settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         settings.registerOnSharedPreferenceChangeListener(this);

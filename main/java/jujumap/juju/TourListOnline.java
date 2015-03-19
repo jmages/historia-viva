@@ -63,9 +63,6 @@ public class TourListOnline extends ListActivity {
 
         if (activeNetwork != null && activeNetwork.isConnected()) {
 
-            JujuMap.tour_file2text = new HashMap <String, String>();
-            JujuMap.tour_text2file = new HashMap <String, String>();
-
             ListAdapter adapter = createAdapter();
 
             setListAdapter(adapter);

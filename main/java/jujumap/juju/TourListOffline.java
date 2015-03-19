@@ -68,20 +68,24 @@ public class TourListOffline extends ListActivity {
 
         for ( File aFile : files ) {
 
+            String fname = aFile.getName();
+
             if ( aFile.isDirectory() ) {
 
-                valueList.add(aFile.getName());
+                valueList.add(fname);
 
             } else {
 
-                if (aFile.getName().equals("index.html")) {
+                if (fname.equals("index.html")) {
 
                     // just leave it there
                 }
 
-                if (aFile.getName().contains(".zip")) {
+                if (fname.contains(".zip")) {
 
-                    valueList.add(aFile.getName());
+                    if (JujuMap.tour_file2text.containsKey(fname)) fname = JujuMap.tour_file2text.get(fname);
+
+                    valueList.add(fname);
                 }
             }
         }
@@ -108,6 +112,10 @@ public class TourListOffline extends ListActivity {
     protected void onListItemClick (ListView l, View v, int position, long id) {
 
         String selection = l.getItemAtPosition(position).toString();
+
+        if (JujuMap.tour_text2file.containsKey(selection))
+
+            selection = JujuMap.tour_text2file.get(selection);
 
         Intent i = new Intent();
         i.putExtra ("newPath", selection);
