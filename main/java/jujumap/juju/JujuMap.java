@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,7 +59,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     GeoPoint prefCurrentLocation  = new GeoPoint(49.598,11.005);
     Boolean  prefShowPois         = true;
     int      prefZoomLevel        = 12;
-    int      prefZoomFactor       = 16;
+    int      prefAutoZoomLevel    = 16;
 
     String osmDir    = "/osmdroid";
     String tourDir   = osmDir + "/historia-viva/";
@@ -479,7 +477,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             mapController.setCenter(prefCurrentLocation);
 
-            mapController.setZoom(prefZoomFactor);
+            mapController.setZoom(prefAutoZoomLevel);
         }
 
         locationOverlay.setLocation(prefCurrentLocation);
@@ -550,7 +548,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
             }
         }
-
     }
 
     @Override
