@@ -287,16 +287,16 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 prefCountryCode = prefTourName.substring(prefTourName.length()-8, prefTourName.length()-6);
 
-                editor.putString("prefTourName"  , prefTourName);
-                editor.putString("prefCountryCode", prefCountryCode);
-                editor.commit();
-
-                initTour();
+                initTour(prefTourName, prefCountryCode);
             }
         }
     }
 
-    private void initTour() {
+    private void initTour(String prefTourName, String prefCountryCode) {
+
+        editor.putString("prefTourName"  , prefTourName);
+        editor.putString("prefCountryCode", prefCountryCode);
+        editor.commit();
 
         mapView.getOverlays().remove(track_kml_Overlay);
         mapView.getOverlays().remove(poi_kml_Overlay);
@@ -313,8 +313,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
 
         mapView.zoomToBoundingBox(tour_bBox.increaseByScale((float) 1.2));
-
-        //mapController.setCenter(prefCurrentLocation);
 
         Toast.makeText(this, getString(R.string.toast_new_tour) + prefTourName, Toast.LENGTH_LONG).show();
     }
