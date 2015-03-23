@@ -4,14 +4,14 @@
     <string name="select_tour">Tour auswählen</string>
     <string name="options">Optionen</string>
     <string name="unused">unbenützt</string>
-    <string name="download_tour">Tour runterladen</string>
+    <string name="download_tour">Tour herunterladen</string>
     <string name="show_tour">Touransicht</string>
     <string name="zoom_checked">Wo bin ich? \u2714</string>
     <string name="zoom_unchecked">Wo bin ich?</string>
     <string name="toast_new_tour">Neue Tour:</string>
     <string name="toast_no_browser">Kein Webbrowser verfügbar!</string>
     <string name="toast_no_offline_tours">Keine Tour verfügbar - bitte aus dem Internet herunterladen!</string>
-    <string name="downloading_please_wait">Datei wird heruntergeladen. Bitte warten!</string>
+    <string name="downloading_please_wait">Datei wird heruntergeladen ... Bitte warten!</string>
     <string name="toast_copying_finished">Kopieren beendet.</string>
     <string name="toast_please_connect">Bitte mit dem Internet verbinden.</string>
     <string name="toast_unzipping_1">Entpacken von</string>
@@ -27,4 +27,7 @@
     <string name="pref_map_settings">Karten Einstellungen</string>
     <string name="pref_Locale_title">Language</string>
     <string name="pref_Locale_summary">Choose your preferred language</string>
+    <string name="app_name_download">historia-viva - Tour herunterladen</string>
+    <string name="app_name_options">historia-viva - Optionen</string>
+    <string name="app_name_select">historia-viva - Tour auswählen</string>
 </resources>
