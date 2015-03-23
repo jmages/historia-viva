@@ -39,8 +39,7 @@ import org.osmdroid.views.overlay.SimpleLocationOverlay;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -165,6 +164,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             dirs.mkdirs();
         }
+
+        initHelp();
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
@@ -358,6 +359,20 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             case R.id.unused:
 
+                Intent viewDoc = new Intent(Intent.ACTION_VIEW);
+
+                File file = new File(sdcard, tourDir + "/help.html");
+
+                Uri uri = Uri.fromFile(file);
+
+                viewDoc.setDataAndType(uri, "text/html");
+
+                PackageManager pm = getPackageManager();
+
+                List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
+
+                if (apps.size() > 0) startActivity(viewDoc);
+
                 return true;
 
             case R.id.options:
@@ -370,6 +385,34 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void initHelp() {
+
+        File file = new File(sdcard, tourDir + "/help.html");
+
+        InputStream inputStream;
+
+        OutputStream outputStream = null;
+
+        try {
+
+            inputStream = getResources().openRawResource(R.raw.help);
+
+            outputStream = new FileOutputStream(file);
+
+            byte[] buffer = new byte[inputStream.available()];
+
+            inputStream.read(buffer);
+
+
+            outputStream.write(buffer);
+
+            outputStream.close();
+            inputStream.close();
+
+
+        } catch(Exception e) {}
     }
 
     @Override
@@ -387,7 +430,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         menu.findItem(R.id.download_tour).setEnabled(true);
         menu.findItem(R.id.download_tour).setTitle(R.string.download_tour);
 
-        menu.findItem(R.id.unused).setEnabled(false);
+        menu.findItem(R.id.unused).setEnabled(true);
         menu.findItem(R.id.unused).setTitle(R.string.unused);
 
         menu.findItem(R.id.options).setEnabled(true);
