@@ -122,8 +122,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         if (prefTourName.equals("")) {
 
-            showHelp();
-
             Intent intent = new Intent (this, TourListOffline.class);
 
             intent.putExtra("osmpath", new File(sdcard, osmDir).toString());
@@ -165,9 +163,10 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         if (! dirs.exists()) {
 
             dirs.mkdirs();
-        }
 
-        initHelp();
+            initHelp();
+            showHelp();
+        }
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
