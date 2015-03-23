@@ -1,25 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/select_tour"
-
-        android:title="@string/select_tour"/>
+    <item android:id="@+id/select_tour"/>
 
     <item android:id="@+id/auto_zoom"/>
 
-    <item android:id="@+id/show_tour"
+    <item android:id="@+id/show_tour"/>
 
-        android:title="@string/show_tour"/>
+    <item android:id="@+id/download_tour"/>
 
-    <item android:id="@+id/download_tour"
+    <item android:id="@+id/help"/>
 
-        android:title="@string/download_tour"/>
-
-    <item android:id="@+id/unused"
-
-          android:title="@string/unused"/>
-
-    <item android:id="@+id/options"
-
-          android:title="@string/options"/>
+    <item android:id="@+id/options"/>
 
 </menu>

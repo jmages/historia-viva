@@ -113,14 +113,16 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         if (! prefLocale.equals("default")) {
 
-            Locale locale2 = new Locale(prefLocale);
+            /*Locale locale2 = new Locale(prefLocale);
             Locale.setDefault(locale2);
             Configuration config2 = new Configuration();
             config2.locale = locale2;
-            getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
+            getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());*/
         }
 
         if (prefTourName.equals("")) {
+
+            showHelp();
 
             Intent intent = new Intent (this, TourListOffline.class);
 
@@ -357,21 +359,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 return true;
 
-            case R.id.unused:
+            case R.id.help:
 
-                Intent viewDoc = new Intent(Intent.ACTION_VIEW);
-
-                File file = new File(sdcard, tourDir + "/help.html");
-
-                Uri uri = Uri.fromFile(file);
-
-                viewDoc.setDataAndType(uri, "text/html");
-
-                PackageManager pm = getPackageManager();
-
-                List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
-
-                if (apps.size() > 0) startActivity(viewDoc);
+                showHelp();
 
                 return true;
 
@@ -385,6 +375,23 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showHelp() {
+
+        Intent viewDoc = new Intent(Intent.ACTION_VIEW);
+
+        File file = new File(sdcard, tourDir + "/help.html");
+
+        Uri uri = Uri.fromFile(file);
+
+        viewDoc.setDataAndType(uri, "text/html");
+
+        PackageManager pm = getPackageManager();
+
+        List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
+
+        if (apps.size() > 0) startActivity(viewDoc);
     }
 
     private void initHelp() {
@@ -430,8 +437,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         menu.findItem(R.id.download_tour).setEnabled(true);
         menu.findItem(R.id.download_tour).setTitle(R.string.download_tour);
 
-        menu.findItem(R.id.unused).setEnabled(true);
-        menu.findItem(R.id.unused).setTitle(R.string.unused);
+        menu.findItem(R.id.help).setEnabled(true);
+        menu.findItem(R.id.help).setTitle(R.string.help);
 
         menu.findItem(R.id.options).setEnabled(true);
         menu.findItem(R.id.options).setTitle(R.string.options);

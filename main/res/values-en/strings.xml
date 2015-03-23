@@ -3,7 +3,6 @@
     <string name="app_name">historia-viva</string>
     <string name="select_tour">select tour</string>
     <string name="options">options</string>
-    <string name="unused">unused</string>
     <string name="zoom_checked">where am I? \u2714</string>
     <string name="zoom_unchecked">where am I?</string>
     <string name="download_tour">download tour</string>
@@ -30,4 +29,5 @@
     <string name="app_name_download">historia-viva - download tour</string>
     <string name="app_name_options">historia-viva - options</string>
     <string name="app_name_select">historia-viva - select tour</string>
+    <string name="help">help</string>
 </resources>
