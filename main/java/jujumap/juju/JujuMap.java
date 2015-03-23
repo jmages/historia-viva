@@ -85,7 +85,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     File sdcard;
 
     SharedPreferences        settings;
-    SharedPreferences.Editor editor;
 
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
@@ -102,23 +101,12 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         settings.registerOnSharedPreferenceChangeListener(this);
 
-        editor   = settings.edit();
-
         initOsmdroid();
 
         prefTourName    = settings.getString ("prefTourName"   , prefTourName);
         prefCountryCode = settings.getString ("prefCountryCode", prefCountryCode);
         prefShowPois    = settings.getBoolean("prefShowPois"   , prefShowPois);
         prefLocale      = settings.getString ("prefLocale"     , prefLocale);
-
-        if (! prefLocale.equals("default")) {
-
-            /*Locale locale2 = new Locale(prefLocale);
-            Locale.setDefault(locale2);
-            Configuration config2 = new Configuration();
-            config2.locale = locale2;
-            getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());*/
-        }
 
         if (prefTourName.equals("")) {
 
@@ -292,7 +280,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void initTour(String prefTourName, String prefCountryCode) {
 
-        editor.putString("prefTourName"  , prefTourName);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("prefTourName"   , prefTourName);
         editor.putString("prefCountryCode", prefCountryCode);
         editor.commit();
 
@@ -397,7 +386,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         InputStream inputStream;
 
-        OutputStream outputStream = null;
+        OutputStream outputStream;
 
         try {
 
@@ -409,14 +398,13 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             inputStream.read(buffer);
 
-
             outputStream.write(buffer);
 
             outputStream.close();
             inputStream.close();
 
 
-        } catch(Exception e) {}
+        } catch(Exception ignored) {}
     }
 
     @Override
@@ -540,11 +528,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         mapView.postInvalidate();
     }
 
-    public void onProviderDisabled(String provider) {
-    }
+    public void onProviderDisabled(String provider) {}
 
-    public void onProviderEnabled(String provider) {
-    }
+    public void onProviderEnabled(String provider) {}
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
@@ -615,10 +601,10 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         int latitudeE6  = center.getLatitudeE6();
         int longitudeE6 = center.getLongitudeE6();
 
+        SharedPreferences.Editor editor = settings.edit();
         editor.putInt("prefZoomLevel", zoomLevel  );
         editor.putInt("latitudeE6"   , latitudeE6 );
         editor.putInt("longitudeE6"  , longitudeE6);
-
         editor.commit();
 
         super.onDestroy();
