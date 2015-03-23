@@ -160,9 +160,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         File dirs = new File(sdcard, tourDir);
 
-        if (! dirs.exists()) {
-
-            dirs.mkdirs();
+        if (dirs.mkdirs()) {
 
             initHelp();
             showHelp();
