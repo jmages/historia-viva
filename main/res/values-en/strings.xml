@@ -30,4 +30,6 @@
     <string name="app_name_options">historia-viva - options</string>
     <string name="app_name_select">historia-viva - select tour</string>
     <string name="help">help</string>
+    <string name="alert_back">back</string>
+    <string name="alert_forward">forward</string>
 </resources>

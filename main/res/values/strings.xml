@@ -30,4 +30,6 @@
     <string name="pref_download_url_dialog_message">edit URL</string>
     <string name="pref_Locale_title">Language</string>
     <string name="pref_Locale_summary">Choose your preferred language</string>
+    <string name="alert_back">back</string>
+    <string name="alert_forward">forward</string>
 </resources>

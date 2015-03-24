@@ -148,11 +148,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         File dirs = new File(sdcard, tourDir);
 
-        if (dirs.mkdirs()) {
+        initHelp();
 
-            initHelp();
-            showHelp();
-        }
+        if (dirs.mkdirs()) showHelp();
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
@@ -181,7 +179,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         alert = new AlertDialog.Builder(this);
 
-        alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+        alert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -190,7 +188,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             }
         });
 
-        alert.setNegativeButton("HTML", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getString(R.string.alert_forward), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
