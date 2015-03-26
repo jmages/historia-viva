@@ -603,9 +603,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent event) {
 
-        int actionType = ev.getAction();
+        int actionType = event.getAction();
 
         switch (actionType) {
 
@@ -613,7 +613,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 MapView.Projection proj = mapView.getProjection();
 
-                GeoPoint loc = (GeoPoint) proj.fromPixels((int)ev.getX(), (int)ev.getY());
+                GeoPoint loc = (GeoPoint) proj.fromPixels((int)event.getX(), (int)event.getY());
 
                 // String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
                 // String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
@@ -623,7 +623,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 longPressAlert.show();
 
         }
-        return super.dispatchTouchEvent(ev);
+
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
