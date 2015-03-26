@@ -39,9 +39,9 @@ public class Track extends ArrayList <TrackPoint> {
             this.add (tp);
         }
 
-        if (lastIndexOf(this) > 0) {
+        if (size() > 0) {
 
-            trackLength = getTrackLength(get(0), get(lastIndexOf(this)));
+            trackLength = getTrackLength(get(0), get(size()-1));
 
             Log.d("addPath", String.valueOf(trackLength));
         }

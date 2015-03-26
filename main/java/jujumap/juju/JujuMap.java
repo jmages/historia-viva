@@ -80,7 +80,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     PathOverlay          track_kml_Overlay;    // holds poitrack
     ItemizedIconOverlay  poi_kml_Overlay;      // holds POIs
 
-    AlertDialog.Builder alert;
+    AlertDialog.Builder singleTapAlert;
+    AlertDialog.Builder longPressAlert;
 
     File sdcard;
 
@@ -177,9 +178,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void setupPOIalert() {
 
-        alert = new AlertDialog.Builder(this);
+        singleTapAlert = new AlertDialog.Builder(this);
 
-        alert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
+        singleTapAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -188,7 +189,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             }
         });
 
-        alert.setNegativeButton(getString(R.string.alert_forward), new DialogInterface.OnClickListener() {
+        singleTapAlert.setNegativeButton(getString(R.string.alert_forward), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -244,6 +245,17 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 AlertDialog alert11 = builder1.create();
                 alert11.show();*/
+            }
+        });
+
+        longPressAlert = new AlertDialog.Builder(this);
+
+        longPressAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // just leave the menu
             }
         });
     }
@@ -491,20 +503,24 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         @Override
         public boolean onItemLongPress(int index, OverlayItem item) {
 
+            longPressAlert.setTitle(item.getTitle());
+            longPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
+            longPressAlert.show();
+
             return true;
         }
 
         @Override
         public boolean onItemSingleTapUp(int index, OverlayItem item) {
 
-            alert.setMessage(Html.fromHtml(
+            singleTapAlert.setMessage(Html.fromHtml(
                     "<h2>" + item.getTitle() + "</h2><br>" +
                             item.getSnippet()
             ));
 
             poiMapping = item.getUid() + prefCountryCode;
 
-            alert.show();
+            singleTapAlert.show();
 
             return true;
         }
