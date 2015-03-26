@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -603,6 +604,29 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        int actionType = ev.getAction();
+
+        switch (actionType) {
+
+            case MotionEvent.ACTION_UP:
+
+                MapView.Projection proj = mapView.getProjection();
+
+                GeoPoint loc = (GeoPoint) proj.fromPixels((int)ev.getX(), (int)ev.getY());
+
+                String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
+                String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Longitude: "+ longitude +" Latitude: "+ latitude , Toast.LENGTH_LONG);
+                toast.show();
+
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
