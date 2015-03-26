@@ -480,6 +480,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             tour_bBox = pois_kml.get_bBox();
         }
+
         poi_kml_Overlay = new ItemizedIconOverlay <OverlayItem> (
                 this, anotherOverlayItemArray, onItemGestureListener);
     }
