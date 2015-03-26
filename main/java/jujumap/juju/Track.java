@@ -42,8 +42,6 @@ public class Track extends ArrayList <TrackPoint> {
         if (size() > 0) {
 
             trackLength = getTrackLength(get(0), get(size()-1));
-
-            Log.d("addPath", String.valueOf(trackLength));
         }
     }
 
@@ -51,30 +49,30 @@ public class Track extends ArrayList <TrackPoint> {
 
         return new BoundingBoxE6 (maxLat, maxLon, minLat, minLon);
     }
+
     public int getClosestPoint (Geopoint placeMark) {
 
         double lat = placeMark.lat;
         double lon = placeMark.lon;
+
         double dist = 1000;
 
         TrackPoint tp;
         TrackPoint tpNear = null;
 
         for (Object o : this) {
+
             tp = (TrackPoint) o;
+
             if (dist > Math.abs (lon - tp.lon) + Math.abs (lat - tp.lat)) {
+
                 dist = Math.abs (lon - tp.lon) + Math.abs (lat - tp.lat);
+
                 tpNear = tp;
             }
         }
 
         return indexOf (tpNear);
-
-        /* more exact but slower
-        if (dist > TrackPoint.getDistance(tp, new TrackPoint(lat, lon))) {
-            dist = TrackPoint.getDistance(tp, new TrackPoint(lat, lon));
-            tpNear = tp;*/
-
     }
 
     public float getTrackLength(TrackPoint tp0, TrackPoint tp1) {
@@ -85,9 +83,8 @@ public class Track extends ArrayList <TrackPoint> {
         int i1 = getClosestPoint (tp1);
 
         for (int i = i0 + 1; i <= i1; i++) {
+
             dist += TrackPoint.getDistance (get (i - 1), get (i));
-            //System.out.print(((TrackPoint)get(i)).rawTrackPoint);
-            //System.out.println(" : " + dist);
         }
 
         return dist;

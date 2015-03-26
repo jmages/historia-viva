@@ -82,7 +82,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     ItemizedIconOverlay  poi_kml_Overlay;      // holds POIs
 
     AlertDialog.Builder singleTapAlert;
-    AlertDialog.Builder longPressAlert;
+    AlertDialog.Builder twoPressAlert;
 
     File sdcard;
 
@@ -249,9 +249,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             }
         });
 
-        longPressAlert = new AlertDialog.Builder(this);
+        twoPressAlert = new AlertDialog.Builder(this);
 
-        longPressAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
+        twoPressAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -618,9 +618,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 // String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
                 // String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
 
-                longPressAlert.setTitle("Info");
-                longPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
-                longPressAlert.show();
+                twoPressAlert.setTitle("Info");
+                twoPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
+                twoPressAlert.show();
 
         }
 
