@@ -1,5 +1,6 @@
 package jujumap.juju;
 
+import android.util.Log;
 import org.osmdroid.util.BoundingBoxE6;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class Track extends ArrayList <TrackPoint> {
 
     float minAlt = 10000;
     float maxAlt = -1000;
+
+    float trackLength = 0;
 
     public void addPath (String rawPath) {
 
@@ -35,11 +38,59 @@ public class Track extends ArrayList <TrackPoint> {
 
             this.add (tp);
         }
+
+        if (lastIndexOf(this) > 0) {
+
+            trackLength = getTrackLength(get(0), get(lastIndexOf(this)));
+
+            Log.d("addPath", String.valueOf(trackLength));
+        }
     }
 
     public BoundingBoxE6 get_bBox () {
 
         return new BoundingBoxE6 (maxLat, maxLon, minLat, minLon);
+    }
+    public int getClosestPoint (Geopoint placeMark) {
+
+        double lat = placeMark.lat;
+        double lon = placeMark.lon;
+        double dist = 1000;
+
+        TrackPoint tp;
+        TrackPoint tpNear = null;
+
+        for (Object o : this) {
+            tp = (TrackPoint) o;
+            if (dist > Math.abs (lon - tp.lon) + Math.abs (lat - tp.lat)) {
+                dist = Math.abs (lon - tp.lon) + Math.abs (lat - tp.lat);
+                tpNear = tp;
+            }
+        }
+
+        return indexOf (tpNear);
+
+        /* more exact but slower
+        if (dist > TrackPoint.getDistance(tp, new TrackPoint(lat, lon))) {
+            dist = TrackPoint.getDistance(tp, new TrackPoint(lat, lon));
+            tpNear = tp;*/
+
+    }
+
+    public float getTrackLength(TrackPoint tp0, TrackPoint tp1) {
+
+        float dist = 0;
+
+        int i0 = getClosestPoint (tp0);
+        int i1 = getClosestPoint (tp1);
+
+        for (int i = i0 + 1; i <= i1; i++) {
+            dist += TrackPoint.getDistance (get (i - 1), get (i));
+            //System.out.print(((TrackPoint)get(i)).rawTrackPoint);
+            //System.out.println(" : " + dist);
+        }
+
+        return dist;
     }
 
     @Override
@@ -54,5 +105,7 @@ public class Track extends ArrayList <TrackPoint> {
 
         minAlt = 10000;
         maxAlt = -1000;
+
+        trackLength = 0;
     }
 }
