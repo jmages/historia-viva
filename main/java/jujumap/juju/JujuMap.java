@@ -401,7 +401,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             outputStream.close();
             inputStream.close();
 
-
         } catch(Exception ignored) {}
     }
 
