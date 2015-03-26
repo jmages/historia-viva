@@ -504,10 +504,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         @Override
         public boolean onItemLongPress(int index, OverlayItem item) {
 
-            longPressAlert.setTitle(item.getTitle());
-            longPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
-            longPressAlert.show();
-
             return true;
         }
 
@@ -613,17 +609,18 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         switch (actionType) {
 
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
 
                 MapView.Projection proj = mapView.getProjection();
 
                 GeoPoint loc = (GeoPoint) proj.fromPixels((int)ev.getX(), (int)ev.getY());
 
-                String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
-                String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
+                // String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
+                // String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Longitude: "+ longitude +" Latitude: "+ latitude , Toast.LENGTH_LONG);
-                toast.show();
+                longPressAlert.setTitle("Info");
+                longPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
+                longPressAlert.show();
 
         }
         return super.dispatchTouchEvent(ev);
