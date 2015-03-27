@@ -7,7 +7,7 @@ public class TrackPoint extends Geopoint {
         super(rawTrackPoint);
     }
 
-    static double getDistance (TrackPoint tp1, TrackPoint tp2) {
+    static double getDistance (Geopoint tp1, Geopoint tp2) {
 
         double lat1 = tp1.lat / 180 * Math.PI;
         double lon1 = tp1.lon / 180 * Math.PI;
