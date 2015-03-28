@@ -10,11 +10,11 @@
     <string name="toast_new_tour">Neue Tour:</string>
     <string name="toast_no_browser">Kein Webbrowser verfügbar!</string>
     <string name="toast_no_offline_tours">Keine Tour verfügbar - bitte aus dem Internet herunterladen!</string>
-    <string name="downloading_please_wait">Datei wird heruntergeladen ... Bitte warten!</string>
+    <string name="downloading_please_wait">Datei wird heruntergeladen … Bitte warten!</string>
     <string name="toast_copying_finished">Kopieren beendet.</string>
     <string name="toast_please_connect">Bitte mit dem Internet verbinden.</string>
     <string name="toast_unzipping_1">Entpacken von</string>
-    <string name="toast_unzipping_2">... Bitte warten.</string>
+    <string name="toast_unzipping_2">… Bitte warten.</string>
     <string name="toast_unzipping_finished">Entpacken beendet.</string>
     <string name="pref_ShowPois">POI Sichtbarkeit</string>
     <string name="pref_ShowPois_summary">POIs ein- und ausblenden</string>
@@ -25,7 +25,7 @@
     <string name="pref_extended_settings">Erweiterte Einstellungen</string>
     <string name="pref_map_settings">Karten Einstellungen</string>
     <string name="pref_Locale_title">Language</string>
-    <string name="pref_Locale_summary">Choose your preferred language</string>
+    <string name="pref_Locale_summary">Bevorzugte Sprache auswählen</string>
     <string name="app_name_download">historia-viva - Tour herunterladen</string>
     <string name="app_name_options">historia-viva - Optionen</string>
     <string name="app_name_select">historia-viva - Tour auswählen</string>
@@ -33,6 +33,6 @@
     <string name="alert_back">Zurück</string>
     <string name="alert_forward">Weiter</string>
     <string name="pref_ShowMetrics">Zeige Geo-Infos</string>
-    <string name="pref_ShowMetrics_summary">Geo-Infos ein- und ausschalten</string>
-    <string name="alertGeoInfoTitle">Geoinfo</string>
+    <string name="pref_ShowMetrics_summary">2-Finger-Klick zeigt Infos zu Wegstrecke</string>
+    <string name="alertGeoInfoTitle">Geo-Info</string>
 </resources>

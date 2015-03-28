@@ -13,12 +13,12 @@
     <string name="show_tour">show tour</string>
     <string name="toast_new_tour">New tour:</string>
     <string name="toast_no_browser">No HTML-Browser found!</string>
-    <string name="toast_no_offline_tours">No Tours available - Please download them from the Internet!</string>
-    <string name="downloading_please_wait">Downloading file ... Please wait!</string>
+    <string name="toast_no_offline_tours">No Tour available - Please download them from the Internet!</string>
+    <string name="downloading_please_wait">Downloading file … Please wait!</string>
     <string name="toast_copying_finished">Copying finished.</string>
     <string name="toast_please_connect">Please connect to the Internet.</string>
     <string name="toast_unzipping_1">Unzipping of</string>
-    <string name="toast_unzipping_2">... please wait.</string>
+    <string name="toast_unzipping_2">… please wait.</string>
     <string name="toast_unzipping_finished">Unzipping finished.</string>
     <string name="pref_map_settings">Map Settings</string>
     <string name="pref_ShowPois">POI visibility</string>
@@ -27,12 +27,12 @@
     <string name="pref_download_url">Download Server URL</string>
     <string name="pref_download_url_summary">Edit the Download Server URL</string>
     <string name="pref_download_url_dialog_title">Download Server URL</string>
-    <string name="pref_download_url_dialog_message">edit URL</string>
+    <string name="pref_download_url_dialog_message">Edit URL</string>
     <string name="pref_Locale_title">Language</string>
     <string name="pref_Locale_summary">Choose your preferred language</string>
     <string name="alert_back">back</string>
     <string name="alert_forward">forward</string>
-    <string name="pref_ShowMetrics_summary">Show or hide Geoinfo</string>
-    <string name="pref_ShowMetrics">Show Geoinfo</string>
-    <string name="alertGeoInfoTitle">Geoinfo</string>
+    <string name="pref_ShowMetrics_summary">2-Finger-Click shows Geo-Info</string>
+    <string name="pref_ShowMetrics">Show Geo-Info</string>
+    <string name="alertGeoInfoTitle">Geo-Info</string>
 </resources>
