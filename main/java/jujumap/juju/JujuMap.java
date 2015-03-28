@@ -631,7 +631,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                     Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
 
-                    int d = (int) (1000 * TrackPoint.getDistance(clickPoint, trackPoint));
+                    int dist = (int) (1000 * TrackPoint.getDistance(clickPoint, trackPoint));
+
+                    float trackDist = track_kml.getTrackLength(track_kml.get(0), trackPoint);
 
                     twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
 
@@ -640,7 +642,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                         "Lat: " + Double.toString((lat))  + "°<br>" +
                         "Lon: " + Double.toString((lon)) + "°<br>" +
                         "TrackLength: " + String.valueOf(track_kml.trackLength) + " km<br>" +
-                        "Dist to Track: " + d + " m"
+                        "Dist to Track: " + dist + " m<br>" +
+                        "Dist in Track: " + trackDist + " km"
                     ));
 
                     twoPressAlert.show();

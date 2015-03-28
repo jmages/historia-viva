@@ -75,7 +75,7 @@ public class Track extends ArrayList <TrackPoint> {
         return indexOf (tpNear);
     }
 
-    public float getTrackLength(TrackPoint tp0, TrackPoint tp1) {
+    public float getTrackLength(Geopoint tp0, Geopoint tp1) {
 
         float dist = 0;
 
