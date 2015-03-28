@@ -7,11 +7,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class KML_Parser extends DefaultHandler {
 
     private StringBuffer textBuffer  = null;
-
     private String       content     = null;
-
     private String       name        = null;
-    private String       coordinates = null;
     private String       description = null;
 
     private int          folderDepth = 0;
@@ -67,7 +64,7 @@ public class KML_Parser extends DefaultHandler {
 
         if ( (elementName.equals ("coordinates")) && (folderDepth == 1)) {
 
-            coordinates = content;
+            String coordinates = content;
 
             roadbook.addPlacePoint (name, coordinates, description);
         }

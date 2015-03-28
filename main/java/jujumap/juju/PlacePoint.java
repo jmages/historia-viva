@@ -1,13 +1,9 @@
 package jujumap.juju;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class PlacePoint extends Geopoint {
 
     String name        = "";
     String description = "";
-
 
     public PlacePoint (String name, String rawTrackPoint, String description) {
 
