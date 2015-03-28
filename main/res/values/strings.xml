@@ -32,4 +32,6 @@
     <string name="pref_Locale_summary">Choose your preferred language</string>
     <string name="alert_back">back</string>
     <string name="alert_forward">forward</string>
+    <string name="pref_ShowMetrics_summary">Show or hide Geoinfo</string>
+    <string name="pref_ShowMetrics">Show Geoinfo</string>
 </resources>
