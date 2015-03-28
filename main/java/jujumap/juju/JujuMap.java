@@ -20,10 +20,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.view.*;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -58,6 +55,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     String   prefDownloadUrl      = "http://www.historia-viva.net/downloads/";
     GeoPoint prefCurrentLocation  = new GeoPoint(49.598,11.005);
     Boolean  prefShowPois         = true;
+    Boolean  prefShowMetrics      = false;
     int      prefZoomLevel        = 12;
     int      prefAutoZoomLevel    = 16;
 
@@ -70,6 +68,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     MapView        mapView;
 	IMapController mapController;
+
+    private long then;
+    private int longClickDuration = 1000; // milliseconds
 
     Track track_kml = new Track();
     POIs  pois_kml  = new POIs();
@@ -100,15 +101,15 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         JujuMap.tour_text2file = new HashMap <String, String>();
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-
         settings.registerOnSharedPreferenceChangeListener(this);
 
         initOsmdroid();
 
-        prefTourName    = settings.getString ("prefTourName"   , prefTourName);
-        prefCountryCode = settings.getString ("prefCountryCode", prefCountryCode);
-        prefShowPois    = settings.getBoolean("prefShowPois"   , prefShowPois);
-        prefLocale      = settings.getString ("prefLocale"     , prefLocale);
+        prefTourName    = settings.getString  ("prefTourName"    , prefTourName    );
+        prefCountryCode = settings.getString  ("prefCountryCode" , prefCountryCode );
+        prefShowPois    = settings.getBoolean ("prefShowPois"    , prefShowPois    );
+        prefShowMetrics = settings.getBoolean ("prefShowMetrics" , prefShowMetrics );
+        prefLocale      = settings.getString  ("prefLocale"      , prefLocale      );
 
         if (prefTourName.equals("")) {
 
@@ -587,6 +588,10 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             mapView.postInvalidate();
 
+        } else if (key.equals("prefShowMetrics")) {
+
+            prefShowMetrics = settings.getBoolean("prefShowMetrics", prefShowMetrics);
+
         } else if (key.equals("prefLocale")) {
 
             prefLocale = settings.getString("prefLocale", prefLocale);
@@ -605,23 +610,25 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
 
-        int actionType = event.getAction();
+        if (prefShowMetrics) {
 
-        switch (actionType) {
+            int actionType = event.getAction();
 
-            case MotionEvent.ACTION_POINTER_UP:
+            switch (actionType) {
 
-                MapView.Projection proj = mapView.getProjection();
+                case MotionEvent.ACTION_POINTER_UP:
 
-                GeoPoint loc = (GeoPoint) proj.fromPixels((int)event.getX(), (int)event.getY());
+                    MapView.Projection proj = mapView.getProjection();
 
-                // String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
-                // String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
+                    GeoPoint loc = (GeoPoint) proj.fromPixels((int)event.getX(), (int)event.getY());
 
-                twoPressAlert.setTitle("Info");
-                twoPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
-                twoPressAlert.show();
+                    // String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
+                    // String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
 
+                    twoPressAlert.setTitle("Info");
+                    twoPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
+                    twoPressAlert.show();
+            }
         }
 
         return super.dispatchTouchEvent(event);
