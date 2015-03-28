@@ -20,6 +20,12 @@ public class Geopoint {
         splitRawTrackPoint (rawTrackPoint);
     }
 
+    public Geopoint(double lat, double lon) {
+
+        this.lat = (float) lat;
+        this.lon = (float) lon;
+    }
+
     public Geopoint(double lat, double lon, double alt, float accuracy, double speed, double bearing, long time) {
 
         this.lat = (float) lat;

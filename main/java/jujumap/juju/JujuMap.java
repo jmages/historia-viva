@@ -107,7 +107,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         prefTourName    = settings.getString  ("prefTourName"    , prefTourName    );
         prefCountryCode = settings.getString  ("prefCountryCode" , prefCountryCode );
-        prefShowPois    = settings.getBoolean ("prefShowPois"    , prefShowPois    );
+        prefShowPois    = settings.getBoolean("prefShowPois", prefShowPois);
         prefShowMetrics = settings.getBoolean ("prefShowMetrics" , prefShowMetrics );
         prefLocale      = settings.getString  ("prefLocale"      , prefLocale      );
 
@@ -622,11 +622,26 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                     GeoPoint loc = (GeoPoint) proj.fromPixels((int)event.getX(), (int)event.getY());
 
-                    // String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
-                    // String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
+                    double lat = (double)loc.getLatitudeE6() /1000000;
+                    double lon = (double)loc.getLongitudeE6()/1000000;
 
-                    twoPressAlert.setTitle("Info");
-                    twoPressAlert.setMessage(Html.fromHtml(String.valueOf(track_kml.trackLength)));
+                    int i = track_kml.getClosestPoint(new Geopoint(lat, lon));
+
+                    int d = (int) (1000 * TrackPoint.getDistance(
+                            new Geopoint(lat, lon),
+                            new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon)
+                    ));
+
+                    twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
+
+                    twoPressAlert.setMessage(Html.fromHtml(
+
+                        "Lat: " + Double.toString((lat))  + "°<br>" +
+                        "Lon: " + Double.toString((lon)) + "°<br>" +
+                        "TrackLength: " + String.valueOf(track_kml.trackLength) + " km<br>" +
+                        "Dist to Track: " + d + " m"
+                    ));
+
                     twoPressAlert.show();
             }
         }
