@@ -625,12 +625,13 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                     double lat = (double)loc.getLatitudeE6() /1000000;
                     double lon = (double)loc.getLongitudeE6()/1000000;
 
-                    int i = track_kml.getClosestPoint(new Geopoint(lat, lon));
+                    Geopoint clickPoint = new Geopoint(lat, lon);
 
-                    int d = (int) (1000 * TrackPoint.getDistance(
-                            new Geopoint(lat, lon),
-                            new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon)
-                    ));
+                    int i = track_kml.getClosestPoint(clickPoint);
+
+                    Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
+
+                    int d = (int) (1000 * TrackPoint.getDistance(clickPoint, trackPoint));
 
                     twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
 
