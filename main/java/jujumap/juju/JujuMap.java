@@ -528,6 +528,13 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         prefCurrentLocation = new GeoPoint(location);
 
+        // proximity alarm
+
+        for (PlacePoint placePoint : pois_kml) {
+
+            Log.d ("onLocationChanged", placePoint.name);
+        }
+
         if (autoZoom) {
 
             mapController.setCenter(prefCurrentLocation);
