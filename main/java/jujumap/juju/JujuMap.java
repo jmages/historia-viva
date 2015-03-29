@@ -615,7 +615,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent (MotionEvent event) {
 
         if (prefShowMetrics) {
 
@@ -647,9 +647,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                     twoPressAlert.setMessage(Html.fromHtml(
 
                         "Lat: " + Double.toString((lat))  + "°<br>" +
-                        "Lon: " + Double.toString((lon)) + "°<br>" +
-                        "TrackLength: " + String.valueOf(track_kml.trackLength) + " km<br>" +
-                        "Dist to Track: " + dist + " m<br>" +
+                        "Lon: " + Double.toString((lon))  + "°<br>" +
+                        "TrackLength:   " + String.valueOf(track_kml.trackLength) + " km<br>" +
+                        "Dist to Track: " + dist      + " m<br>" +
                         "Dist in Track: " + trackDist + " km"
                     ));
 
