@@ -35,4 +35,9 @@
     <string name="pref_ShowMetrics">Zeige Geo-Infos</string>
     <string name="pref_ShowMetrics_summary">2-Finger-Klick zeigt Infos zu Wegstrecke</string>
     <string name="alertGeoInfoTitle">Geo-Info</string>
+    <string name="dist_to_track">Entfernung zum Track</string>
+    <string name="dist_within_track">Bereits zurückgelegte Strecke</string>
+    <string name="lat">Breitengrad</string>
+    <string name="lon">Längengrad</string>
+    <string name="trackLength">Tracklänge</string>
 </resources>
