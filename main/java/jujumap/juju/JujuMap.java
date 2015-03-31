@@ -64,30 +64,24 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     String trackfile = "poitrack.kml";
 
     Boolean autoZoom   = false;
-    String  poiMapping = "";
 
     MapView        mapView;
 	IMapController mapController;
 
-    private long then;
-    private int longClickDuration = 1000; // milliseconds
-
     Track track_kml = new Track();
     POIs  pois_kml  = new POIs();
 
-    BoundingBoxE6 tour_bBox;
-
     SimpleLocationOverlay locationOverlay;     // holds GPS-location
-
-    PathOverlay          track_kml_Overlay;    // holds poitrack
-    ItemizedIconOverlay  poi_kml_Overlay;      // holds POIs
+    PathOverlay           track_kml_Overlay;   // holds poitrack
+    ItemizedIconOverlay   poi_kml_Overlay;     // holds POIs
 
     AlertDialog.Builder singleTapAlert;
     AlertDialog.Builder twoPressAlert;
 
     File sdcard;
-
-    SharedPreferences        settings;
+    String  poiMapping = "";
+    BoundingBoxE6 tour_bBox;
+    SharedPreferences settings;
 
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
