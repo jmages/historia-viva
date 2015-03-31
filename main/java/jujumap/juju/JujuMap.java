@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -29,11 +30,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBoxE6;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.PathOverlay;
-import org.osmdroid.views.overlay.ScaleBarOverlay;
-import org.osmdroid.views.overlay.SimpleLocationOverlay;
+import org.osmdroid.views.overlay.*;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -168,6 +165,48 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         mapView.getOverlays().add(locationOverlay);
 
         mapView.getOverlays().add(new ScaleBarOverlay(this));
+        mapView.getOverlays().add(new MapTouchOverlay(this));
+    }
+
+    public class MapTouchOverlay extends Overlay {
+
+        private Long lastTouchTime = (long) 0;
+
+        public MapTouchOverlay(Context ctx) {super(ctx);}
+
+        @Override
+        protected void draw(Canvas c, MapView osmv, boolean shadow) { }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+
+            int action = event.getAction();
+
+            switch (action) {
+
+                case (MotionEvent.ACTION_DOWN) :
+
+                    Log.d("onTouchEvent", "ACTION_DOWN");
+
+                    lastTouchTime = System.currentTimeMillis();
+
+                    break;
+
+                case (MotionEvent.ACTION_UP) :
+
+                    Log.d("onTouchEvent", "ACTION_UP");
+
+                    long now = System.currentTimeMillis();
+
+                    if (now - lastTouchTime > 600) Log.d("onTouchEvent", "LONG_PRESS");
+
+                    lastTouchTime = (long) 0;
+
+                    break;
+            }
+
+            return false;
+        }
     }
 
     private void setupPOIalert() {
