@@ -49,39 +49,37 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class JujuMap extends Activity implements LocationListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    String   prefTourName         = "";
-    String   prefCountryCode      = "";
-    String   prefLocale           = "default";
-    String   prefDownloadUrl      = "http://www.historia-viva.net/downloads/";
-    GeoPoint prefCurrentLocation  = new GeoPoint(49.598,11.005);
-    Boolean  prefShowPois         = true;
-    Boolean  prefShowMetrics      = false;
-    int      prefZoomLevel        = 12;
-    int      prefAutoZoomLevel    = 16;
-
-    String osmDir    = "/osmdroid";
-    String tourDir   = osmDir + "/historia-viva/";
-    String trackfile = "poitrack.kml";
-
-    Boolean autoZoom   = false;
+    String   osmDir              = "/osmdroid";
+    String   tourDir             = osmDir + "/historia-viva/";
+    String   trackfile           = "poitrack.kml";
+    String   prefDownloadUrl     = "http://www.historia-viva.net/downloads/";
+    String   prefTourName        = "";
+    String   prefCountryCode     = "";
+    String   prefLocale          = "default";
+    GeoPoint prefCurrentLocation = new GeoPoint(49.598,11.005);
+    Boolean  prefShowPois        = true;
+    Boolean  prefShowMetrics     = false;
+    Boolean autoZoom             = false;
+    int      prefZoomLevel       = 12;
+    int      prefAutoZoomLevel   = 16;
 
     MapView        mapView;
-	IMapController mapController;
-
-    Track track_kml = new Track();
-    POIs  pois_kml  = new POIs();
+    IMapController mapController;
 
     SimpleLocationOverlay locationOverlay;     // holds GPS-location
     PathOverlay           track_kml_Overlay;   // holds poitrack
     ItemizedIconOverlay   poi_kml_Overlay;     // holds POIs
 
-    AlertDialog.Builder singleTapAlert;
-    AlertDialog.Builder twoPressAlert;
+    Track track_kml = new Track();
+    POIs  pois_kml  = new POIs();
 
     File sdcard;
     String  poiMapping = "";
     BoundingBoxE6 tour_bBox;
     SharedPreferences settings;
+
+    AlertDialog.Builder singleTapAlert;
+    AlertDialog.Builder twoPressAlert;
 
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
