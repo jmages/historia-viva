@@ -180,29 +180,81 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         @Override
         public boolean onTouchEvent(MotionEvent event, MapView mapView) {
 
-            int action = event.getAction();
+            if (prefShowMetrics) {
 
-            switch (action) {
+                int actionType = event.getAction();
 
-                case (MotionEvent.ACTION_DOWN) :
+                switch (actionType) {
 
-                    Log.d("onTouchEvent", "ACTION_DOWN");
+                    case (MotionEvent.ACTION_DOWN) :
 
-                    lastTouchTime = System.currentTimeMillis();
+                        lastTouchTime = System.currentTimeMillis();
 
-                    break;
+                        break;
 
-                case (MotionEvent.ACTION_UP) :
+                    case (MotionEvent.ACTION_UP) :
 
-                    Log.d("onTouchEvent", "ACTION_UP");
+                        long now = System.currentTimeMillis();
 
-                    long now = System.currentTimeMillis();
+                        if (now - lastTouchTime > 600) {
 
-                    if (now - lastTouchTime > 600) Log.d("onTouchEvent", "LONG_PRESS");
+                            MapView.Projection proj = mapView.getProjection();
 
-                    lastTouchTime = (long) 0;
+                            GeoPoint loc = (GeoPoint) proj.fromPixels((int)event.getX(), (int)event.getY());
 
-                    break;
+                            double lat = (double)loc.getLatitudeE6() /1000000;
+                            double lon = (double)loc.getLongitudeE6()/1000000;
+
+                            Geopoint clickPoint = new Geopoint(lat, lon);
+
+                            int i = track_kml.getClosestPoint(clickPoint);
+
+                            Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
+
+                            double distToTrack = (TrackPoint.getDistance(clickPoint, trackPoint));
+
+                            String distToTrack_f = "";
+
+                            if (distToTrack < 1) {
+
+                                distToTrack *= 1000;
+
+                                distToTrack_f = String.format("%1.0f", distToTrack) + " m";
+
+                            } else {
+
+                                distToTrack_f = String.format("%1.1f", distToTrack) + " km";
+                            }
+
+                            float trackDist = track_kml.getTrackLength(track_kml.get(0), trackPoint);
+
+                            String trackDist_f = String.format("%1.1f", trackDist) + " km";
+
+                            String tracklength_f = String.format("%1.1f", track_kml.trackLength);
+
+                            float percentage = trackDist / track_kml.trackLength * 100;
+
+                            String percentage_f = String.format("%1.0f", percentage) + " %";
+
+                            twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
+
+                            twoPressAlert.setMessage(Html.fromHtml(
+
+                                getString(R.string.lat) + " : "  + Double.toString((lat))   + "°<br>" +
+                                getString(R.string.lon) + " : "  + Double.toString((lon))   + "°<br>" +
+                                getString(R.string.trackLength)       + " : "     + tracklength_f + "<br>" +
+                                getString(R.string.dist_to_track)     + " : "     + distToTrack_f + "<br>" +
+                                getString(R.string.dist_within_track) + " :<br>"  +
+                                trackDist_f + " (" + percentage_f + ")"
+                            ));
+
+                            twoPressAlert.show();
+                        }
+
+                        lastTouchTime = (long) 0;
+
+                        break;
+                }
             }
 
             return false;
@@ -643,71 +695,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 getBaseContext().getResources().updateConfiguration(config2, getBaseContext().getResources().getDisplayMetrics());
             }
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent (MotionEvent event) {
-
-        if (prefShowMetrics) {
-
-            int actionType = event.getAction();
-
-            switch (actionType) {
-
-                case MotionEvent.ACTION_POINTER_UP:
-
-                    MapView.Projection proj = mapView.getProjection();
-
-                    GeoPoint loc = (GeoPoint) proj.fromPixels((int)event.getX(), (int)event.getY());
-
-                    double lat = (double)loc.getLatitudeE6() /1000000;
-                    double lon = (double)loc.getLongitudeE6()/1000000;
-
-                    Geopoint clickPoint = new Geopoint(lat, lon);
-
-                    int i = track_kml.getClosestPoint(clickPoint);
-
-                    Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
-
-                    double distToTrack = (TrackPoint.getDistance(clickPoint, trackPoint));
-
-                    String distToTrack_f = "";
-
-                    if (distToTrack < 1) {
-
-                        distToTrack *= 1000;
-
-                        distToTrack_f = String.format("%1.0f", distToTrack) + " m";
-
-                    } else distToTrack_f = String.format("%1.1f", distToTrack) + " km";
-
-
-                    float trackDist = track_kml.getTrackLength(track_kml.get(0), trackPoint);
-
-                    String trackDist_f = String.format("%1.1f", trackDist) + " km";
-
-                    String tracklength_f = String.format("%1.1f", track_kml.trackLength);
-
-                    float percentage = trackDist / track_kml.trackLength * 100;
-
-                    String percentage_f = String.format("%1.0f", percentage) + " %";
-
-                    twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
-
-                    twoPressAlert.setMessage(Html.fromHtml(
-
-                        getString(R.string.lat) + " : "  + Double.toString((lat))   + "°<br>" +
-                        getString(R.string.lon) + " : "  + Double.toString((lon))   + "°<br>" +
-                        getString(R.string.trackLength)       + " : "     + tracklength_f + "<br>" +
-                        getString(R.string.dist_to_track)     + " : "     + distToTrack_f + "<br>" +
-                        getString(R.string.dist_within_track) + " :<br>"  +   trackDist_f + " (" + percentage_f + ")"
-                    ));
-
-                    twoPressAlert.show();
-            }
-        }
-
-        return super.dispatchTouchEvent(event);
     }
 
     @Override
