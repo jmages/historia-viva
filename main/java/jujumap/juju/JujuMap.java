@@ -207,6 +207,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                             Geopoint clickPoint = new Geopoint(lat, lon);
 
+                            pois_kml.getClosestPoint(clickPoint);
+
                             int i = track_kml.getClosestPoint(clickPoint);
 
                             Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
@@ -613,10 +615,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         // todo proximity alarm
 
-        for (PlacePoint placePoint : pois_kml) {
-
-            Log.d ("onLocationChanged", placePoint.name);
-        }
 
         if (autoZoom) {
 

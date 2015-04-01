@@ -26,19 +26,6 @@ public class Geopoint {
         this.lon = (float) lon;
     }
 
-    public Geopoint(double lat, double lon, double alt, float accuracy, double speed, double bearing, long time) {
-
-        this.lat = (float) lat;
-        this.lon = (float) lon;
-        this.alt = (float) alt;
-
-        this.accuracy = accuracy;
-        this.speed = speed;
-        this.bearing = bearing;
-
-        this.time = time;
-    }
-
     private void splitRawTrackPoint (String rawTrackPoint) {
 
         ArrayList <String> rawGeoData = new ArrayList <String> (Arrays.asList (rawTrackPoint.split (",")));

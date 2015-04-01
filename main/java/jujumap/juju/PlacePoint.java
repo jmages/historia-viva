@@ -4,6 +4,7 @@ public class PlacePoint extends Geopoint {
 
     String name        = "";
     String description = "";
+    Boolean proximity_alert = false;
 
     public PlacePoint (String name, String rawTrackPoint, String description) {
 
