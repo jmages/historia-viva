@@ -15,6 +15,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -77,6 +81,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     AlertDialog.Builder singleTapAlert;
     AlertDialog.Builder twoPressAlert;
+    AlertDialog.Builder proximityAlert;
 
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
@@ -207,7 +212,29 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                             Geopoint clickPoint = new Geopoint(lat, lon);
 
-                            pois_kml.getClosestPoint(clickPoint);
+                            int closePOI = pois_kml.getClosestPoint(clickPoint);
+
+                            if (closePOI != -1) {
+
+                                try {
+                                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                                    r.play();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                proximityAlert.setTitle("Proximity Alert");
+                                proximityAlert.setMessage(Html.fromHtml(
+
+                                    "Approaching to POI " +
+                                    pois_kml.get(closePOI).name +
+                                    "!"
+                                ));
+
+                                proximityAlert.show();
+
+                            }
 
                             int i = track_kml.getClosestPoint(clickPoint);
 
@@ -338,6 +365,17 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         twoPressAlert = new AlertDialog.Builder(this);
 
         twoPressAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // just leave the menu
+            }
+        });
+
+        proximityAlert = new AlertDialog.Builder(this);
+
+        proximityAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -29,10 +29,10 @@ public class POIs extends ArrayList <PlacePoint> {
         this.add (pp);
     }
 
-    public PlacePoint getClosestPoint (Geopoint geopoint) {
+    public int getClosestPoint (Geopoint geopoint) {
 
         double minDist = 10000;
-        int    min     =     0;
+        int    min     =    -1;
 
         for (int i=0; i<size(); i++) {
 
@@ -59,6 +59,8 @@ public class POIs extends ArrayList <PlacePoint> {
                 get(min).proximity_alert = true;
 
                 Log.d("PROXIMITY_ALERT", String.valueOf(minDist));
+
+                return min;
             }
 
         } else {
@@ -66,7 +68,7 @@ public class POIs extends ArrayList <PlacePoint> {
             for (PlacePoint placePoint : this) placePoint.proximity_alert = false;
         }
 
-        return get(min);
+        return -1;
     }
 
     BoundingBoxE6 get_bBox () {
