@@ -2,9 +2,10 @@ package jujumap.juju;
 
 public class PlacePoint extends Geopoint {
 
-    String name        = "";
-    String description = "";
+    String name             = "";
+    String description      = "";
     Boolean proximity_alert = false;
+    Double distToCurrentLoc = 0.0;
 
     public PlacePoint (String name, String rawTrackPoint, String description) {
 

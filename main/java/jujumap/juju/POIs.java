@@ -29,7 +29,7 @@ public class POIs extends ArrayList <PlacePoint> {
         this.add (pp);
     }
 
-    public int getClosestPoint (Geopoint geopoint) {
+    public int getClosestPoint(Geopoint geopoint, double alarmDist) {
 
         double minDist = 10000;
         int    min     =    -1;
@@ -37,6 +37,8 @@ public class POIs extends ArrayList <PlacePoint> {
         for (int i=0; i<size(); i++) {
 
             double dist = TrackPoint.getDistance(geopoint, get(i));
+
+            get(i).distToCurrentLoc = dist;
 
             if (dist < minDist) {
 
@@ -47,7 +49,7 @@ public class POIs extends ArrayList <PlacePoint> {
 
         minDist = minDist * 1000;
 
-        if (minDist <= 50) {
+        if (minDist <= alarmDist) {
 
             if (! get(min).proximity_alert) {
 
@@ -60,7 +62,12 @@ public class POIs extends ArrayList <PlacePoint> {
 
         } else {
 
-            for (PlacePoint placePoint : this) placePoint.proximity_alert = false;
+            for (PlacePoint placePoint : this) {
+
+                if (placePoint.distToCurrentLoc > alarmDist * 1.6) // hysteresis
+
+                    placePoint.proximity_alert = false;
+            }
         }
 
         return -1;

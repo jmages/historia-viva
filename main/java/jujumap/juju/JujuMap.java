@@ -641,7 +641,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         Geopoint currentPoint = new Geopoint(lat, lon);
 
-        int closePOI = pois_kml.getClosestPoint(currentPoint);
+        int closePOI = pois_kml.getClosestPoint(currentPoint, 50.0);
 
         if (closePOI != -1) {
 
