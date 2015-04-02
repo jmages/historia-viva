@@ -56,12 +56,13 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     String   prefCountryCode     = "";
     String   prefLocale          = "default";
     GeoPoint prefCurrentLocation = new GeoPoint(49.598,11.005);
+    Boolean  prefShowAlarm       = false;
     Boolean  prefShowPois        = true;
     Boolean  prefShowMetrics     = true;
     Boolean  autoZoom            = false;
     int      prefZoomLevel       = 12;
     int      prefAutoZoomLevel   = 16;
-    double   prefAlarmDist       = 50.0;
+    double   prefAlarmDist       = 60.0;
 
     MapView        mapView;
     IMapController mapController;
@@ -98,11 +99,12 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         initOsmdroid();
 
-        prefTourName    = settings.getString  ("prefTourName"    , prefTourName    );
-        prefCountryCode = settings.getString  ("prefCountryCode" , prefCountryCode );
-        prefShowPois    = settings.getBoolean ("prefShowPois"    , prefShowPois);
-        prefShowMetrics = settings.getBoolean ("prefShowMetrics" , prefShowMetrics );
-        prefLocale      = settings.getString  ("prefLocale"      , prefLocale      );
+        prefTourName    = settings.getString  ("prefTourName"    , prefTourName   );
+        prefCountryCode = settings.getString  ("prefCountryCode" , prefCountryCode);
+        prefShowPois    = settings.getBoolean ("prefShowPois"    , prefShowPois   );
+        prefShowMetrics = settings.getBoolean ("prefShowMetrics" , prefShowMetrics);
+        prefShowAlarm   = settings.getBoolean ("prefShowAlarm"   , prefShowAlarm  );
+        prefLocale      = settings.getString  ("prefLocale"      , prefLocale     );
 
         if (prefTourName.equals("")) {
 
@@ -719,6 +721,10 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         } else if (key.equals("prefShowMetrics")) {
 
             prefShowMetrics = settings.getBoolean("prefShowMetrics", prefShowMetrics);
+
+        } else if (key.equals("prefShowAlarm")) {
+
+            prefShowAlarm = settings.getBoolean("prefShowAlarm", prefShowAlarm);
 
         } else if (key.equals("prefLocale")) {
 

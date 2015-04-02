@@ -20,6 +20,13 @@
                 android:defaultValue="true"
                 />
 
+        <CheckBoxPreference
+                android:title="@string/pref_ShowAlarm"
+                android:key="prefShowAlarm"
+                android:summary="@string/pref_ShowAlarm_summary"
+                android:defaultValue="false"
+                />
+
     </PreferenceCategory>
 
     <PreferenceCategory
