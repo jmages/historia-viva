@@ -33,7 +33,7 @@
     <string name="alert_back">Zurück</string>
     <string name="alert_forward">Weiter</string>
     <string name="pref_ShowMetrics">Zeige Geo-Infos</string>
-    <string name="pref_ShowMetrics_summary">ein längerer Klich auf die Karte zeigt Infos zu Wegstrecke</string>
+    <string name="pref_ShowMetrics_summary">Ein längerer Klick auf die Karte zeigt Infos zur Wegstrecke</string>
     <string name="alertGeoInfoTitle">Geo-Info</string>
     <string name="dist_to_track">Entfernung zum Track</string>
     <string name="dist_within_track">Bereits zurückgelegte Strecke</string>
