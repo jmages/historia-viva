@@ -646,12 +646,14 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         if (closePOI != -1) {
 
             try {
+
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
                 Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+
                 r.play();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            } catch (Exception ignored) {}
 
             proximityAlert.setTitle(getString(R.string.proximity_alarm));
             proximityAlert.setMessage(Html.fromHtml(
