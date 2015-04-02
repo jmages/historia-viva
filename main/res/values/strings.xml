@@ -32,7 +32,7 @@
     <string name="pref_Locale_summary">Choose your preferred language</string>
     <string name="alert_back">back</string>
     <string name="alert_forward">forward</string>
-    <string name="pref_ShowMetrics_summary">2-Finger-Click shows Geo-Info</string>
+    <string name="pref_ShowMetrics_summary">Longpress shows Geo-Info</string>
     <string name="pref_ShowMetrics">Show Geo-Info</string>
     <string name="alertGeoInfoTitle">Geo-Info</string>
     <string name="lat">Latitude</string>
@@ -40,4 +40,6 @@
     <string name="trackLength">Track length</string>
     <string name="dist_to_track">Distance to Track</string>
     <string name="dist_within_track">Dist within Track</string>
+    <string name="proximity_alarm">Proximity Alert</string>
+    <string name="proximity_alarm_text">Approaching to POI</string>
 </resources>

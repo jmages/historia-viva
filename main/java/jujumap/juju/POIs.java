@@ -47,18 +47,13 @@ public class POIs extends ArrayList <PlacePoint> {
 
         minDist = minDist * 1000;
 
-        Log.d("onLocationChanged", get(min).name);
-        Log.d("onLocationChanged", String.valueOf(minDist));
-
-        if (minDist <= 100) {
+        if (minDist <= 50) {
 
             if (! get(min).proximity_alert) {
 
                 for (PlacePoint placePoint : this) placePoint.proximity_alert = false;
 
                 get(min).proximity_alert = true;
-
-                Log.d("PROXIMITY_ALERT", String.valueOf(minDist));
 
                 return min;
             }

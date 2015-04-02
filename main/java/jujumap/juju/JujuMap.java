@@ -15,8 +15,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -59,8 +57,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     String   prefLocale          = "default";
     GeoPoint prefCurrentLocation = new GeoPoint(49.598,11.005);
     Boolean  prefShowPois        = true;
-    Boolean  prefShowMetrics     = false;
-    Boolean autoZoom             = false;
+    Boolean  prefShowMetrics     = true;
+    Boolean  autoZoom            = false;
     int      prefZoomLevel       = 12;
     int      prefAutoZoomLevel   = 16;
 
@@ -101,7 +99,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         prefTourName    = settings.getString  ("prefTourName"    , prefTourName    );
         prefCountryCode = settings.getString  ("prefCountryCode" , prefCountryCode );
-        prefShowPois    = settings.getBoolean("prefShowPois", prefShowPois);
+        prefShowPois    = settings.getBoolean ("prefShowPois"    , prefShowPois);
         prefShowMetrics = settings.getBoolean ("prefShowMetrics" , prefShowMetrics );
         prefLocale      = settings.getString  ("prefLocale"      , prefLocale      );
 
@@ -211,30 +209,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                             double lon = (double)loc.getLongitudeE6()/1000000;
 
                             Geopoint clickPoint = new Geopoint(lat, lon);
-
-                            int closePOI = pois_kml.getClosestPoint(clickPoint);
-
-                            if (closePOI != -1) {
-
-                                try {
-                                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                                    r.play();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                                proximityAlert.setTitle("Proximity Alert");
-                                proximityAlert.setMessage(Html.fromHtml(
-
-                                    "Approaching to POI " +
-                                    pois_kml.get(closePOI).name +
-                                    "!"
-                                ));
-
-                                proximityAlert.show();
-
-                            }
 
                             int i = track_kml.getClosestPoint(clickPoint);
 
@@ -651,9 +625,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         prefCurrentLocation = new GeoPoint(location);
 
-        // todo proximity alarm
-
-
         if (autoZoom) {
 
             mapController.setCenter(prefCurrentLocation);
@@ -664,6 +635,34 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         locationOverlay.setLocation(prefCurrentLocation);
 
         mapView.postInvalidate();
+
+        double lat = (double)prefCurrentLocation.getLatitudeE6() /1000000;
+        double lon = (double)prefCurrentLocation.getLongitudeE6()/1000000;
+
+        Geopoint currentPoint = new Geopoint(lat, lon);
+
+        int closePOI = pois_kml.getClosestPoint(currentPoint);
+
+        if (closePOI != -1) {
+
+            try {
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                r.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            proximityAlert.setTitle(getString(R.string.proximity_alarm));
+            proximityAlert.setMessage(Html.fromHtml(
+
+                    getString(R.string.proximity_alarm_text) + " " +
+                            pois_kml.get(closePOI).name +
+                            "!"
+            ));
+
+            proximityAlert.show();
+        }
     }
 
     public void onProviderDisabled(String provider) {}

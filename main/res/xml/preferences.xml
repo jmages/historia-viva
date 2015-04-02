@@ -17,7 +17,7 @@
                 android:title="@string/pref_ShowMetrics"
                 android:key="prefShowMetrics"
                 android:summary="@string/pref_ShowMetrics_summary"
-                android:defaultValue="false"
+                android:defaultValue="true"
                 />
 
     </PreferenceCategory>
