@@ -217,7 +217,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                             double distToTrack = (TrackPoint.getDistance(clickPoint, trackPoint));
 
-                            String distToTrack_f = "";
+                            String distToTrack_f;
 
                             if (distToTrack < 1) {
 
