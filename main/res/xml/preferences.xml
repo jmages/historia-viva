@@ -48,7 +48,7 @@
                 android:summary="@string/pref_download_url_summary"
                 android:dialogTitle="@string/pref_download_url_dialog_title"
                 android:dialogMessage="@string/pref_download_url_dialog_message"
-                android:defaultValue="http://www.historia-viva.net/downloads/" />
+                android:defaultValue="http://radreise-wiki.de/Radreise-Wiki:RouteList.txt" />
 
     </PreferenceCategory>
 

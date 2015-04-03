@@ -49,9 +49,9 @@ import javax.xml.parsers.SAXParserFactory;
 public class JujuMap extends Activity implements LocationListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     String   osmDir              = "/osmdroid";
-    String   tourDir             = osmDir + "/historia-viva/";
+    String   tourDir             = osmDir + "/radreise-wiki/";
     String   trackfile           = "poitrack.kml";
-    String   prefDownloadUrl     = "http://www.historia-viva.net/downloads/";
+    String   prefDownloadUrl     = "http://radreise-wiki.de/";
     String   prefTourName        = "";
     String   prefCountryCode     = "";
     String   prefLocale          = "default";

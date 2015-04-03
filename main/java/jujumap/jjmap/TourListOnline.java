@@ -50,9 +50,6 @@ public class TourListOnline extends ListActivity {
         path    = b.getString("path");
         url     = b.getString("url");
 
-        settings = PreferenceManager.getDefaultSharedPreferences(this);
-        editor   = settings.edit();
-
         setContentView(R.layout.tour_view);
 
         final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -68,6 +65,7 @@ public class TourListOnline extends ListActivity {
         } else {
 
             Toast.makeText(this,
+
                     getString(R.string.toast_please_connect),
                     Toast.LENGTH_LONG).show();
 
@@ -83,7 +81,7 @@ public class TourListOnline extends ListActivity {
 
         //task.execute(url);
 
-        String name = "index.html";
+        String name = "Radreise-Wiki:RouteList.txt";
 
         int count;
 
@@ -101,7 +99,7 @@ public class TourListOnline extends ListActivity {
 
             InputStream input = new BufferedInputStream(url_i.openStream(), 8192);
 
-            OutputStream output = new FileOutputStream(path + "/" + name);
+            OutputStream output = new FileOutputStream(path + "/" + "index.html");
 
             byte data[] = new byte[1024];
 
@@ -120,7 +118,7 @@ public class TourListOnline extends ListActivity {
 
         } catch (Exception e) {
 
-            Log.e("Error - no connection: ", e.getMessage());
+            Log.e("Err - Download failed: ", e.getMessage());
         }
 
         File f = new File(path + "/" + "index.html");
