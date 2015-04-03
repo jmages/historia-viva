@@ -203,27 +203,17 @@ public class TourListOnline extends ListActivity {
 
         String selectedFileName = listView.getItemAtPosition(position).toString();
 
-        if (JujuMap.tour_text2file.containsKey(selectedFileName))
-
-            selectedFileName = JujuMap.tour_text2file.get(selectedFileName);
+        Log.d("onListItemClick", selectedFileName);
 
         Intent intent = new Intent();
 
         intent.putExtra("newPath", selectedFileName);
 
-        if (selectedFileName.contains(".zip")) {
+        DownloadFileFromURL downloadFileFromURL = new DownloadFileFromURL(selectedFileName + ".kmz");
 
-            DownloadFileFromURL downloadFileFromURL =
-                    new DownloadFileFromURL(selectedFileName);
+        downloadFileFromURL.execute(url + "images/");
 
-            downloadFileFromURL.execute(url);
-
-            setResult(RESULT_CANCELED, intent);
-
-        } else {
-
-            setResult(RESULT_OK, intent);
-        }
+        setResult(RESULT_CANCELED, intent);
     }
 
     class DownloadFileFromURL extends AsyncTask <String, String, String> {
