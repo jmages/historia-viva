@@ -1,4 +1,4 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

@@ -1,4 +1,4 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
 import org.osmdroid.util.BoundingBoxE6;
 import java.util.ArrayList;

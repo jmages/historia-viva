@@ -1,4 +1,4 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
 import android.app.Activity;
 import android.app.AlertDialog;

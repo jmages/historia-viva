@@ -1,4 +1,4 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
 public class PlacePoint extends Geopoint {
 

@@ -1,10 +1,8 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
-import android.util.Log;
 import org.osmdroid.util.BoundingBoxE6;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class POIs extends ArrayList <PlacePoint> {
 

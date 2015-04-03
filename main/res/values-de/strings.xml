@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">historia-viva</string>
+    <string name="app_name">jjMap</string>
     <string name="select_tour">Tour auswählen</string>
     <string name="options">Optionen</string>
     <string name="download_tour">Tour herunterladen</string>
@@ -26,9 +26,9 @@
     <string name="pref_map_settings">Karten Einstellungen</string>
     <string name="pref_Locale_title">Language</string>
     <string name="pref_Locale_summary">Bevorzugte Sprache auswählen</string>
-    <string name="app_name_download">historia-viva - Tour herunterladen</string>
-    <string name="app_name_options">historia-viva - Optionen</string>
-    <string name="app_name_select">historia-viva - Tour auswählen</string>
+    <string name="app_name_download">jjMap - Tour herunterladen</string>
+    <string name="app_name_options">jjMap - Optionen</string>
+    <string name="app_name_select">jjMap - Tour auswählen</string>
     <string name="help">Hilfe</string>
     <string name="alert_back">Zurück</string>
     <string name="alert_forward">Weiter</string>

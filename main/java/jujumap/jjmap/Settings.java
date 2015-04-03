@@ -1,4 +1,4 @@
-package jujumap.juju;
+package jujumap.jjmap;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

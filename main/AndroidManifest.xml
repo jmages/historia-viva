@@ -2,7 +2,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jujumap.juju"
+    package="jujumap.jjmap"
     android:versionCode="9"
     android:versionName="1.8"
     >
@@ -13,7 +13,7 @@
         android:label="@string/app_name">
 
         <activity
-            android:name=".JujuMap"
+            android:name="jujumap.jjmap.JujuMap"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             >
@@ -24,21 +24,21 @@
         </activity>
 
         <activity
-            android:name=".TourListOnline"
+            android:name="jujumap.jjmap.TourListOnline"
             android:label="@string/app_name_download"
             android:screenOrientation="portrait"
             >
         </activity>
 
         <activity
-                android:name=".TourListOffline"
+                android:name="jujumap.jjmap.TourListOffline"
                 android:label="@string/app_name_select"
                 android:screenOrientation="portrait"
                 >
         </activity>
 
         <activity
-                android:name=".Settings"
+                android:name="jujumap.jjmap.Settings"
                 android:label="@string/app_name_options"
                 android:screenOrientation="portrait"
                 >
