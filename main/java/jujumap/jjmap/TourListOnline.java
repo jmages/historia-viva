@@ -13,16 +13,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +53,10 @@ public class TourListOnline extends ListActivity {
         final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
 
         if (activeNetwork != null && activeNetwork.isConnected()) {
+
+            ListView listView = this.getListView();
+
+            listView.setFastScrollEnabled(true);
 
             ListAdapter adapter = createAdapter();
 
@@ -133,37 +133,19 @@ public class TourListOnline extends ListActivity {
 
                 String line;
 
-                Pattern zipfilename = Pattern.compile("\".*?.zip\"");
-                Pattern zipfiletext = Pattern.compile("\">.*?</a>");
+                Pattern zipfilename = Pattern.compile(":: . :: .*$");
 
                 while ((line = br.readLine()) != null) {
 
-                    if (line.contains("id=\"hv-")) {
-
-                        // <li><a href="benjamin_fr_v01.zip" id="hv-tour">Chemin Walter Benjamin (français, version 01, 20 MB, aktuell nur ein Fake)</a></li>
+                    if (line.contains(" :: ")) {
 
                         Matcher m = zipfilename.matcher(line);
 
                         String fn = "";
-                        String tn = "";
 
-                        if (m.find()) fn = m.group().substring(1, m.group().length()-1);
+                        if (m.find()) fn = m.group().substring(8, m.group().length());
 
-                        m = zipfiletext.matcher(line);
-
-                        if (m.find()) tn = m.group().substring(2, m.group().length()-4);
-
-                        if ( (! fn.equals("")) && (! tn.equals("")) ) {
-
-                            JujuMap.tour_file2text.put(fn, tn);
-                            JujuMap.tour_text2file.put(tn, fn);
-
-                            valueList.add(tn);
-
-                        } else if ( (! fn.equals("")) && tn.equals("") ) {
-
-                            valueList.add(fn);
-                        }
+                        valueList.add(fn);
                     }
 
                     text.append(line);
@@ -181,7 +163,9 @@ public class TourListOnline extends ListActivity {
 
         }
 
-        ListAdapter adapter = new ArrayAdapter <String> (
+        Collections.sort(valueList);
+
+        ListAdapter adapter = new AlphabeticalAdapter (
             this,
             android.R.layout.simple_list_item_1,
             valueList);
@@ -336,6 +320,46 @@ public class TourListOnline extends ListActivity {
         protected void onCancelled(){
 
             Log.d("onCancelled: ", "download cancelled");
+        }
+    }
+
+    class AlphabeticalAdapter extends ArrayAdapter <String> implements SectionIndexer
+    {
+        private HashMap<String, Integer> alphaIndexer;
+        private String[] sections;
+
+        public AlphabeticalAdapter(Context c, int resource, List <String> data)
+        {
+            super(c, resource, data);
+            alphaIndexer = new HashMap<String, Integer>();
+            for (int i = 0; i < data.size(); i++)
+            {
+                String s = data.get(i).substring(0, 1).toUpperCase();
+                if (!alphaIndexer.containsKey(s))
+                    alphaIndexer.put(s, i);
+            }
+
+            Set<String> sectionLetters = alphaIndexer.keySet();
+            ArrayList<String> sectionList = new ArrayList<String>(sectionLetters);
+            Collections.sort(sectionList);
+            sections = new String[sectionList.size()];
+            for (int i = 0; i < sectionList.size(); i++)
+                sections[i] = sectionList.get(i);
+        }
+
+        public int getPositionForSection(int section)
+        {
+            return alphaIndexer.get(sections[section]);
+        }
+
+        public int getSectionForPosition(int position)
+        {
+            return 1;
+        }
+
+        public Object[] getSections()
+        {
+            return sections;
         }
     }
 }
