@@ -73,9 +73,7 @@ public class TourListOffline extends ListActivity {
                     // just leave it there
                 }
 
-                if (fname.contains(".zip")) {
-
-                    if (JujuMap.tour_file2text.containsKey(fname)) fname = JujuMap.tour_file2text.get(fname);
+                if (fname.contains(".kmz")) {
 
                     valueList.add(fname);
                 }
@@ -105,46 +103,26 @@ public class TourListOffline extends ListActivity {
 
         String selection = l.getItemAtPosition(position).toString();
 
-        if (JujuMap.tour_text2file.containsKey(selection))
-
-            selection = JujuMap.tour_text2file.get(selection);
-
         Intent i = new Intent();
+
         i.putExtra ("newPath", selection);
 
-        if (selection.contains(".zip")) {
+        if (selection.contains(".kmz")) {
 
-            if (selection.contains("mapnik")) {
+            String destination = "";
 
-                Log.d("Installing map", ">" + path + "/" + selection + "<");
+            destination = selection.substring(0, selection.length()-4);
 
-                try {
-                    copy (path + "/" + selection, osmpath + "/Mapnik.zip");
+            Log.d("Unzipping source     ", ">" + path + "/" + selection   + "<");
+            Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
 
-                } catch (IOException e) {
+            unzip (path + "/", selection, destination);
 
-                    Log.e("IO Error", e.toString());
-                }
+            setResult(RESULT_CANCELED, i);
 
-                setResult(RESULT_CANCELED, i);
+            adapter = createAdapter();
 
-            } else {
-
-                String destination = "";
-
-                destination = selection.substring(0, selection.length()-4);
-
-                Log.d("Unzipping source     ", ">" + path + "/" + selection   + "<");
-                Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
-
-                unzip (path + "/", selection, destination);
-
-                setResult(RESULT_CANCELED, i);
-
-                adapter = createAdapter();
-
-                setListAdapter(adapter);
-            }
+            setListAdapter(adapter);
 
         } else {
 
@@ -249,7 +227,31 @@ public class TourListOffline extends ListActivity {
                 Intent i = new Intent();
                 i.putExtra ("newPath", destination);
 
-                setResult(RESULT_OK, i);
+                File poitrackFile = new File(destPath + "/poitrack.kml");
+
+                File kmlFile = new File(destPath + "/doc.kml");
+
+                if (kmlFile.exists()) {
+
+                    kmlFile.renameTo(poitrackFile);
+
+                    setResult(RESULT_OK, i);
+
+                    this.finish();
+                }
+
+                kmlFile = new File(destPath + "/" + destination + ".kml");
+
+                if (kmlFile.exists()) {
+
+                    kmlFile.renameTo(poitrackFile);
+
+                    setResult(RESULT_OK, i);
+
+                    this.finish();
+                }
+
+                setResult(RESULT_CANCELED, i);
 
                 this.finish();
             }
