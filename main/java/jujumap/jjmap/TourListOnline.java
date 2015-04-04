@@ -22,6 +22,8 @@ import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class TourListOnline extends ListActivity {
 
@@ -305,9 +307,18 @@ public class TourListOnline extends ListActivity {
 
             Log.d("onPostExecute: ", "download " + result);
 
-            dismissDialog(progress_bar_type);
+            String destination = "";
 
-            finish();
+            destination = fileName.substring(0, fileName.length()-4);
+
+            Log.d("Unzipping source     ", ">" + path + "/" + fileName    + "<");
+            Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
+
+            unzip (path + "/", fileName, destination);
+
+            //dismissDialog(progress_bar_type);
+
+            //finish();
 
             super.onPostExecute(result);
         }
@@ -356,6 +367,136 @@ public class TourListOnline extends ListActivity {
         public Object[] getSections()
         {
             return sections;
+        }
+    }
+
+    public void unzip (String sourcePath, String zipFileName, String destination) {
+
+        int size;
+        int BUFFER_SIZE = 8192;
+        byte[] buffer   = new byte[BUFFER_SIZE];
+
+        String zipFile  = sourcePath + zipFileName;
+        String destPath = sourcePath + destination;
+
+        Toast.makeText(this,
+                getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
+                Toast.LENGTH_LONG).show();
+
+        try {
+
+            if ( ! destPath.endsWith("/") ) {
+
+                destPath += "/";
+            }
+
+            File f = new File(destPath);
+
+            if (! f.isDirectory()) {
+
+                f.mkdirs();
+            }
+
+            ZipInputStream zin = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile), BUFFER_SIZE));
+
+            try {
+
+                ZipEntry ze = null;
+
+                while ((ze = zin.getNextEntry()) != null) {
+
+                    String path = destPath + ze.getName();
+                    File unzipFile = new File(path);
+
+                    if (ze.isDirectory()) {
+
+                        if(!unzipFile.isDirectory()) {
+
+                            unzipFile.mkdirs();
+                        }
+
+                    } else {
+
+                        // check for and create parent directories if they don't exist
+                        File parentDir = unzipFile.getParentFile();
+
+                        if ( null != parentDir ) {
+
+                            if ( !parentDir.isDirectory() ) {
+
+                                parentDir.mkdirs();
+                            }
+                        }
+
+                        // unzip the file
+                        FileOutputStream out = new FileOutputStream(unzipFile, false);
+
+                        BufferedOutputStream fout = new BufferedOutputStream(out, BUFFER_SIZE);
+
+                        try {
+
+                            while ( (size = zin.read(buffer, 0, BUFFER_SIZE)) != -1 ) {
+
+                                fout.write(buffer, 0, size);
+                            }
+
+                            zin.closeEntry();
+                        }
+
+                        finally {
+
+                            fout.flush();
+                            fout.close();
+                        }
+                    }
+                }
+            }
+
+            finally {
+
+                zin.close();
+
+                File file = new File(zipFile);
+
+                file.delete();
+
+                Log.d ("Unzipping", "finished");
+
+                Intent i = new Intent();
+                i.putExtra ("newPath", destination);
+
+                File poitrackFile = new File(destPath + "/poitrack.kml");
+
+                File kmlFile = new File(destPath + "/doc.kml");
+
+                if (kmlFile.exists()) {
+
+                    kmlFile.renameTo(poitrackFile);
+
+                    setResult(RESULT_OK, i);
+
+                    this.finish();
+                }
+
+                kmlFile = new File(destPath + "/" + destination + ".kml");
+
+                if (kmlFile.exists()) {
+
+                    kmlFile.renameTo(poitrackFile);
+
+                    setResult(RESULT_OK, i);
+
+                    this.finish();
+                }
+
+                setResult(RESULT_CANCELED, i);
+
+                this.finish();
+            }
+
+        } catch (Exception e) {
+
+            Log.e ("Error", "Unzip exception", e);
         }
     }
 }
