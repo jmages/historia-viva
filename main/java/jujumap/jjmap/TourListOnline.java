@@ -212,9 +212,9 @@ public class TourListOnline extends ListActivity {
 
         intent.putExtra("newPath", selectedFileName);
 
-        DownloadFileFromURL downloadFileFromURL = new DownloadFileFromURL(selectedFileName + ".kmz");
+        DownloadFileFromURL downloadFileFromURL = new DownloadFileFromURL(selectedFileName);
 
-        downloadFileFromURL.execute(url + "images/");
+        downloadFileFromURL.execute(url);
 
         setResult(RESULT_CANCELED, intent);
     }
@@ -244,49 +244,48 @@ public class TourListOnline extends ListActivity {
         @Override
         protected String doInBackground (String... f_url) {
 
-            int count = f_url.length;
-
             String result;
+            int count;
 
-            String fileName_encoded;
+            String fileName_encoded = URLEncoder.encode(fileName.replace(" ", "_"));
+
+            String url_0   = f_url[0];
+            String url_kmz = url_0 + "images/" + fileName_encoded +  ".kmz";
 
             try {
 
-                for (int i = 0; i < count; i++) {
+                Log.d("Downloading", url_kmz);
 
-                    fileName_encoded = URLEncoder.encode(fileName.replace(" ", "_"));
+                URL url = new URL(url_kmz);
 
-                    Log.d("Downloading", f_url[i] + fileName_encoded);
+                URLConnection conection = url.openConnection();
 
-                    URL url = new URL(f_url[i] + fileName_encoded);
+                conection.connect();
 
-                    URLConnection conection = url.openConnection();
+                int lenghtOfFile = conection.getContentLength();
 
-                    conection.connect();
+                InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
-                    int lenghtOfFile = conection.getContentLength();
+                OutputStream output = new FileOutputStream(path + "/" + fileName + ".kmz");
 
-                    InputStream input = new BufferedInputStream(url.openStream(), 8192);
+                byte data[] = new byte[1024];
 
-                    OutputStream output = new FileOutputStream(path + "/" + fileName);
+                long total = 0;
 
-                    byte data[] = new byte[1024];
+                while ((count = input.read(data)) != -1) {
 
-                    long total = 0;
+                    total += count;
 
-                    while ((count = input.read(data)) != -1) {
+                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
 
-                        total += count;
-
-                        publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-
-                        output.write(data, 0, count);
-                    }
-
-                    output.flush();
-                    output.close();
-                    input.close();
+                    output.write(data, 0, count);
                 }
+
+                output.flush();
+                output.close();
+                input.close();
+
+                unzip (path + "/", fileName + ".kmz", fileName);
 
                 result = "finished";
 
@@ -310,21 +309,6 @@ public class TourListOnline extends ListActivity {
         protected void onPostExecute(String result) {
 
             Log.d("onPostExecute: ", "download " + result);
-
-            if (fileName.contains(".kmz")) {
-
-                String destination = "";
-
-                destination = fileName.substring(0, fileName.length()-4);
-
-                Log.d("Unzipping source     ", ">" + path + "/" + fileName    + "<");
-                Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
-
-                unzip (path + "/", fileName, destination);
-
-            } else {
-
-            }
 
             //dismissDialog(progress_bar_type);
 
