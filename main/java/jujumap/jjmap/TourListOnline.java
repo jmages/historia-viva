@@ -251,6 +251,7 @@ public class TourListOnline extends ListActivity {
 
             String url_0   = f_url[0];
             String url_kmz = url_0 + "images/" + fileName_encoded +  ".kmz";
+            String url_htm = url_0 +             fileName_encoded;
 
             try {
 
@@ -268,17 +269,17 @@ public class TourListOnline extends ListActivity {
 
                 OutputStream output = new FileOutputStream(path + "/" + fileName + ".kmz");
 
-                byte data[] = new byte[1024];
+                byte data1[] = new byte[1024];
 
                 long total = 0;
 
-                while ((count = input.read(data)) != -1) {
+                while ((count = input.read(data1)) != -1) {
 
                     total += count;
 
                     publishProgress("" + (int) ((total * 100) / lenghtOfFile));
 
-                    output.write(data, 0, count);
+                    output.write(data1, 0, count);
                 }
 
                 output.flush();
@@ -286,6 +287,37 @@ public class TourListOnline extends ListActivity {
                 input.close();
 
                 unzip (path + "/", fileName + ".kmz", fileName);
+
+                Log.d("Downloading", url_htm);
+
+                url = new URL(url_htm);
+
+                conection = url.openConnection();
+
+                conection.connect();
+
+                lenghtOfFile = conection.getContentLength();
+
+                input = new BufferedInputStream(url.openStream(), 8192);
+
+                output = new FileOutputStream(path + "/" + fileName + "/" + fileName + ".html");
+
+                byte data2[] = new byte[1024];
+
+                total = 0;
+
+                while ((count = input.read(data2)) != -1) {
+
+                    total += count;
+
+                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+
+                    output.write(data2, 0, count);
+                }
+
+                output.flush();
+                output.close();
+                input.close();
 
                 result = "finished";
 
