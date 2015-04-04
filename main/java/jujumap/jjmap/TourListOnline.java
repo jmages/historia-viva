@@ -307,14 +307,20 @@ public class TourListOnline extends ListActivity {
 
             Log.d("onPostExecute: ", "download " + result);
 
-            String destination = "";
+            if (fileName.contains(".kmz")) {
 
-            destination = fileName.substring(0, fileName.length()-4);
+                String destination = "";
 
-            Log.d("Unzipping source     ", ">" + path + "/" + fileName    + "<");
-            Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
+                destination = fileName.substring(0, fileName.length()-4);
 
-            unzip (path + "/", fileName, destination);
+                Log.d("Unzipping source     ", ">" + path + "/" + fileName    + "<");
+                Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
+
+                unzip (path + "/", fileName, destination);
+
+            } else {
+
+            }
 
             //dismissDialog(progress_bar_type);
 
@@ -347,10 +353,15 @@ public class TourListOnline extends ListActivity {
             }
 
             Set<String> sectionLetters = alphaIndexer.keySet();
+
             ArrayList<String> sectionList = new ArrayList<String>(sectionLetters);
+
             Collections.sort(sectionList);
+
             sections = new String[sectionList.size()];
+
             for (int i = 0; i < sectionList.size(); i++)
+
                 sections[i] = sectionList.get(i);
         }
 
@@ -378,10 +389,6 @@ public class TourListOnline extends ListActivity {
 
         String zipFile  = sourcePath + zipFileName;
         String destPath = sourcePath + destination;
-
-        Toast.makeText(this,
-                getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
-                Toast.LENGTH_LONG).show();
 
         try {
 
