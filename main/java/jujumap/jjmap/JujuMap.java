@@ -80,7 +80,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     SharedPreferences settings;
 
     AlertDialog.Builder singleTapAlert;
-    AlertDialog.Builder twoPressAlert;
+    AlertDialog.Builder longPressAlert;
     AlertDialog.Builder proximityAlert;
 
     public static HashMap <String, String> tour_file2text;
@@ -242,19 +242,19 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                             String percentage_f = String.format("%1.0f", percentage) + " %";
 
-                            twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
+                            longPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
 
-                            twoPressAlert.setMessage(Html.fromHtml(
+                            longPressAlert.setMessage(Html.fromHtml(
 
-                                getString(R.string.lat) + " : "  + Double.toString((lat))   + "°<br>" +
-                                getString(R.string.lon) + " : "  + Double.toString((lon))   + "°<br>" +
-                                getString(R.string.trackLength)       + " : "     + tracklength_f + "<br>" +
-                                getString(R.string.dist_to_track)     + " : "     + distToTrack_f + "<br>" +
-                                getString(R.string.dist_within_track) + " :<br>"  +
-                                trackDist_f + " (" + percentage_f + ")"
+                                    getString(R.string.lat) + " : " + Double.toString((lat)) + "°<br>" +
+                                            getString(R.string.lon) + " : " + Double.toString((lon)) + "°<br>" +
+                                            getString(R.string.trackLength) + " : " + tracklength_f + "<br>" +
+                                            getString(R.string.dist_to_track) + " : " + distToTrack_f + "<br>" +
+                                            getString(R.string.dist_within_track) + " :<br>" +
+                                            trackDist_f + " (" + percentage_f + ")"
                             ));
 
-                            twoPressAlert.show();
+                            longPressAlert.show();
                         }
 
                         lastTouchTime = (long) 0;
@@ -276,7 +276,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                // just leave the menu
+            // just leave the menu
             }
         });
 
@@ -287,13 +287,14 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 Intent viewDoc = new Intent(Intent.ACTION_VIEW);
 
-                File file = new File(sdcard, tourDir + prefTourName + "/" + poiMapping + ".html");
+                File file = new File(sdcard, tourDir + prefTourName + "/index.html");
 
                 viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
                 PackageManager pm = getPackageManager();
 
                 List<ResolveInfo> apps =
+
                         pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
 
                 if (apps.size() > 0) {
@@ -339,9 +340,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             }
         });
 
-        twoPressAlert = new AlertDialog.Builder(this);
+        longPressAlert = new AlertDialog.Builder(this);
 
-        twoPressAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
+        longPressAlert.setNeutralButton(getString(R.string.alert_back), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

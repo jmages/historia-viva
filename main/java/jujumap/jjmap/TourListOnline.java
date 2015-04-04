@@ -300,7 +300,7 @@ public class TourListOnline extends ListActivity {
 
                 input = new BufferedInputStream(url.openStream(), 8192);
 
-                output = new FileOutputStream(path + "/" + fileName + "/" + fileName + ".html");
+                output = new FileOutputStream(path + "/" + fileName + "/" + "index.html");
 
                 byte data2[] = new byte[1024];
 
