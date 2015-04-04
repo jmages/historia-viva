@@ -240,6 +240,7 @@ public class TourListOnline extends ListActivity {
             showDialog(progress_bar_type);
         }
 
+        @SuppressWarnings("deprecation")
         @Override
         protected String doInBackground (String... f_url) {
 
