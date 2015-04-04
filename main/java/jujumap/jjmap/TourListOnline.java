@@ -248,17 +248,17 @@ public class TourListOnline extends ListActivity {
 
             String result;
 
-            String url_e;
+            String fileName_encoded;
 
             try {
 
                 for (int i = 0; i < count; i++) {
 
-                    url_e = URLEncoder.encode(fileName.replace(" ", "_"));
+                    fileName_encoded = URLEncoder.encode(fileName.replace(" ", "_"));
 
-                    Log.d("Downloading", f_url[i] + url_e);
+                    Log.d("Downloading", f_url[i] + fileName_encoded);
 
-                    URL url = new URL(f_url[i] + url_e);
+                    URL url = new URL(f_url[i] + fileName_encoded);
 
                     URLConnection conection = url.openConnection();
 
