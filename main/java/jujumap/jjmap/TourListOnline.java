@@ -227,7 +227,7 @@ public class TourListOnline extends ListActivity {
 
         public DownloadFileFromURL (String fileName) {
 
-            this.fileName = fileName.replace(" ", "_");
+            this.fileName = fileName;
 
         }
 
@@ -251,7 +251,7 @@ public class TourListOnline extends ListActivity {
 
             try {
 
-                url_e = URLEncoder.encode(fileName);
+                url_e = URLEncoder.encode(fileName.replace(" ", "_"));
 
                 Log.d ("Downloading", f_url[0] + url_e);
 
