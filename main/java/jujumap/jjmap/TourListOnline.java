@@ -244,7 +244,7 @@ public class TourListOnline extends ListActivity {
         @Override
         protected String doInBackground (String... f_url) {
 
-            int count;
+            int count = f_url.length;
 
             String result;
 
@@ -252,38 +252,41 @@ public class TourListOnline extends ListActivity {
 
             try {
 
-                url_e = URLEncoder.encode(fileName.replace(" ", "_"));
+                for (int i = 0; i < count; i++) {
 
-                Log.d ("Downloading", f_url[0] + url_e);
+                    url_e = URLEncoder.encode(fileName.replace(" ", "_"));
 
-                URL url = new URL (f_url[0] + url_e);
+                    Log.d("Downloading", f_url[i] + url_e);
 
-                URLConnection conection = url.openConnection();
+                    URL url = new URL(f_url[i] + url_e);
 
-                conection.connect();
+                    URLConnection conection = url.openConnection();
 
-                int lenghtOfFile = conection.getContentLength();
+                    conection.connect();
 
-                InputStream input = new BufferedInputStream(url.openStream(), 8192);
+                    int lenghtOfFile = conection.getContentLength();
 
-                OutputStream output = new FileOutputStream(path + "/" + fileName);
+                    InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
-                byte data[] = new byte[1024];
+                    OutputStream output = new FileOutputStream(path + "/" + fileName);
 
-                long total = 0;
+                    byte data[] = new byte[1024];
 
-                while ((count = input.read(data)) != -1) {
+                    long total = 0;
 
-                    total += count;
+                    while ((count = input.read(data)) != -1) {
 
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                        total += count;
 
-                    output.write(data, 0, count);
+                        publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+
+                        output.write(data, 0, count);
+                    }
+
+                    output.flush();
+                    output.close();
+                    input.close();
                 }
-
-                output.flush();
-                output.close();
-                input.close();
 
                 result = "finished";
 
