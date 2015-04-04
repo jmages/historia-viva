@@ -141,10 +141,6 @@ public class TourListOffline extends ListActivity {
         String zipFile  = sourcePath + zipFileName;
         String destPath = sourcePath + destination;
 
-        Toast.makeText(this,
-            getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
-            Toast.LENGTH_LONG).show();
-
         try {
 
             if ( ! destPath.endsWith("/") ) {
