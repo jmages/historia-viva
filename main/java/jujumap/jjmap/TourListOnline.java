@@ -224,7 +224,7 @@ public class TourListOnline extends ListActivity {
 
         public DownloadFileFromURL (String fileName) {
 
-            this.fileName = fileName;
+            this.fileName = fileName.replace(" ", "_");
         }
 
         @SuppressWarnings("deprecation")
@@ -244,6 +244,8 @@ public class TourListOnline extends ListActivity {
             String result;
 
             try {
+
+                fileName.replace(" ", "_");
 
                 Log.d ("Downloading", f_url[0] + fileName);
 
