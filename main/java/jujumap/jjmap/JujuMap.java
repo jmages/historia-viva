@@ -383,8 +383,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 prefTourName = pData.getExtras().getString( "newPath" );
 
-                prefCountryCode = prefTourName.substring(prefTourName.length()-8, prefTourName.length()-6);
-
                 initTour(prefTourName, prefCountryCode);
             }
         }

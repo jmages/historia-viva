@@ -18,6 +18,7 @@ import android.widget.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -225,6 +226,7 @@ public class TourListOnline extends ListActivity {
         public DownloadFileFromURL (String fileName) {
 
             this.fileName = fileName.replace(" ", "_");
+
         }
 
         @SuppressWarnings("deprecation")
@@ -243,13 +245,15 @@ public class TourListOnline extends ListActivity {
 
             String result;
 
+            String url_e;
+
             try {
 
-                fileName.replace(" ", "_");
+                url_e = URLEncoder.encode(fileName);
 
-                Log.d ("Downloading", f_url[0] + fileName);
+                Log.d ("Downloading", f_url[0] + url_e);
 
-                URL url = new URL (f_url[0] + fileName);
+                URL url = new URL (f_url[0] + url_e);
 
                 URLConnection conection = url.openConnection();
 
