@@ -24,6 +24,9 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.*;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -289,13 +292,13 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 File file = new File(sdcard, tourDir + prefTourName + "/index.html");
 
-                viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
+                Uri uri = Uri.fromFile(file);
+
+                viewDoc.setDataAndType(uri, "text/html");
 
                 PackageManager pm = getPackageManager();
 
-                List<ResolveInfo> apps =
-
-                        pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
+                List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
 
                 if (apps.size() > 0) {
 
@@ -308,35 +311,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                             Toast.LENGTH_LONG).show();
                 }
 
-                /*
-                WebView myWebView = (WebView) findViewById(R.id.webview);
-
-                myWebView.setWebViewClient(new WebViewClient());
-
-                WebSettings webSettings = myWebView.getSettings();
-                webSettings.setJavaScriptEnabled(true);
-
-                myWebView.loadUrl("http://www.spiegel.de");
-                */
-
-                /*AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                builder1.setMessage("Write your message here.");
-                builder1.setCancelable(true);
-                builder1.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                builder1.setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alert11 = builder1.create();
-                alert11.show();*/
             }
         });
 
@@ -615,7 +589,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                              item.getSnippet()
             ));
 
-            poiMapping = item.getUid() + prefCountryCode;
+            poiMapping = item.getTitle();
 
             singleTapAlert.show();
 
