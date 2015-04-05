@@ -203,7 +203,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                         long now = System.currentTimeMillis();
 
-                        if (now - lastTouchTime > 2000) {
+                        if (now - lastTouchTime > 1500) {
 
                             MapView.Projection proj = mapView.getProjection();
 
