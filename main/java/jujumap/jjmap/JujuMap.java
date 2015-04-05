@@ -635,9 +635,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             proximityAlert.setTitle(getString(R.string.proximity_alarm));
             proximityAlert.setMessage(Html.fromHtml(
 
-                    getString(R.string.proximity_alarm_text) + " " +
-                            pois_kml.get(closePOI).name +
-                            "!"
+                    getString(R.string.proximity_alarm_text) + "\n" +
+                            pois_kml.get(closePOI).name
             ));
 
             proximityAlert.show();
