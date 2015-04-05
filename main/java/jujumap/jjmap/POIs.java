@@ -27,7 +27,7 @@ public class POIs extends ArrayList <PlacePoint> {
         this.add (pp);
     }
 
-    public int getClosestPoint(Geopoint geopoint, double alarmDist) {
+    public int getClosestPoint(Geopoint geopoint, double alarmDist, double alarmHyst) {
 
         double minDist = 10000;
         int    min     =    -1;
@@ -62,7 +62,7 @@ public class POIs extends ArrayList <PlacePoint> {
 
             for (PlacePoint placePoint : this) {
 
-                if (placePoint.distToCurrentLoc > alarmDist * 1.6) // hysteresis
+                if (placePoint.distToCurrentLoc > alarmDist + alarmHyst) // hysteresis
 
                     placePoint.proximity_alert = false;
             }

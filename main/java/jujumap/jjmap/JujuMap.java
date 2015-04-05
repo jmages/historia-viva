@@ -66,6 +66,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     int      prefZoomLevel       = 12;
     int      prefAutoZoomLevel   = 16;
     double   prefAlarmDist       = 60.0;
+    double   prefAlarmHyst       = 50.0;
 
     MapView        mapView;
     IMapController mapController;
@@ -617,7 +618,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         Geopoint currentPoint = new Geopoint(lat, lon);
 
-        int closePOI = pois_kml.getClosestPoint(currentPoint, prefAlarmDist);
+        int closePOI = pois_kml.getClosestPoint(currentPoint, prefAlarmDist, prefAlarmHyst);
 
         if (closePOI != -1) {
 
