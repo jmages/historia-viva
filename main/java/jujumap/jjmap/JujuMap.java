@@ -24,9 +24,7 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.*;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -40,10 +38,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -289,29 +284,23 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent viewDoc = new Intent(Intent.ACTION_VIEW);
-
                 File file = new File(sdcard, tourDir + prefTourName + "/index.html");
 
                 Uri uri = Uri.fromFile(file);
 
-                viewDoc.setDataAndType(uri, "text/html");
+                Uri.fromParts("file",sdcard + tourDir + prefTourName + "/index.html", "#" + poiMapping);
 
-                PackageManager pm = getPackageManager();
+                Log.d("uri", poiMapping);
 
-                List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
+                final String baseUrl = "file:///mnt/sdcard/osmdroid/radreise-wiki/Berliner%20Mauerweg/index.html#Berlin-Wannsee";
 
-                if (apps.size() > 0) {
+                setContentView(R.layout.webview);
 
-                    startActivity(viewDoc);
+                WebView webView = null;
 
-                } else {
+                webView = (WebView)findViewById(R.id.webview);
 
-                    Toast.makeText(JujuMap.this,
-                            getString(R.string.toast_no_browser),
-                            Toast.LENGTH_LONG).show();
-                }
-
+                webView.loadUrl(baseUrl);
             }
         });
 
