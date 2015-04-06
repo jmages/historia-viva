@@ -40,6 +40,12 @@
                 >
         </activity>
 
+        <activity
+                android:name="jujumap.jjmap.WebViewAct"
+                android:label="@string/app_name_options"
+                >
+        </activity>
+
     </application>
 
     <uses-sdk android:minSdkVersion="3"/>

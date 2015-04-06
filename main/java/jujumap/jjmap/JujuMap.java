@@ -25,6 +25,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.*;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -85,7 +86,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
 
-    WebView webView = null;
+    Intent webIntent;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -133,6 +134,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             mapController.setZoom(prefZoomLevel);
             mapController.setCenter(prefCurrentLocation);
         }
+
+
+        webIntent = new Intent (this, WebViewAct.class);
 
         setupPOIalert();
     }
@@ -294,19 +298,18 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 Log.d("uri", poiMapping);
 
-                final String baseUrl = "file:///mnt/sdcard/osmdroid/radreise-wiki/Berliner%20Mauerweg/index.html#Berlin-Wannsee";
+                final String baseUrl =
 
-                setContentView(R.layout.webview);
+                        "file:///mnt/sdcard/osmdroid/radreise-wiki/"+
+                                prefTourName +
+                                "/index.html#" +
+                                poiMapping;
 
-                webView = (WebView)findViewById(R.id.webview);
+                Log.d("url", baseUrl);
 
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        webView.loadUrl(baseUrl);
-                    }
-                }, 400);
+                webIntent.putExtra("url", baseUrl);
+
+                startActivityForResult (webIntent, 1234);
             }
         });
 
