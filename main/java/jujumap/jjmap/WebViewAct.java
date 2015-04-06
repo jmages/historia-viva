@@ -13,8 +13,7 @@ import java.util.TimerTask;
 public class WebViewAct extends Activity {
 
     WebView webView;
-    String  url_o;
-    String  url_e;
+    String  url;
 
     @Override
     public void onCreate (Bundle bundle) {
@@ -23,19 +22,11 @@ public class WebViewAct extends Activity {
 
         Bundle b = getIntent().getExtras();
 
-        url_o = b.getString("url");
-
-        Log.d("url_o", url_o);
-
-        url_e = (url_o);
-
-        Log.d("url_e", url_e);
+        url = b.getString("url");
 
         setContentView(R.layout.webview);
 
         webView = (WebView)findViewById(R.id.webview);
-
-        //webView.setWebViewClient(new WebViewClient());
 
         Timer timer = new Timer();
 
@@ -44,7 +35,7 @@ public class WebViewAct extends Activity {
             @Override
             public void run() {
 
-                webView.loadUrl(url_e);
+                webView.loadUrl(url);
             }
 
         }, 400);
