@@ -296,7 +296,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                 final String baseUrl = (
 
                         "file:///mnt/sdcard/osmdroid/radreise-wiki/"+
-                                urlencode(prefTourName) +
+                                (prefTourName) +
                                 "/index.html#" +
                                 urlencode(poiMapping.replace(" ", "_")));
 
