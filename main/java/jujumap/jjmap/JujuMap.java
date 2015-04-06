@@ -291,16 +291,16 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Uri uri = Uri.fromParts("file",sdcard + tourDir + prefTourName + "/index.html", "#" + poiMapping);
+                Uri uri = Uri.fromParts(
 
-                final String baseUrl = (
+                    "file",
+                    sdcard +
+                    tourDir +
+                    prefTourName +
+                    "/index.html",
+                    urlencode(poiMapping.replace(" ", "_")));
 
-                        "file:///mnt/sdcard/osmdroid/radreise-wiki/"+
-                                (prefTourName) +
-                                "/index.html#" +
-                                urlencode(poiMapping.replace(" ", "_")));
-
-                webIntent.putExtra("url", baseUrl);
+                webIntent.putExtra("url", uri.toString());
 
                 startActivityForResult (webIntent, 1234);
             }
