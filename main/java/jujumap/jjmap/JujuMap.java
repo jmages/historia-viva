@@ -39,6 +39,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -290,22 +291,14 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                File file = new File(sdcard, tourDir + prefTourName + "/index.html");
+                Uri uri = Uri.fromParts("file",sdcard + tourDir + prefTourName + "/index.html", "#" + poiMapping);
 
-                Uri uri = Uri.fromFile(file);
-
-                Uri.fromParts("file",sdcard + tourDir + prefTourName + "/index.html", "#" + poiMapping);
-
-                Log.d("uri", poiMapping);
-
-                final String baseUrl =
+                final String baseUrl = (
 
                         "file:///mnt/sdcard/osmdroid/radreise-wiki/"+
-                                prefTourName +
+                                urlencode(prefTourName) +
                                 "/index.html#" +
-                                poiMapping;
-
-                Log.d("url", baseUrl);
+                                urlencode(poiMapping.replace(" ", "_")));
 
                 webIntent.putExtra("url", baseUrl);
 
@@ -729,5 +722,18 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         editor.commit();
 
         super.onDestroy();
+    }
+
+    public String urlencode(String original)
+    {
+        try
+        {
+            return URLEncoder.encode(original, "utf-8").replace("%", ".").replace("+", " ");
+        }
+        catch(UnsupportedEncodingException e)
+        {
+            //  Logger.e(e.toString());
+        }
+        return null;
     }
 }
