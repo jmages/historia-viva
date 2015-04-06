@@ -85,6 +85,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
 
+    WebView webView = null;
+
     @Override
     public void onCreate (Bundle savedInstanceState) {
 
@@ -296,11 +298,15 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
                 setContentView(R.layout.webview);
 
-                WebView webView = null;
-
                 webView = (WebView)findViewById(R.id.webview);
 
-                webView.loadUrl(baseUrl);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        webView.loadUrl(baseUrl);
+                    }
+                }, 400);
             }
         });
 
