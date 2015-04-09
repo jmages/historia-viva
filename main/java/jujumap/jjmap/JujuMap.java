@@ -84,18 +84,12 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     AlertDialog.Builder longPressAlert;
     AlertDialog.Builder proximityAlert;
 
-    public static HashMap <String, String> tour_file2text;
-    public static HashMap <String, String> tour_text2file;
-
     Intent webIntent;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
 
         super.onCreate (savedInstanceState);
-
-        JujuMap.tour_file2text = new HashMap <String, String>();
-        JujuMap.tour_text2file = new HashMap <String, String>();
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
         settings.registerOnSharedPreferenceChangeListener(this);
@@ -152,9 +146,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         File dirs = new File(sdcard, tourDir);
 
-        initHelp();
+        dirs.mkdirs();
 
-        if (dirs.mkdirs()) showHelp();
+        initHelp();
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
