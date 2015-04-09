@@ -572,7 +572,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             singleTapAlert.setMessage(Html.fromHtml(
                     "<h2>" + item.getTitle() + "</h2><br>" +
-                             item.getSnippet()
+                            prefTourName
             ));
 
             poiMapping = item.getTitle();
