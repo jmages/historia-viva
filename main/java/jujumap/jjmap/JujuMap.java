@@ -670,11 +670,14 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
             prefShowPois = settings.getBoolean("prefShowPois", prefShowPois);
 
-            if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
+            if (poi_kml_Overlay != null) {
 
-            else mapView.getOverlays().remove(poi_kml_Overlay);
+                if (prefShowPois) mapView.getOverlays().add(poi_kml_Overlay);
 
-            mapView.postInvalidate();
+                else mapView.getOverlays().remove(poi_kml_Overlay);
+
+                mapView.postInvalidate();
+            }
 
         } else if (key.equals("prefShowMetrics")) {
 
