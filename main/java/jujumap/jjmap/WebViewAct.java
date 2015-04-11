@@ -33,10 +33,7 @@ public class WebViewAct extends Activity {
         timer.schedule(new TimerTask() {
 
             @Override
-            public void run() {
-
-                webView.loadUrl(url);
-            }
+            public void run() { webView.loadUrl(url); }
 
         }, 400);
     }

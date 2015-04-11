@@ -24,8 +24,6 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.*;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
@@ -39,6 +37,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.*;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -130,10 +129,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             mapController.setCenter(prefCurrentLocation);
         }
 
-
-        webIntent = new Intent (this, WebViewAct.class);
-
-        setupPOIalert();
+        setupAlerts();
     }
 
     private void initOsmdroid() {
@@ -144,11 +140,11 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         sdcard = Environment.getExternalStorageDirectory();
 
+        webIntent = new Intent (this, WebViewAct.class);
+
         File dirs = new File(sdcard, tourDir);
 
-        dirs.mkdirs();
-
-        initHelp();
+        if (dirs.mkdirs()) showHelp();
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
@@ -267,7 +263,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         }
     }
 
-    private void setupPOIalert() {
+    private void setupAlerts() {
 
         singleTapAlert = new AlertDialog.Builder(this);
 
@@ -436,45 +432,11 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void showHelp() {
 
-        Intent viewDoc = new Intent(Intent.ACTION_VIEW);
+        Uri uri_h = Uri.parse("file:///android_res/raw/help.html");
 
-        File file = new File(sdcard, tourDir + "/help.html");
+        webIntent.putExtra("url", uri_h.toString());
 
-        Uri uri = Uri.fromFile(file);
-
-        viewDoc.setDataAndType(uri, "text/html");
-
-        PackageManager pm = getPackageManager();
-
-        List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
-
-        if (apps.size() > 0) startActivity(viewDoc);
-    }
-
-    private void initHelp() {
-
-        File file = new File(sdcard, tourDir + "/help.html");
-
-        InputStream inputStream;
-
-        OutputStream outputStream;
-
-        try {
-
-            inputStream = getResources().openRawResource(R.raw.help);
-
-            outputStream = new FileOutputStream(file);
-
-            byte[] buffer = new byte[inputStream.available()];
-
-            inputStream.read(buffer);
-
-            outputStream.write(buffer);
-
-            outputStream.close();
-            inputStream.close();
-
-        } catch(Exception ignored) {}
+        startActivityForResult (webIntent, 1234);
     }
 
     @Override
@@ -657,7 +619,6 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             default:
 
                 Log.d ("onStatusChanged", "LocationProvider " + provider + " unknown status: " + status);
-
         }
     }
 
