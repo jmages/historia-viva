@@ -87,6 +87,8 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     public static HashMap <String, String> tour_file2text;
     public static HashMap <String, String> tour_text2file;
 
+    Intent webIntent;
+
     @Override
     public void onCreate (Bundle savedInstanceState) {
 
@@ -145,9 +147,9 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         sdcard = Environment.getExternalStorageDirectory();
 
-        File dirs = new File(sdcard, tourDir);
+        webIntent = new Intent (this, WebViewAct.class);
 
-        initHelp();
+        File dirs = new File(sdcard, tourDir);
 
         if (dirs.mkdirs()) showHelp();
 
@@ -478,45 +480,11 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void showHelp() {
 
-        Intent viewDoc = new Intent(Intent.ACTION_VIEW);
+        Uri uri_h = Uri.parse("file:///android_res/raw/help.html");
 
-        File file = new File(sdcard, tourDir + "/help.html");
+        webIntent.putExtra("url", uri_h.toString());
 
-        Uri uri = Uri.fromFile(file);
-
-        viewDoc.setDataAndType(uri, "text/html");
-
-        PackageManager pm = getPackageManager();
-
-        List<ResolveInfo> apps = pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
-
-        if (apps.size() > 0) startActivity(viewDoc);
-    }
-
-    private void initHelp() {
-
-        File file = new File(sdcard, tourDir + "/help.html");
-
-        InputStream inputStream;
-
-        OutputStream outputStream;
-
-        try {
-
-            inputStream = getResources().openRawResource(R.raw.help);
-
-            outputStream = new FileOutputStream(file);
-
-            byte[] buffer = new byte[inputStream.available()];
-
-            inputStream.read(buffer);
-
-            outputStream.write(buffer);
-
-            outputStream.close();
-            inputStream.close();
-
-        } catch(Exception ignored) {}
+        startActivityForResult (webIntent, 1234);
     }
 
     @Override
