@@ -31,9 +31,6 @@ public class TourListOnline extends ListActivity {
     String path    = "";
     String url     = "";
 
-    SharedPreferences        settings;
-    SharedPreferences.Editor editor;
-
     private ProgressDialog pDialog;
 
     public static final int progress_bar_type = 0;
