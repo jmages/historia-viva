@@ -288,11 +288,27 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                Intent viewDoc = new Intent(Intent.ACTION_VIEW);
+
                 File file = new File(sdcard, tourDir + prefTourName + "/" + poiMapping + ".html");
 
-                webIntent.putExtra("url", Uri.fromFile(file).toString());
+                viewDoc.setDataAndType(Uri.fromFile(file), "text/html");
 
-                startActivityForResult (webIntent, 1234);
+                PackageManager pm = getPackageManager();
+
+                List<ResolveInfo> apps =
+                        pm.queryIntentActivities(viewDoc, PackageManager.MATCH_DEFAULT_ONLY);
+
+                if (apps.size() > 0) {
+
+                    startActivity(viewDoc);
+
+                } else {
+
+                    Toast.makeText(JujuMap.this,
+                            getString(R.string.toast_no_browser),
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
