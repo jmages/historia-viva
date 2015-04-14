@@ -45,4 +45,5 @@
     <string name="pref_ShowAlarm_summary">Ring alarm when approaching POI</string>
     <string name="pref_ShowAlarm">POI Proximity Alarm</string>
     <string name="jjMap_roadbook">jjMap - roadbook</string>
+    <string name="search_tour">Search tour ...</string>
 </resources>

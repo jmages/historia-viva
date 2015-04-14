@@ -11,6 +11,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -31,6 +33,10 @@ public class TourListOnline extends ListActivity {
     String path    = "";
     String url     = "";
 
+    EditText inputSearch;
+
+    ArrayAdapter <String> adapter;
+
     private ProgressDialog pDialog;
 
     public static final int progress_bar_type = 0;
@@ -48,6 +54,26 @@ public class TourListOnline extends ListActivity {
 
         setContentView(R.layout.tour_view);
 
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
+
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+
+                adapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+        });
+
         final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
@@ -58,7 +84,7 @@ public class TourListOnline extends ListActivity {
 
             listView.setFastScrollEnabled(true);
 
-            ListAdapter adapter = createAdapter();
+            adapter = createAdapter();
 
             setListAdapter(adapter);
 
@@ -73,7 +99,7 @@ public class TourListOnline extends ListActivity {
         }
     }
 
-    protected ListAdapter createAdapter() {
+    protected ArrayAdapter createAdapter() {
 
         List valueList = new ArrayList <String> ();
 
@@ -170,7 +196,7 @@ public class TourListOnline extends ListActivity {
             android.R.layout.simple_list_item_1,
             valueList);
 
-        return adapter;
+        return (ArrayAdapter) adapter;
     }
 
     @SuppressWarnings("deprecation")

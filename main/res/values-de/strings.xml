@@ -16,8 +16,8 @@
     <string name="toast_unzipping_1">Entpacken von</string>
     <string name="toast_unzipping_2">… Bitte warten.</string>
     <string name="toast_unzipping_finished">Entpacken beendet.</string>
-    <string name="pref_ShowPois">Stationen-Sichtbarkeit</string>
-    <string name="pref_ShowPois_summary">Stations-Markierungen ein- und ausblenden</string>
+    <string name="pref_ShowPois">Ortspunkt-Sichtbarkeit</string>
+    <string name="pref_ShowPois_summary">Ortspunkt-Markierungen ein- und ausblenden</string>
     <string name="pref_download_url">Download-Server-Adresse</string>
     <string name="pref_download_url_dialog_message">Server-Adresse ändern</string>
     <string name="pref_download_url_dialog_title">Download-Server-Adresse</string>
@@ -40,9 +40,10 @@
     <string name="lat">Breitengrad</string>
     <string name="lon">Längengrad</string>
     <string name="trackLength">Tracklänge</string>
-    <string name="proximity_alarm">Stations-Annäherung</string>
-    <string name="proximity_alarm_text">Sie nähern sich folgender Station an:</string>
-    <string name="pref_ShowAlarm">Stations-Annäherungs-Alarm</string>
-    <string name="pref_ShowAlarm_summary">Alarm, wenn man sich in der Nähe einer Station befindet</string>
+    <string name="proximity_alarm">Ortspunkt-Annäherung</string>
+    <string name="proximity_alarm_text">Sie nähern sich folgendem Ort an:</string>
+    <string name="pref_ShowAlarm">Ortspunkt-Annäherungs-Alarm</string>
+    <string name="pref_ShowAlarm_summary">Alarm, wenn man sich in der Nähe eines Ortspunktes befindet</string>
     <string name="jjMap_roadbook">jjMap - Roadbook</string>
+    <string name="search_tour">Tour suchen ...</string>
 </resources>
