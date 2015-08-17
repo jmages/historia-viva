@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alertGeoInfoTitle">Geoinformación</string>
+    <string name="alert_back">Regresar</string>
+    <string name="alert_forward">Avanzar</string>
+    <string name="app_name">historia-viva</string>
+    <string name="app_name_download">historia-viva - Descargar recorrido</string>
+    <string name="app_name_options">historia-viva - Opciones</string>
+    <string name="app_name_select">historia-viva - Seleccionar recorrido</string>
+    <string name="dist_to_track">Distancia hasta el camino</string>
+    <string name="dist_within_track">Distancia recorrida del camino</string>
+    <string name="download_tour">Descargar recorrido</string>
+    <string name="downloading_please_wait">Descargando el archivo… por favor espere!</string>
+    <string name="help">Ayuda</string>
+    <string name="lat">Latitud</string>
+    <string name="lon">Longitud</string>
+    <string name="options">Opciones</string>
+    <string name="pref_Locale_summary">Seleccione su idioma preferido</string>
+    <string name="pref_Locale_title">Idioma</string>
+    <string name="pref_ShowAlarm">Alarma de proximidad a estación</string>
+    <string name="pref_ShowAlarm_summary">Activar alarma al acercarse a una estación</string>
+    <string name="pref_ShowMetrics">Mostrar geoinformación</string>
+    <string name="pref_ShowMetrics_summary">Presionar largamente muestra geoinformación</string>
+    <string name="pref_ShowPois">Visibilidad estación</string>
+    <string name="pref_ShowPois_summary">Mostrar u ocultar estaciones</string>
+    <string name="pref_download_url">Descargar URL del servidor</string>
+    <string name="pref_download_url_dialog_message">Editar URL</string>
+    <string name="pref_download_url_dialog_title">Descargar URL del servidor</string>
+    <string name="pref_download_url_summary">Editar descarga URL del servidor</string>
+    <string name="pref_extended_settings">Configuraciones avanzadas</string>
+    <string name="pref_map_settings">Configuraciones del mapa</string>
+    <string name="proximity_alarm">Alerta de proximidad</string>
+    <string name="proximity_alarm_text">Aproximarse a estación</string>
+    <string name="select_tour">Seleccionar recorrido</string>
+    <string name="show_tour">Mostrar recorrido</string>
+    <string name="toast_copying_finished">Copiado finalizado.</string>
+    <string name="toast_new_tour">Nuevo recorrido:</string>
+    <string name="toast_no_browser">No se ha encontrado navegador!</string>
+    <string name="toast_no_offline_tours">Recorrido no disponible - por favor, descárguelo del internet!</string>
+    <string name="toast_please_connect">Por favor, conéctese al internet.</string>
+    <string name="toast_unzipping_1">Desempacando</string>
+    <string name="toast_unzipping_2">… por favor espere.</string>
+    <string name="toast_unzipping_finished">Desempacado finalizado.</string>
+    <string name="trackLength">Longitud del camino</string>
+    <string name="zoom_checked">¿Dónde estoy? \u2714</string>
+    <string name="zoom_unchecked">¿Dónde estoy?</string>
+</resources>
