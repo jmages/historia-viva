@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/select_tour"/>
+    <item android:id="@+id/download_tour"/>
 
     <item android:id="@+id/auto_zoom"/>
 
     <item android:id="@+id/show_tour"/>
 
-    <item android:id="@+id/download_tour"/>
+    <item android:id="@+id/select_tour"/>
 
     <item android:id="@+id/help"/>
 
