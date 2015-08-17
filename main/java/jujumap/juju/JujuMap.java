@@ -141,11 +141,12 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void initOsmdroid() {
 
-        File osmdroid_path = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
-
-        Log.d ("osmdroid path", osmdroid_path.toString());
-
         sdcard = Environment.getExternalStorageDirectory();
+
+        File osmDroidPath = OpenStreetMapTileProviderConstants.OSMDROID_PATH;
+
+        Log.d ("sdcard path"  , sdcard.toString());
+        Log.d ("osmdroid path", osmDroidPath.toString());
 
         webIntent = new Intent (this, WebViewAct.class);
 
