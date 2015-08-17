@@ -7,12 +7,16 @@
     <string-array name="localeText">
         <item name="en">English</item>
         <item name="de">Deutsch</item>
+        <item name="es">Español</item>
+        <item name="fr">Français</item>
         <item name="default">default</item>
     </string-array>
 
     <string-array name="localeValues">
         <item name="en">en</item>
         <item name="de">de</item>
+        <item name="es">es</item>
+        <item name="fr">fr</item>
         <item name="default">default</item>
     </string-array>
 

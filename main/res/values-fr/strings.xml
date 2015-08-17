@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alertGeoInfoTitle">Geo-Info</string>
+    <string name="alert_back">Retour</string>
+
+    <string name="alert_forward">Continuer</string>
+    <string name="app_name">historia-viva</string>
+    <string name="app_name_download">historia-viva - télécharger un tour</string>
+    <string name="app_name_options">historia-viva - options</string>
+    <string name="app_name_select">historia-viva - Choisir un tour</string>
+    <string name="dist_to_track">Distance jusqu`à la piste</string>
+    <string name="dist_within_track">Distance parcourue</string>
+    <string name="download_tour">Télécharger un tour</string>
+    <string name="downloading_please_wait">Fichier en téléchargement / Patientez SVP</string>
+    <string name="help">Aide</string>
+    <string name="lat">Degré de latitude</string>
+    <string name="lon">Degré de longitude</string>
+    <string name="options">Options</string>
+    <string name="pref_Locale_summary">choisir la langue</string>
+    <string name="pref_Locale_title">langue</string>
+    <string name="pref_ShowAlarm">Alarme de proximité des stations</string>
+    <string name="pref_ShowAlarm_summary">Alarme indiquant la prochaine station</string>
+    <string name="pref_ShowMetrics">Informations géographiques</string>
+    <string name="pref_ShowMetrics_summary">Cliquer plus longtemps sur la carte indique des infos sur le sentier</string>
+    <string name="pref_ShowPois">stations-visibilité</string>
+    <string name="pref_ShowPois_summary">montrer et masquer les signalisations des stations </string>
+    <string name="pref_download_url">Télécharger l`adresse du serveur-internet</string>
+    <string name="pref_download_url_dialog_message">changer l`adresse du serveur-internet</string>
+    <string name="pref_download_url_dialog_title">télécharger l`adresse du serveur</string>
+    <string name="pref_download_url_summary">changer l`adresse du serveur</string>
+    <string name="pref_extended_settings">réglages supplémentaires</string>
+    <string name="pref_map_settings">réglages des cartes</string>
+    <string name="proximity_alarm">proximité des stations</string>
+    <string name="proximity_alarm_text">vous approchez la station suivante:</string>
+    <string name="select_tour">choisir le tour</string>
+    <string name="show_tour">vue du tour</string>
+    <string name="toast_copying_finished">copie terminée.</string>
+    <string name="toast_new_tour">nouveau tour:</string>
+    <string name="toast_no_browser">aucun navigateur disponible</string>
+    <string name="toast_no_offline_tours">Aucun tour disponible -veuillez télécharger de l`internet</string>
+    <string name="toast_please_connect">veuillez vous connecter à Internet.</string>
+    <string name="toast_unzipping_1">dézipper </string>
+    <string name="toast_unzipping_2"> veuillez attendre.</string>
+    <string name="toast_unzipping_finished">dézippage terminé.</string>
+    <string name="trackLength">longueur de la trajectoire</string>
+    <string name="zoom_checked">où suis-je? \u2714</string>
+    <string name="zoom_unchecked">où suis-je?</string>
+</resources>
