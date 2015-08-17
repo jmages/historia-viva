@@ -40,7 +40,7 @@
     <string name="toast_no_offline_tours">Aucun tour disponible -veuillez télécharger de l`internet</string>
     <string name="toast_please_connect">veuillez vous connecter à Internet.</string>
     <string name="toast_unzipping_1">dézipper </string>
-    <string name="toast_unzipping_2"> veuillez attendre.</string>
+    <string name="toast_unzipping_2">… veuillez attendre.</string>
     <string name="toast_unzipping_finished">dézippage terminé.</string>
     <string name="trackLength">longueur de la trajectoire</string>
     <string name="zoom_checked">où suis-je? \u2714</string>
