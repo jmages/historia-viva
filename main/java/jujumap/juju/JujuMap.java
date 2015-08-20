@@ -152,7 +152,10 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         File dirs = new File(sdcard, tourDir);
 
-        if (dirs.mkdirs()) showHelp();
+        if (dirs.mkdirs()) {
+
+            showHelp();
+        }
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0, this);
