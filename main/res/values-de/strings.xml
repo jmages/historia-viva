@@ -44,4 +44,5 @@
     <string name="trackLength">Tracklänge</string>
     <string name="zoom_checked">Wo bin ich? \u2714</string>
     <string name="zoom_unchecked">Wo bin ich?</string>
+    <string name="toast_offline_map_installed">Offline-Karte ist installiert.</string>
 </resources>

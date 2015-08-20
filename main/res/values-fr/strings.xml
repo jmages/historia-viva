@@ -45,4 +45,5 @@
     <string name="trackLength">longueur de la trajectoire</string>
     <string name="zoom_checked">où suis-je? \u2714</string>
     <string name="zoom_unchecked">où suis-je?</string>
+    <string name="toast_offline_map_installed">Offline Map is installed.</string>
 </resources>

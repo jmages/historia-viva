@@ -136,6 +136,8 @@ public class TourListOffline extends ListActivity {
 
                 setResult(RESULT_CANCELED, i);
 
+                finish();
+
             } else {
 
                 String destination = "";
@@ -172,8 +174,8 @@ public class TourListOffline extends ListActivity {
         String destPath = sourcePath + destination;
 
         Toast.makeText(this,
-            getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
-            Toast.LENGTH_LONG).show();
+                getString(R.string.toast_unzipping_1) + zipFileName + getString(R.string.toast_unzipping_2),
+                Toast.LENGTH_LONG).show();
 
         try {
 
@@ -287,6 +289,6 @@ public class TourListOffline extends ListActivity {
 
         Log.d("Filecopy", "Copying finished.");
 
-        Toast.makeText(this, getString(R.string.toast_copying_finished), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.toast_offline_map_installed), Toast.LENGTH_LONG).show();
     }
 }
