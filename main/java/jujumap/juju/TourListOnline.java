@@ -1,6 +1,5 @@
 package jujumap.juju;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -23,7 +22,6 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -201,7 +199,7 @@ public class TourListOnline extends ListActivity {
 
         switch (id) {
 
-            case progress_bar_type: // we set this to 0
+            case progress_bar_type:
 
                 pDialog = new ProgressDialog(this);
 
@@ -209,7 +207,7 @@ public class TourListOnline extends ListActivity {
                 pDialog.setIndeterminate(false);
                 pDialog.setMax(100);
                 pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                pDialog.setCancelable(true);
+                pDialog.setCancelable(false);
                 pDialog.show();
 
                 return pDialog;
@@ -346,25 +344,24 @@ public class TourListOnline extends ListActivity {
 
                 setResult(RESULT_CANCELED, new Intent());
 
-                dismissDialog(progress_bar_type);
-
-                finish();
-
             } else {
 
-                String destination = "";
-
-                destination = fileName.substring(0, fileName.length() - 4);
+                String destination = fileName.substring(0, fileName.length() - 4);
 
                 Log.d("Unzipping source     ", ">" + path + "/" + fileName + "<");
                 Log.d("Unzipping destination", ">" + path + "/" + destination + "<");
 
                 unzip(path + "/", fileName, destination);
 
-                //dismissDialog(progress_bar_type);
+                Intent i = new Intent();
+                i.putExtra("newPath", destination);
 
-                //finish();
+                setResult(RESULT_OK, i);
             }
+
+            dismissDialog(progress_bar_type);
+
+            finish();
 
             super.onPostExecute(result);
         }
@@ -467,13 +464,6 @@ public class TourListOnline extends ListActivity {
                 file.delete();
 
                 Log.d("Unzipping", "finished");
-
-                Intent i = new Intent();
-                i.putExtra ("newPath", destination);
-
-                setResult(RESULT_OK, i);
-
-                this.finish();
             }
 
         } catch (Exception e) {
