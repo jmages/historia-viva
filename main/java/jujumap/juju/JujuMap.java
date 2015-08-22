@@ -181,6 +181,21 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
         mapView.getOverlays().add(new MapTouchOverlay(this));
     }
 
+    @Override
+    public void onAttachedToWindow() {
+
+        super.onAttachedToWindow();
+
+        try {
+
+            this.openOptionsMenu();
+
+        } catch (Exception ex) {
+
+            Log.e("ERR", "Error: " + ex.getMessage());
+        }
+    }
+
     public class MapTouchOverlay extends Overlay {
 
         private Long lastTouchTime = (long) 0;
