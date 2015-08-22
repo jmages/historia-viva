@@ -150,11 +150,23 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
         webIntent = new Intent (this, WebViewAct.class);
 
-        File dirs = new File(sdcard, tourDir);
+        File tourDirPath = new File(sdcard, tourDir);
 
-        if (dirs.mkdirs()) {
+        // osmdroid/historia-viva directories are initially created
 
-            showHelp();
+        if (!tourDirPath.exists()) {
+
+            if (tourDirPath.mkdirs()) {
+
+                showHelp();
+
+            } else {
+
+                Toast.makeText(JujuMap.this,
+                        getString(R.string.toast_osmdroid_directories_fail),
+                        Toast.LENGTH_LONG).show();
+            }
+
         }
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

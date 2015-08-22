@@ -41,7 +41,8 @@
     <string name="toast_unzipping_1">Unzipping of</string>
     <string name="toast_unzipping_2">… please wait.</string>
     <string name="toast_unzipping_finished">Unzipping finished.</string>
-    <string name="toast_offline_map_installed">Offline Map is installed.</string>
+    <string name="toast_offline_map_installed" translatable="false">Offline Map is installed.</string>
+    <string name="toast_osmdroid_directories_fail" translatable="false">Error: Osmdroid directories could not be created!</string>
     <string name="trackLength">Track length</string>
     <string name="zoom_checked">where am I? \u2714</string>
     <string name="zoom_unchecked">where am I?</string>
