@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alertGeoInfoTitle">Geoinformació</string>
+    <string name="app_name">història-viva</string>
+    <string name="app_name_download">història-viva - Descarregar recorregut</string>
+    <string name="app_name_options">història-viva - Opcions</string>
+    <string name="app_name_select">història-viva - Seleccionar recorregut</string>
+    <string name="dist_to_track">Distància fins al camí</string>
+    <string name="dist_within_track">Distància recorreguda del camí</string>
+    <string name="download_tour">Descarregar recorregut</string>
+    <string name="downloading_please_wait">Descarregant l'arxiu… esperi si us plau</string>
+    <string name="help">Ajuda</string>
+    <string name="lat">Latitud</string>
+    <string name="lon">Longitud</string>
+    <string name="options">Opcions</string>
+    <string name="pref_Locale_summary">Seleccioni el seu idioma preferit</string>
+    <string name="pref_Locale_title">Idioma</string>
+    <string name="pref_ShowAlarm">Avís de proximitat a l'estació</string>
+    <string name="pref_ShowAlarm_summary">Activar avís d'apropar-se a una estació</string>
+    <string name="pref_ShowMetrics">Mostrar geoinformació</string>
+    <string name="pref_ShowMetrics_summary">Clicar llargament per mostrar geoinformació</string>
+    <string name="pref_ShowPois">Veure estació</string>
+    <string name="pref_ShowPois_summary">Mostrar o ocultar estacions</string>
+    <string name="pref_download_url">Descarregar URL del servidor</string>
+    <string name="pref_download_url_dialog_message">Editar URL</string>
+    <string name="pref_download_url_dialog_title">Descarregar URL del servidor</string>
+    <string name="pref_download_url_summary">Editar descàrrega URL del servidor</string>
+    <string name="pref_extended_settings">Configuracions avançades</string>
+    <string name="pref_map_settings">Configuracions del mapa</string>
+    <string name="proximity_alarm">Avís de proximitat</string>
+    <string name="proximity_alarm_text">Aproximant-se a l'estació:</string>
+    <string name="select_tour">Seleccionar recorregut</string>
+    <string name="show_tour">Mostrar recorregut</string>
+    <string name="toast_copying_finished">Còpia finalitzada.</string>
+    <string name="toast_new_tour">Nou recorregut:</string>
+    <string name="toast_no_browser">No s'ha trobat el navegador!</string>
+    <string name="toast_no_offline_tours">Recorregut no disponible - si us plau, descarregui-s'ho d'Internet</string>
+    <string name="toast_please_connect">Si us plau, connecti's a Internet.</string>
+    <string name="toast_unzipping_1">Descomprimir</string>
+    <string name="toast_unzipping_2">… esperi si us plau.</string>
+    <string name="toast_unzipping_finished">Descomprimir acabada.</string>
+    <string name="trackLength">Longitud del camí</string>
+    <string name="zoom_checked">On sóc? \u2714</string>
+    <string name="zoom_unchecked">On sóc?</string>
+</resources>
+
