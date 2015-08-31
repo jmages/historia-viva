@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="alertGeoInfoTitle">Geo-Info</string>
-    <string name="alert_back">back</string>
-    <string name="alert_forward">forward</string>
+    <string name="alert_back" translatable="false">\u003C \u003C \u003C</string>
     <string name="app_name">historia-viva</string>
     <string name="app_name_download">historia-viva - download tour</string>
     <string name="app_name_options">historia-viva - options</string>
@@ -46,4 +45,5 @@
     <string name="trackLength">Track length</string>
     <string name="zoom_checked">where am I? \u2714</string>
     <string name="zoom_unchecked">where am I?</string>
+    <string name="alert_forward" translatable="false">\u003E \u003E \u003E</string>
 </resources>

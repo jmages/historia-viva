@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="alertGeoInfoTitle">Geoinformación</string>
-    <string name="alert_back">Regresar</string>
-    <string name="alert_forward">Avanzar</string>
     <string name="app_name">historia-viva</string>
     <string name="app_name_download">historia-viva - Descargar recorrido</string>
     <string name="app_name_options">historia-viva - Opciones</string>

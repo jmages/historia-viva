@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="alertGeoInfoTitle">Geo-Info</string>
-    <string name="alert_back">Retour</string>
 
-    <string name="alert_forward">Continuer</string>
     <string name="app_name">historia-viva</string>
     <string name="app_name_download">historia-viva - télécharger un tour</string>
     <string name="app_name_options">historia-viva - options</string>
