@@ -245,48 +245,57 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
                             double lat = (double)loc.getLatitudeE6() /1000000;
                             double lon = (double)loc.getLongitudeE6()/1000000;
 
-                            Geopoint clickPoint = new Geopoint(lat, lon);
+                            if (track_kml.size() != 0) {
 
-                            int i = track_kml.getClosestPoint(clickPoint);
+                                Geopoint clickPoint = new Geopoint(lat, lon);
 
-                            Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
+                                int i = track_kml.getClosestPoint(clickPoint);
 
-                            double distToTrack = (TrackPoint.getDistance(clickPoint, trackPoint));
+                                Geopoint trackPoint = new Geopoint(track_kml.get(i).lat, track_kml.get(i).lon);
 
-                            String distToTrack_f;
+                                double distToTrack = (TrackPoint.getDistance(clickPoint, trackPoint));
 
-                            if (distToTrack < 1) {
+                                String distToTrack_f;
 
-                                distToTrack *= 1000;
+                                if (distToTrack < 1) {
 
-                                distToTrack_f = String.format("%1.0f", distToTrack) + " m";
+                                    distToTrack *= 1000;
+
+                                    distToTrack_f = String.format("%1.0f", distToTrack) + " m";
+
+                                } else {
+
+                                    distToTrack_f = String.format("%1.1f", distToTrack) + " km";
+                                }
+
+                                float trackDist = track_kml.getTrackLength(track_kml.get(0), trackPoint);
+
+                                String trackDist_f = String.format("%1.1f", trackDist) + " km";
+
+                                String tracklength_f = String.format("%1.1f", track_kml.trackLength);
+
+                                float percentage = trackDist / track_kml.trackLength * 100;
+
+                                String percentage_f = String.format("%1.0f", percentage) + " %";
+
+                                twoPressAlert.setMessage(Html.fromHtml(
+                                        getString(R.string.lat) + " : "  + Double.toString((lat))   + "°<br>" +
+                                        getString(R.string.lon) + " : "  + Double.toString((lon))   + "°<br>" +
+                                        getString(R.string.trackLength)       + " : "     + tracklength_f + "<br>" +
+                                        getString(R.string.dist_to_track)     + " : "     + distToTrack_f + "<br>" +
+                                        getString(R.string.dist_within_track) + " :<br>"  +
+                                        trackDist_f + " (" + percentage_f + ")"
+                                ));
 
                             } else {
 
-                                distToTrack_f = String.format("%1.1f", distToTrack) + " km";
+                                twoPressAlert.setMessage(Html.fromHtml(
+                                        getString(R.string.lat) + " : "  + Double.toString((lat))   + "°<br>" +
+                                        getString(R.string.lon) + " : "  + Double.toString((lon))   + "°<br>"
+                                ));
                             }
 
-                            float trackDist = track_kml.getTrackLength(track_kml.get(0), trackPoint);
-
-                            String trackDist_f = String.format("%1.1f", trackDist) + " km";
-
-                            String tracklength_f = String.format("%1.1f", track_kml.trackLength);
-
-                            float percentage = trackDist / track_kml.trackLength * 100;
-
-                            String percentage_f = String.format("%1.0f", percentage) + " %";
-
                             twoPressAlert.setTitle(getString(R.string.alertGeoInfoTitle));
-
-                            twoPressAlert.setMessage(Html.fromHtml(
-
-                                getString(R.string.lat) + " : "  + Double.toString((lat))   + "°<br>" +
-                                getString(R.string.lon) + " : "  + Double.toString((lon))   + "°<br>" +
-                                getString(R.string.trackLength)       + " : "     + tracklength_f + "<br>" +
-                                getString(R.string.dist_to_track)     + " : "     + distToTrack_f + "<br>" +
-                                getString(R.string.dist_within_track) + " :<br>"  +
-                                trackDist_f + " (" + percentage_f + ")"
-                            ));
 
                             twoPressAlert.show();
                         }
