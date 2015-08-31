@@ -3,8 +3,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="jujumap.juju"
-    android:versionCode="14"
-    android:versionName="1.13"
+    android:versionCode="15"
+    android:versionName="1.14"
     >
 
     <application
@@ -15,7 +15,7 @@
         <activity
             android:name=".JujuMap"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,21 +26,21 @@
         <activity
             android:name=".TourListOnline"
             android:label="@string/app_name_download"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             >
         </activity>
 
         <activity
                 android:name=".TourListOffline"
                 android:label="@string/app_name_select"
-                android:screenOrientation="portrait"
+                android:screenOrientation="landscape"
                 >
         </activity>
 
         <activity
                 android:name=".Settings"
                 android:label="@string/app_name_options"
-                android:screenOrientation="portrait"
+                android:screenOrientation="landscape"
                 >
         </activity>
 
