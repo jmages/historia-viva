@@ -9,6 +9,7 @@
         <item name="de">Deutsch</item>
         <item name="es">Español</item>
         <item name="fr">Français</item>
+        <item name="ca">Català</item>
         <item name="default">default</item>
     </string-array>
 
@@ -17,6 +18,7 @@
         <item name="de">de</item>
         <item name="es">es</item>
         <item name="fr">fr</item>
+        <item name="fr">ca</item>
         <item name="default">default</item>
     </string-array>
 
