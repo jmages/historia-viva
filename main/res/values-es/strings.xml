@@ -8,7 +8,7 @@
     <string name="dist_to_track">Distancia hasta el camino</string>
     <string name="dist_within_track">Distancia recorrida del camino</string>
     <string name="download_tour">Descargar recorrido</string>
-    <string name="downloading_please_wait">Descargando el archivo… por favor espere!</string>
+    <string name="downloading_please_wait">Descargando el archivo … por favor espere!</string>
     <string name="help">Ayuda</string>
     <string name="lat">Latitud</string>
     <string name="lon">Longitud</string>
@@ -36,10 +36,11 @@
     <string name="toast_no_browser">No se ha encontrado navegador!</string>
     <string name="toast_no_offline_tours">Recorrido no disponible - por favor, descárguelo del internet!</string>
     <string name="toast_please_connect">Por favor, conéctese al internet.</string>
-    <string name="toast_unzipping_1">Desempacando</string>
+    <string name="toast_unzipping_1">Descomprimir</string>
     <string name="toast_unzipping_2">… por favor espere.</string>
-    <string name="toast_unzipping_finished">Desempacado finalizado.</string>
+    <string name="toast_unzipping_finished">Descomprimir finalizado.</string>
     <string name="trackLength">Longitud del camino</string>
     <string name="zoom_checked">¿Dónde estoy? \u2714</string>
     <string name="zoom_unchecked">¿Dónde estoy?</string>
 </resources>
+
