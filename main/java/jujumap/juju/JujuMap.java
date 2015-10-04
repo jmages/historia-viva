@@ -490,7 +490,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
 
     private void showHelp() {
 
-        Uri uri_h = Uri.parse("file:///android_res/raw/help.html");
+        Uri uri_h = Uri.parse("file:///android_asset/help.html");
 
         webIntent.putExtra("url", uri_h.toString());
 
