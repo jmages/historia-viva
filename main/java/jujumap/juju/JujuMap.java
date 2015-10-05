@@ -55,7 +55,7 @@ public class JujuMap extends Activity implements LocationListener, SharedPrefere
     String   prefTourName        = "";
     String   prefCountryCode     = "";
     String   prefLocale          = "default";
-    GeoPoint prefCurrentLocation = new GeoPoint(49.598,11.005);
+    GeoPoint prefCurrentLocation = new GeoPoint(42.426944, 3.161111);
     Boolean  prefShowAlarm       = false;
     Boolean  prefShowPois        = true;
     Boolean  prefShowMetrics     = true;
